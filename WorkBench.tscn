@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://DraggableObject.tscn" type="PackedScene" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/blue_square.png-771ba9c0f571bad09ff2a9ed396e4ad9.stex"
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/red_square.png-de32bd346bab9e4b262886c520b9cdb6.stex"
+
+[node name="WorkBench" type="Node2D"]
+
+[node name="DraggableObject" parent="." instance=ExtResource( 1 )]
+position = Vector2( 153.232, 171.05 )
+enable = true
+
+[node name="Sprite" type="Sprite" parent="DraggableObject"]
+texture = SubResource( 1 )
+
+[node name="DraggableObject2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 41.6395, 96.7837 )
+enable = true
+
+[node name="Sprite2" type="Sprite" parent="DraggableObject2"]
+texture = SubResource( 2 )
