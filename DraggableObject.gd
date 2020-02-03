@@ -1,10 +1,25 @@
 extends Area2D
 
-export var enable : bool = false
+const IMG_PATH = ".import/circle.png-6efbe600b7e2418cd5091089237d13c1.stex"
+
+export var enable : bool = true
 
 var dragging : bool = false
 
-#TODO: dynamically set size of collisionshape to match sprite
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	# Creates new sprite using IMG_PATH for texture
+	var image = preload(IMG_PATH)
+	var sprite = Sprite.new()
+	sprite.set_texture(image)
+	add_child(sprite)
+	
+	# Set the ingredient's collisionshape to the size of the sprite
+	var dimensions = sprite.texture.get_size()
+	print(dimensions)
+	var collision_shape = get_node("CollisionShape2D")
+	print(collision_shape.shape.get_extents())
+	collision_shape.shape.set_extents(dimensions)
 
 # Called when input occurs AND mouse is within object's CollisionShape2D
 func _on_DraggableObject_input_event(viewport, event, shape_idx):

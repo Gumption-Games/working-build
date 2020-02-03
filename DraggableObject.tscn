@@ -3,7 +3,7 @@
 [ext_resource path="res://DraggableObject.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15.647, 16.0064 )
+extents = Vector2( 1, 1 )
 
 [node name="DraggableObject" type="Area2D"]
 script = ExtResource( 1 )
