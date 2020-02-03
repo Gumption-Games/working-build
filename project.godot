@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "DraggableObject",
+"language": "GDScript",
+"path": "res://DraggableObject.gd"
+}, {
+"base": "Area2D",
+"class": "RedObject",
+"language": "GDScript",
+"path": "res://RedObject.gd"
+} ]
 _global_script_class_icons={
-
+"DraggableObject": "",
+"RedObject": ""
 }
 
 [application]
