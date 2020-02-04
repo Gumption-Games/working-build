@@ -17,6 +17,7 @@ func _init():
 func _ready():
 	# Creates new sprite using IMG_PATH for texture
 	var image = load(IMG_PATH)
+	print(get_name(), IMG_PATH)
 	var sprite = Sprite.new()
 	sprite.set_texture(image)
 	sprite.set_name("Sprite")

@@ -10,17 +10,29 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
+"class": "BlueObject",
+"language": "GDScript",
+"path": "res://ingredients/BlueObject.gd"
+}, {
+"base": "Area2D",
 "class": "DraggableObject",
 "language": "GDScript",
 "path": "res://DraggableObject.gd"
 }, {
 "base": "Area2D",
+"class": "PurpleObject",
+"language": "GDScript",
+"path": "res://ingredients/PurpleObject.gd"
+}, {
+"base": "Area2D",
 "class": "RedObject",
 "language": "GDScript",
-"path": "res://RedObject.gd"
+"path": "res://ingredients/RedObject.gd"
 } ]
 _global_script_class_icons={
+"BlueObject": "",
 "DraggableObject": "",
+"PurpleObject": "",
 "RedObject": ""
 }
 
