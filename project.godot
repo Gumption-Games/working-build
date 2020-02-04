@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ingredients/BlueObject.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "Combiner",
 "language": "GDScript",
 "path": "res://Combiner.gd"

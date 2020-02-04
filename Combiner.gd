@@ -1,15 +1,21 @@
-extends Node2D
+extends "res://FittedHitboxObject.gd"
 
 class_name Combiner
 
-var global_vars
 var held_ingredients = Array()
 var recipe_book
 
+
+func _init():
+	IMG_PATH = ".import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Access the GlobalVariables singleton
-	global_vars = get_node("/root/GlobalVariables")
+	# Call parent ._ready() to set up child nodes
+	._ready()
+
+	# Load recipebook
 	recipe_book = preload("res://RecipeBook.gd").new()
 
 

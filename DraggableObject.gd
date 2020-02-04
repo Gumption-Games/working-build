@@ -1,43 +1,18 @@
-extends Area2D
+extends "res://FittedHitboxObject.gd"
 
 class_name DraggableObject
-var type
 
-export var enable : bool = true
-
-var global_vars
-var IMG_PATH
-var size
 var dragging : bool = false
 
 
 func _init():
 	IMG_PATH = ".import/circle.png-6efbe600b7e2418cd5091089237d13c1.stex"
 	type = "DraggableObject"
-#	var Combiner = preload("res://Combiner.gd")
-#	self.connect("entered_combiner", Combiner, "handle_new_ingredient")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Access the GlobalVariables singleton
-	global_vars = get_node("/root/GlobalVariables")
-
-	# Creates new sprite using IMG_PATH for texture
-	var image = load(IMG_PATH)
-	var sprite = Sprite.new()
-	sprite.set_texture(image)
-	sprite.set_name("Sprite")
-	add_child(sprite)
-	
-	self.size = sprite.texture.get_size()
-	
-	# Initialize a CollisionShape with a rectangle the size of the sprite
-	var collision_shape = CollisionShape2D.new()
-	var rectangle = RectangleShape2D.new()
-	rectangle.set_extents(self.size/2)
-	collision_shape.set_shape(rectangle)
-	add_child(collision_shape)
+	pass
 
 # Taken from:
 # https://godotengine.org/qa/24745/how-to-check-type-of-a-custom-class
@@ -62,7 +37,7 @@ func _on_DraggableObject_input_event(viewport, event, shape_idx):
 			dragging = false
 			global_vars.held_object = null
 			_handle_overlaps()
-		print(global_vars.held_object)
+		print("Held:: ", global_vars.held_object)
 
 
 # Taken from:
