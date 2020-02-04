@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ingredients/PurpleObject.gd"
 }, {
+"base": "Node2D",
+"class": "RecipeBook",
+"language": "GDScript",
+"path": "res://RecipeBook.gd"
+}, {
 "base": "Area2D",
 "class": "RedObject",
 "language": "GDScript",
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "Combiner": "",
 "DraggableObject": "",
 "PurpleObject": "",
+"RecipeBook": "",
 "RedObject": ""
 }
 
