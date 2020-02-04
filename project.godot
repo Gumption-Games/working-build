@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ingredients/BlueObject.gd"
 }, {
+"base": "Node2D",
+"class": "Combiner",
+"language": "GDScript",
+"path": "res://Combiner.gd"
+}, {
 "base": "Area2D",
 "class": "DraggableObject",
 "language": "GDScript",
@@ -24,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ingredients/PurpleObject.gd"
 }, {
+"base": "Node2D",
+"class": "RecipeBook",
+"language": "GDScript",
+"path": "res://RecipeBook.gd"
+}, {
 "base": "Area2D",
 "class": "RedObject",
 "language": "GDScript",
@@ -31,8 +41,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BlueObject": "",
+"Combiner": "",
 "DraggableObject": "",
 "PurpleObject": "",
+"RecipeBook": "",
 "RedObject": ""
 }
 
@@ -41,6 +53,10 @@ _global_script_class_icons={
 config/name="working-build"
 run/main_scene="res://WorkBench.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GlobalVariables="*res://GlobalVariables.gd"
 
 [rendering]
 
