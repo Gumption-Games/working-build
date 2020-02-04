@@ -80,9 +80,9 @@ func _handle_overlaps():
 
 	for obj in overlaps:
 		# TODO: Handle combinations here
-		if obj is Combiner:
+		if obj is Combiner:	# Add object to combiner
 			obj.handle_new_ingredient(self)
-		else:
+		else:	# avoid overlaps
 			# Distance to the centre of the overlapping area
 			var to_area = (obj.position - self.position)
 			# Chooses direction (left or right) based on which side self is closer to
