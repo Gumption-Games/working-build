@@ -8,13 +8,6 @@ var recipe_book
 
 func _init():
 	IMG_PATH = ".import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Call parent ._ready() to set up child nodes
-	._ready()
-
 	# Load recipebook
 	recipe_book = preload("res://RecipeBook.gd").new()
 
@@ -64,6 +57,9 @@ func _spawn_result(ingredient_name):
 	# Move new ingredient to below combiner
 	var offset = Vector2(0, get_size().y * 0.75)
 	result.position = self.position + offset
+	
+	# Remove Held Ingredients
+	held_ingredients.clear()
 
 
 # Ejects held ingredients on failed combination

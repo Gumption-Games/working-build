@@ -4,7 +4,7 @@
 [ext_resource path="res://ingredients/RedObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ingredients/BlueObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ingredients/PurpleObject.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Combiner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Cauldron.tscn" type="PackedScene" id=5]
 
 [node name="WorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,5 +18,5 @@ position = Vector2( 48.0137, 135.233 )
 [node name="PurpleObject" parent="." instance=ExtResource( 4 )]
 position = Vector2( 168.248, 144.939 )
 
-[node name="Combiner" parent="." instance=ExtResource( 5 )]
-position = Vector2( 597.46, 205.205 )
+[node name="Cauldron" parent="." instance=ExtResource( 5 )]
+position = Vector2( 390.737, 321.826 )

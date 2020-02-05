@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Combiner.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Cauldron.gd" type="Script" id=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/Cauldron.png-2bd21c794c52e7920c73af9c35e131f2.stex"
+
+[node name="Cauldron" index="0" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+texture = SubResource( 1 )

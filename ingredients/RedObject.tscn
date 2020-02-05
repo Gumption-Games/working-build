@@ -5,4 +5,3 @@
 
 [node name="RedObject" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-enable = true

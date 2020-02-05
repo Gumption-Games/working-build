@@ -15,12 +15,15 @@ func _ready():
 	# Access the GlobalVariables singleton
 	global_vars = get_node("/root/GlobalVariables")
 	
-	# Creates new sprite using IMG_PATH for texture
-	var image = load(IMG_PATH)
-	var sprite = Sprite.new()
-	sprite.set_texture(image)
-	sprite.set_name("Sprite")
-	add_child(sprite)
+	var sprite = _check_for_sprite()
+	print(sprite, get_class())
+	if !sprite:
+		# Creates new sprite using IMG_PATH for texture
+		var image = load(IMG_PATH)
+		sprite = Sprite.new()
+		sprite.set_texture(image)
+		sprite.set_name("Sprite")
+		add_child(sprite)
 	
 	self.size = sprite.texture.get_size()
 	
@@ -30,3 +33,10 @@ func _ready():
 	rectangle.set_extents(self.size/2)
 	collision_shape.set_shape(rectangle)
 	add_child(collision_shape)
+
+func _check_for_sprite():
+	var children = get_children()
+	for child in children:
+		if child.is_class("Sprite"):
+			return child
+	return null
