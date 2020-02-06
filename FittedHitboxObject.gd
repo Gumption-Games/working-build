@@ -8,6 +8,9 @@ var global_vars
 var IMG_PATH
 var size
 
+
+### INITIALIZER METHODS ###
+
 func _init():
 	type = "FittedHitboxObject"
 
@@ -33,6 +36,18 @@ func _ready():
 	rectangle.set_extents(self.size/2)
 	collision_shape.set_shape(rectangle)
 	add_child(collision_shape)
+
+
+### PARENT METHOD OVERRIDES ###
+
+# Taken from:
+# https://godotengine.org/qa/24745/how-to-check-type-of-a-custom-class
+# 2020-02-03
+func is_class(type): return type == self.type or .is_class(type)
+func get_class(): return self.type
+
+
+### PRIVATE METHODS ###
 
 func _check_for_sprite():
 	var children = get_children()

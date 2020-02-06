@@ -5,20 +5,22 @@ class_name DraggableObject
 var dragging : bool = false
 
 
+### INITIALIZER METHODS ###
+
 func _init():
 	IMG_PATH = ".import/circle.png-6efbe600b7e2418cd5091089237d13c1.stex"
 	type = "DraggableObject"
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+### PRIVATE METHODS ###
 
 # Taken from:
-# https://godotengine.org/qa/24745/how-to-check-type-of-a-custom-class
-# 2020-02-03
-func is_class(type): return type == self.type or .is_class(type)
-func get_class(): return self.type
+# https://godotengine.org/qa/41946/drag-and-drop-a-sprite-is-there-a-built-in-function-for-a-node
+# 2020-01-30
+func _process(delta):
+#	print(global_vars.held_object)
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and dragging:
+		position = get_global_mouse_position()
 
 
 # Called when input occurs AND mouse is within object's CollisionShape2D
@@ -40,18 +42,9 @@ func _on_DraggableObject_input_event(viewport, event, shape_idx):
 		print("Held:: ", global_vars.held_object)
 
 
-# Taken from:
-# https://godotengine.org/qa/41946/drag-and-drop-a-sprite-is-there-a-built-in-function-for-a-node
-# 2020-01-30
-func _process(delta):
-#	print(global_vars.held_object)
-	if Input.is_mouse_button_pressed(BUTTON_LEFT) and dragging:
-		position = get_global_mouse_position()
-
-
+# Avoids overlaps between objects
 func _handle_overlaps():
 	var overlaps = get_overlapping_areas()
-	var dimensions = self._get_child_node("Sprite").texture.get_size()
 
 	for obj in overlaps:
 		# TODO: Handle combinations here
@@ -65,11 +58,7 @@ func _handle_overlaps():
 			position.x += to_area.x + (obj.get_size().x + self.size.x)/2 * direction
 
 
-func _get_child_node(type_name):
-	for obj in self.get_children():
-		if obj.get_class() == type_name:
-			return obj
-
+### PUBLIC METHODS ###
 
 func get_size():
 	return self.size
