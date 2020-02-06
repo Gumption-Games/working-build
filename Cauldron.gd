@@ -6,6 +6,8 @@ extends "res://Combiner.gd"
 func _init():
 	type = "Cauldron"
 
-func _skill_check():
-	# Replace this with a call to the stirring minigame
-	return true
+#func _skill_check():
+#	print("called")
+#	get_tree().paused = true
+#	var skill_check = load("res://SkillCheck.tscn").instance()
+#	get_tree().get_root().add_child(skill_check)
