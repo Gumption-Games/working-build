@@ -20,5 +20,7 @@ func _check_for_success():
 
 ### PUBLIC METHODS ###
 
+# Closes the minigame and returns to workbench overview
+# Arg result: true = minigame passed; false = minigame failed
 func return_result(result):
 	global_vars.current_combiner.minigame_result(result)
