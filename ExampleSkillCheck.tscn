@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://SkillCheck.gd" type="Script" id=1]
+[ext_resource path="res://ExampleSkillCheck.gd" type="Script" id=1]
 [ext_resource path="res://DraggableObject.tscn" type="PackedScene" id=2]
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/BlueBackgroundRedLine.png-06f99254614f9ac11acc7c499db40179.stex"
 
-[node name="SkillCheck" type="Node2D"]
+[node name="ExampleSkillCheck" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -15,7 +15,7 @@ script = ExtResource( 1 )
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground"]
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 centered = false
 
 [node name="TestCircle" parent="." instance=ExtResource( 2 )]

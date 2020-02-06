@@ -14,7 +14,7 @@ var result_name
 func _init():
 	IMG_PATH = ".import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 	type = "Combiner"
-	minigame_path = "res://SkillCheck.tscn"
+	minigame_path = "res://ExampleSkillCheck.tscn"
 	# Load recipebook
 	recipe_book = preload("res://RecipeBook.gd").new()
 
