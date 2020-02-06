@@ -71,8 +71,8 @@ func _spawn_result(ingredient_name):
 	var offset = Vector2(0, get_size().y * 0.75)
 	result.position = self.position + offset
 	
-	# Remove Held Ingredients
-	held_ingredients.clear()
+	# Frees all held ingredients and clears held_ingredients
+	_clear_held_ingredients()
 
 
 # Ejects held ingredients on failed combination
@@ -87,6 +87,12 @@ func _return_ingredients():
 		ing.position = target - ing.get_size()/2
 		ing.show()
 
+
+func _clear_held_ingredients():
+	for ing in held_ingredients:
+		ing.queue_free()
+	held_ingredients.clear()
+	
 
 ### PUBLIC METHODS ###
 
