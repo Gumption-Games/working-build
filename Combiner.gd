@@ -4,12 +4,17 @@ class_name Combiner
 
 var held_ingredients = Array()
 var recipe_book
+var minigame_path
+var minigame
+var result_name
 
 
 ### INITIALIZER METHODS ###
 
 func _init():
 	IMG_PATH = ".import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+	type = "Combiner"
+	minigame_path = "res://ExampleSkillCheck.tscn"
 	# Load recipebook
 	recipe_book = preload("res://RecipeBook.gd").new()
 
@@ -33,16 +38,12 @@ func _combine_ingredients():
 	var recipe = _convert_held_to_recipe()
 
 	# Then check against the combiner's recipe book
-	var result_name = recipe_book.check_recipe(recipe)
+	result_name = recipe_book.check_recipe(recipe)
 	if result_name:
-		var minigame_result = _skill_check()
-		if minigame_result:
-			_spawn_result(result_name)
-			return
-		# TODO: Actually delete the ingredients used
-	
-	# Reached if the recipe is wrong, or if the minigame is failed
-	_return_ingredients()
+		_skill_check()
+	else:
+		# Reached if the recipe is wrong
+		_return_ingredients()
 
 
 # Converts held ingredients to recipe format: a sorted list of class names
@@ -56,7 +57,22 @@ func _convert_held_to_recipe():
 
 # Replaced in subclesses with calls to cooking minigames
 func _skill_check():
-	return true
+	print(type+":: Skill Check Called")
+	if !minigame_path:
+		print("\tNo game path supplied.")
+		minigame_result(true)
+
+	# Used later to return result
+	global_vars.current_combiner = self
+	
+	# Freezes and hides everything in the main workbench scene
+	global_vars.freeze_scene(global_vars.workbench, true)
+	global_vars.workbench.hide()
+
+	# Adds minigame scene to current tree
+	minigame = load(minigame_path).instance()
+	get_tree().get_root().add_child(minigame)
+
 
 # Adds a combination's result as a new instance in the current scene
 func _spawn_result(ingredient_name):
@@ -88,6 +104,7 @@ func _return_ingredients():
 		ing.show()
 
 
+# Frees all held ingredients and clears held_ingredients
 func _clear_held_ingredients():
 	for ing in held_ingredients:
 		ing.queue_free()
@@ -104,6 +121,20 @@ func handle_new_ingredient(ingredient):
 	ingredient.enable=false
 	held_ingredients.append(ingredient)
 	print("Combiner:: ", held_ingredients)
+
+
+# Called by the minigame on completion
+func minigame_result(success):
+	minigame.queue_free()
+	
+	global_vars.freeze_scene(global_vars.workbench, false)
+	global_vars.workbench.show()
+	global_vars.current_combiner = null
+
+	if success:
+		_spawn_result(result_name)
+	else:
+		_return_ingredients()
 
 
 func get_size():
