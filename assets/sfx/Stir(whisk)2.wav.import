@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Stir(whisk)2.wav-0b466f77bdaf0451e4f77d23f5aa6e1d.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Stir(whisk)2.wav"
+dest_files=[ "res://.import/Stir(whisk)2.wav-0b466f77bdaf0451e4f77d23f5aa6e1d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

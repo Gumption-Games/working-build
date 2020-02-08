@@ -12,51 +12,75 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "BlueObject",
 "language": "GDScript",
-"path": "res://ingredients/BlueObject.gd"
+"path": "res://scenes/ingredients/BlueObject.gd"
+}, {
+"base": "Area2D",
+"class": "Cauldron",
+"language": "GDScript",
+"path": "res://scenes/combiners/Cauldron.gd"
+}, {
+"base": "SkillCheck",
+"class": "CauldronSkillCheck",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/CauldronSkillCheck.gd"
 }, {
 "base": "Area2D",
 "class": "Combiner",
 "language": "GDScript",
-"path": "res://Combiner.gd"
+"path": "res://scenes/combiners/Combiner.gd"
 }, {
 "base": "Area2D",
 "class": "DraggableObject",
 "language": "GDScript",
-"path": "res://DraggableObject.gd"
+"path": "res://scenes/DraggableObject.gd"
+}, {
+"base": "SkillCheck",
+"class": "ExampleSkillCheck",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/ExampleSkillCheck.gd"
 }, {
 "base": "Area2D",
 "class": "PurpleObject",
 "language": "GDScript",
-"path": "res://ingredients/PurpleObject.gd"
+"path": "res://scenes/ingredients/PurpleObject.gd"
 }, {
 "base": "Node2D",
 "class": "RecipeBook",
 "language": "GDScript",
-"path": "res://RecipeBook.gd"
+"path": "res://scenes/RecipeBook.gd"
 }, {
 "base": "Area2D",
 "class": "RedObject",
 "language": "GDScript",
-"path": "res://ingredients/RedObject.gd"
+"path": "res://scenes/ingredients/RedObject.gd"
+}, {
+"base": "Node2D",
+"class": "SkillCheck",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/SkillCheck.gd"
 } ]
 _global_script_class_icons={
 "BlueObject": "",
+"Cauldron": "",
+"CauldronSkillCheck": "",
 "Combiner": "",
 "DraggableObject": "",
+"ExampleSkillCheck": "",
 "PurpleObject": "",
 "RecipeBook": "",
-"RedObject": ""
+"RedObject": "",
+"SkillCheck": ""
 }
 
 [application]
 
 config/name="working-build"
-run/main_scene="res://WorkBench.tscn"
+run/main_scene="res://scenes/WorkBench.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-GlobalVariables="*res://GlobalVariables.gd"
+GlobalVariables="*res://autoload/GlobalVariables.gd"
 
 [rendering]
 
