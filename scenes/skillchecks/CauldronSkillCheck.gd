@@ -1,10 +1,10 @@
 class_name CauldronSkillCheck extends SkillCheck
 
-onready var top : Area2D = $Top
-onready var right : Area2D = $Right
-onready var bottom : Area2D = $Bottom
-onready var left : Area2D = $Left
-onready var sprite : Sprite = $Sprite
+onready var top : Area2D = $Bowl/Top
+onready var right : Area2D = $Bowl/Right
+onready var bottom : Area2D = $Bowl/Bottom
+onready var left : Area2D = $Bowl/Left
+onready var sprite : Sprite = $Bowl
 onready var label : Label = $Label
 onready var timer : Timer = $Timer
 onready var dietimer : Timer = $DieTimer
@@ -20,10 +20,10 @@ const clockwise = [[1, 2, 4, 8], [2, 4, 8, 1], [4, 8, 1, 2], [8, 1, 2, 4]]
 const counter_clockwise = [[1, 8, 4, 2], [8, 4, 2, 1], [4, 2, 1, 8], [2, 1, 8, 4]]
 var spin_count : int = 0
 var velocity : float = 0.0
-export var MAX_VELOCITY : float = 7.0
-export var VELOCITY_DECAY : float = 0.01
-export var VELOCITY_FACTOR : float = 0.4
-export var VELOCITY_THRESHOLD : float = 0.2
+export var VELOCITY_FACTOR : float = 1.1	# Increase velocity when stirring
+export var MAX_VELOCITY : float = 7.0		# The maximum velocity that can be achieved
+export var VELOCITY_DECAY : float = 0.01	# Decay velocity when no stirring
+export var VELOCITY_THRESHOLD : float = 0.1	# Less than the threshold will clamp velocity to 0
 
 export var goal_lower : float = 3.0
 export var goal_upper : float = 6.0

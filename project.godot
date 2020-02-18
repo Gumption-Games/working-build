@@ -82,6 +82,11 @@ config/icon="res://icon.png"
 
 GlobalVariables="*res://autoload/GlobalVariables.gd"
 
+[display]
+
+window/size/width=640
+window/size/height=360
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
