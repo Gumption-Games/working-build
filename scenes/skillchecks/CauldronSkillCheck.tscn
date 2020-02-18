@@ -2,10 +2,11 @@
 
 [ext_resource path="res://scenes/skillchecks/CauldronSkillCheck.gd" type="Script" id=1]
 [ext_resource path="res://assets/sfx/Stir(aggressive).wav" type="AudioStream" id=2]
-[ext_resource path="res://assets/fonts/1980XX.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/PrototypeAssets/Sprites/CauldronTopDown_B_Draft01.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
+size = 13
 font_data = ExtResource( 3 )
 
 [sub_resource type="CircleShape2D" id=2]

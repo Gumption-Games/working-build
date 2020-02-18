@@ -58,6 +58,11 @@ _global_script_classes=[ {
 "class": "SkillCheck",
 "language": "GDScript",
 "path": "res://scenes/skillchecks/SkillCheck.gd"
+}, {
+"base": "Node",
+"class": "TitleScreen",
+"language": "GDScript",
+"path": "res://scenes/TitleScreen.gd"
 } ]
 _global_script_class_icons={
 "BlueObject": "",
@@ -69,13 +74,14 @@ _global_script_class_icons={
 "PurpleObject": "",
 "RecipeBook": "",
 "RedObject": "",
-"SkillCheck": ""
+"SkillCheck": "",
+"TitleScreen": ""
 }
 
 [application]
 
 config/name="working-build"
-run/main_scene="res://scenes/WorkBench.tscn"
+run/main_scene="res://scenes/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
