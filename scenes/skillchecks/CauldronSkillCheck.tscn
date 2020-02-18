@@ -2,21 +2,21 @@
 
 [ext_resource path="res://scenes/skillchecks/CauldronSkillCheck.gd" type="Script" id=1]
 [ext_resource path="res://assets/sfx/Stir(aggressive).wav" type="AudioStream" id=2]
-[ext_resource path="res://assets/fonts/1980XX.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/PrototypeAssets/Sprites/CauldronTopDown_B_Draft01.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
+size = 13
 font_data = ExtResource( 3 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 13.0
+radius = 11.0
 
 [node name="CauldronSkillCheck" type="Node2D"]
-position = Vector2( 512, 300 )
 scale = Vector2( 8, 8 )
 script = ExtResource( 1 )
-VELOCITY_DECAY = 0.05
 VELOCITY_FACTOR = 0.5
+VELOCITY_DECAY = 0.05
 VELOCITY_THRESHOLD = 0.5
 goal_lower = 2.0
 goal_upper = 5.0
@@ -28,9 +28,6 @@ volume_db = -10.0
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -62.2853
-margin_top = -35.2315
-margin_right = -16.2853
 margin_bottom = -17.2315
 custom_fonts/font = SubResource( 1 )
 text = "Stir!"
@@ -46,41 +43,42 @@ wait_time = 5.0
 wait_time = 4.0
 one_shot = true
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.02, 0.02 )
+[node name="Bowl" type="Sprite" parent="."]
+position = Vector2( 39.6545, 22.9359 )
+scale = Vector2( 0.01, 0.01 )
 texture = ExtResource( 4 )
 
-[node name="Top" type="Area2D" parent="."]
-editor/display_folded = true
+[node name="Top" type="Area2D" parent="Bowl"]
+scale = Vector2( 100, 100 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
-position = Vector2( 0, -19 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Top"]
+position = Vector2( 0, -15 )
 shape = SubResource( 2 )
 
-[node name="Right" type="Area2D" parent="."]
-editor/display_folded = true
+[node name="Right" type="Area2D" parent="Bowl"]
+scale = Vector2( 100, 100 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 19, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Right"]
+position = Vector2( 15, 0 )
 shape = SubResource( 2 )
 
-[node name="Bottom" type="Area2D" parent="."]
-editor/display_folded = true
+[node name="Bottom" type="Area2D" parent="Bowl"]
+scale = Vector2( 100, 100 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
-position = Vector2( 0, 19 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Bottom"]
+position = Vector2( 0, 15 )
 shape = SubResource( 2 )
 
-[node name="Left" type="Area2D" parent="."]
-editor/display_folded = true
+[node name="Left" type="Area2D" parent="Bowl"]
+scale = Vector2( 100, 100 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -19, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Left"]
+position = Vector2( -15, 0 )
 shape = SubResource( 2 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="DieTimer" to="." method="_on_DieTimer_timeout"]
 [connection signal="timeout" from="ExitTimer" to="." method="_on_ExitTimer_timeout"]
-[connection signal="mouse_entered" from="Top" to="." method="_on_Top_mouse_entered"]
-[connection signal="mouse_entered" from="Right" to="." method="_on_Right_mouse_entered"]
-[connection signal="mouse_entered" from="Bottom" to="." method="_on_Bottom_mouse_entered"]
-[connection signal="mouse_entered" from="Left" to="." method="_on_Left_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Top" to="." method="_on_Top_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Right" to="." method="_on_Right_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Bottom" to="." method="_on_Bottom_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Left" to="." method="_on_Left_mouse_entered"]
