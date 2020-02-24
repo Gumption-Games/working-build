@@ -1,9 +1,11 @@
 extends Node2D
 
 class_name RecipeBook
+
 var type
 
 var book = Dictionary()
+var recipes_path = "assets/Recipes.json"
 var default_recipe = ["BlueObject", "RedObject"]
 var default_result = "PurpleObject"
 
@@ -11,8 +13,13 @@ var default_result = "PurpleObject"
 ### INITIALIZER METHODS ###
 
 func _init():
-	book[default_recipe] = default_result
 	type = "RecipeBook"
+	
+	# Load and parse recipes
+	var file = File.new()
+	file.open(recipes_path, file.READ)
+	load_book(file)
+	file.close()
 
 
 ### PARENT METHOD OVERRIDES ###
@@ -26,13 +33,20 @@ func get_class(): return self.type
 
 ### PUBLIC METHODS ###
 
-# To be used for loading recipes from file
-func load_book():
-	pass
+# Loads recipes into book given a file
+func load_book(file):
+	var json_text = file.get_as_text()
+	var parse_result = JSON.parse(json_text)
+	if parse_result.error!=OK:
+		print("JSON Parse Error: ", parse_result.error_string)
+		return
+	var recipes_json = parse_result.result
+	for key in recipes_json:
+		load_recipe(key.split('+'), recipes_json[key])
 
 
 # Loads a recipe into the RecipeBook dictionary
-func load_recipe(ingredients : Array, result):
+func load_recipe(ingredients : Array, result : Dictionary):
 	if ingredients.empty():
 		return false
 	ingredients.sort()
@@ -42,7 +56,8 @@ func load_recipe(ingredients : Array, result):
 
 # Checks the recipe dict for a given array of input ingredients
 # Returns the result if found, null otherwise
-func check_recipe(ingredients : Array):
+func check_recipe(ingredients : Array, combiner : String):
 	if book.has(ingredients):
-		return book[ingredients]
+		if book[ingredients]["combiner"] == combiner:
+			return book[ingredients]["result"]
 	return null
