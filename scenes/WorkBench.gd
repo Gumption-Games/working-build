@@ -13,7 +13,7 @@ var book
 func _ready():
 	global_vars = get_node("/root/GlobalVariables")
 	global_vars.workbench = self
-  book = get_node("/root/RecipeBook")
+	book = get_node("/root/RecipeBook")
 	
 	book_gui.set_position(hidden_pos)
 	#toggle_book_pos.set_position(Vector2(GlobalVariables.SCREEN_SIZE.x/2, GlobalVariables.SCREEN_SIZE.y))
