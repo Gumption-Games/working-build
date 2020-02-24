@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/RecipeBookGUI.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 300, 5 )
+extents = Vector2( 300, 10 )
 
 [node name="WorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -39,6 +39,7 @@ position = Vector2( 471.033, 62.5364 )
 position = Vector2( 344.674, 237.423 )
 
 [node name="RecipeBookGUI" parent="." instance=ExtResource( 7 )]
+visible = false
 position = Vector2( 322, 503 )
 
 [node name="HiddenBookPosition" type="Position2D" parent="."]
@@ -48,6 +49,7 @@ position = Vector2( 322, 503 )
 position = Vector2( 322, 190 )
 
 [node name="ToggleBookPosition" type="Area2D" parent="."]
+visible = false
 position = Vector2( 325.292, 355 )
 __meta__ = {
 "_edit_group_": true
