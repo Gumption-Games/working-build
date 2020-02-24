@@ -8,6 +8,7 @@ signal multiple_ingredients
 
 var held_ingredients = Array()
 var recipe_book
+
 var minigame_path
 var minigame
 var result_name
@@ -19,8 +20,9 @@ func _init():
 	IMG_PATH = ".import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 	type = "Combiner"
 	# minigame_path is assigned in each inherited scene
-	# Load recipebook
-	recipe_book = preload("res://scenes/RecipeBook.gd").new()
+
+func _ready():
+	recipe_book = get_node("/root/RecipeBook")
 
 
 ### PRIVATE METHODS ###
@@ -42,7 +44,8 @@ func _combine_ingredients():
 	var recipe = _convert_held_to_recipe()
 
 	# Then check against the combiner's recipe book
-	result_name = recipe_book.check_recipe(recipe)
+	print(recipe_book)
+	result_name = recipe_book.check_recipe(recipe, self.type)
 	if result_name:
 		_skill_check()
 	else:
@@ -128,7 +131,6 @@ func handle_new_ingredient(ingredient):
 	ingredient.hide()
 	ingredient.enable=false
 	held_ingredients.append(ingredient)
-	print("Combiner:: ", held_ingredients)
 	
 	emit_signal("new_ingredient")
 	if held_ingredients.size() >= 2:

@@ -18,7 +18,6 @@ func _init():
 # https://godotengine.org/qa/41946/drag-and-drop-a-sprite-is-there-a-built-in-function-for-a-node
 # 2020-01-30
 func _process(delta):
-#	print(global_vars.held_object)
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and dragging:
 		position = get_global_mouse_position()
 
@@ -39,7 +38,6 @@ func _on_DraggableObject_input_event(viewport, event, shape_idx):
 			dragging = false
 			global_vars.held_object = null
 			_handle_overlaps()
-		print("Held:: ", global_vars.held_object)
 
 
 # Avoids overlaps between objects

@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "RecipeBook",
 "language": "GDScript",
-"path": "res://scenes/RecipeBook.gd"
+"path": "res://autoload/RecipeBook.gd"
 }, {
 "base": "Node2D",
 "class": "RecipeBookGUI",
