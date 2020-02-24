@@ -1,5 +1,7 @@
 extends Node2D
 
+var SCREEN_SIZE : Vector2 = OS.get_screen_size()
+
 var held_object
 var current_combiner
 var workbench

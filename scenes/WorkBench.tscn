@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/WorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/PrototypeAssets/Backdrops/Workbench_Base_Draft02_small.png" type="Texture" id=2]
@@ -6,15 +6,25 @@
 [ext_resource path="res://scenes/ingredients/BlueObject.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ingredients/PurpleObject.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/RecipeBookGUI.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 300, 10 )
 
 [node name="WorkBench" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Background" type="Sprite" parent="."]
 show_behind_parent = true
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 2 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="RedObject" parent="." instance=ExtResource( 3 )]
 position = Vector2( 329.296, 63.4322 )
@@ -27,3 +37,24 @@ position = Vector2( 471.033, 62.5364 )
 
 [node name="Cauldron" parent="." instance=ExtResource( 6 )]
 position = Vector2( 344.674, 237.423 )
+
+[node name="RecipeBookGUI" parent="." instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 322, 503 )
+
+[node name="HiddenBookPosition" type="Position2D" parent="."]
+position = Vector2( 322, 503 )
+
+[node name="ShowBookPosition" type="Position2D" parent="."]
+position = Vector2( 322, 190 )
+
+[node name="ToggleBookPosition" type="Area2D" parent="."]
+visible = false
+position = Vector2( 325.292, 355 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleBookPosition"]
+shape = SubResource( 1 )
+[connection signal="mouse_entered" from="ToggleBookPosition" to="." method="_on_ToggleBookPosition_mouse_entered"]
