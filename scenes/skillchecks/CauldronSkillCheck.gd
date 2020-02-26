@@ -128,11 +128,12 @@ func _counter_clockwise(array):
 	StirSound.play(0.1)
 
 func on_area_entered(pos):
+	# Occurs when one of the 4 areas is entered by the mouse
+	
 	if done:
 		return
 	
 	if pressed == true:
-		
 		if timer.is_stopped():
 			timer.start()
 		
