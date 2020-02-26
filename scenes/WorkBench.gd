@@ -1,4 +1,4 @@
-extends Node2D
+class_name WorkBench extends Node2D
 
 onready var book_gui := $RecipeBookGUI
 onready var toggle_book_pos := $ToggleBookPosition
