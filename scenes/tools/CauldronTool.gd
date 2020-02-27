@@ -8,7 +8,6 @@ onready var left_shape : Area2D = $Bowl/Left/CollisionShape2D
 onready var bowl_empty : Sprite = $BowlEmpty
 onready var StirSound := $StirSound
 
-var held : Array = []
 var allow_stirring := false
 
 # Stirring variables

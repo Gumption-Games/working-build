@@ -1,4 +1,4 @@
-class_name Combiner extends "res://scenes/FittedHitboxObject.gd"
+class_name Combiner extends FittedHitboxObject
 
 signal new_ingredient
 signal no_ingredients
@@ -45,7 +45,9 @@ func _combine_ingredients():
 	print(recipe_book)
 	result_name = recipe_book.check_recipe(recipe, self.type)
 	if result_name:
-		_skill_check()
+		# Let the tool do its thing
+		#_skill_check()
+		print("Determine success based on tool outcome")
 	else:
 		# Reached if the recipe is wrong
 		_return_ingredients()

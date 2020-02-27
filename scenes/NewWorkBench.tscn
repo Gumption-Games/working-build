@@ -1,19 +1,19 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
-[ext_resource path="res://scenes/tools/CauldronTool.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=3]
 [ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=4]
 [ext_resource path="res://assets/PrototypeAssets/chalkbutton.png" type="Texture" id=5]
 [ext_resource path="res://assets/PrototypeAssets/mortarbutton.png" type="Texture" id=6]
 [ext_resource path="res://assets/PrototypeAssets/shelf.png" type="Texture" id=7]
-[ext_resource path="res://scenes/ingredients/RedObject.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/ingredients/BlueObject.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=9]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="CauldronTool" parent="." instance=ExtResource( 2 )]
+[node name="Cauldron" parent="." instance=ExtResource( 2 )]
 position = Vector2( 480, 200 )
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
@@ -54,10 +54,10 @@ margin_bottom = 305.0
 rect_scale = Vector2( 0.367423, 0.367423 )
 texture = ExtResource( 7 )
 
-[node name="RedObject" parent="." instance=ExtResource( 8 )]
-position = Vector2( 39.7214, 37.6308 )
+[node name="RedIngredient" parent="." instance=ExtResource( 8 )]
+position = Vector2( 37.7205, 37.7205 )
 
-[node name="BlueObject" parent="." instance=ExtResource( 9 )]
-position = Vector2( 86.1328, 38.4671 )
+[node name="BlueIngredient" parent="." instance=ExtResource( 9 )]
+position = Vector2( 86.2182, 37.1217 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="_on_CauldronButton_pressed"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="_on_CuttingButton_pressed"]

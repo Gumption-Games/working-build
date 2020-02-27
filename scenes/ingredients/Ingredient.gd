@@ -1,6 +1,5 @@
-extends "res://scenes/FittedHitboxObject.gd"
+class_name Ingredient extends FittedHitboxObject
 
-class_name DraggableObject
 
 var dragging : bool = false
 
@@ -9,7 +8,7 @@ var dragging : bool = false
 
 func _init():
 	IMG_PATH = ".import/circle.png-6efbe600b7e2418cd5091089237d13c1.stex"
-	type = "DraggableObject"
+	type = "Ingredient"
 
 
 ### PRIVATE METHODS ###

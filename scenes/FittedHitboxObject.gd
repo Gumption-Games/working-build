@@ -1,4 +1,4 @@
-extends Area2D
+class_name FittedHitboxObject extends Area2D
 
 var type
 
