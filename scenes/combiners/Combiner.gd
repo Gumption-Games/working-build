@@ -104,7 +104,6 @@ func _return_ingredients():
 	var ing
 	while !held_ingredients.empty():
 		ing = held_ingredients.pop_back()
-		ing.enable = true
 		# target gradually moves down to avoid stacking
 		target.y += ing.get_size().y
 		ing.position = target - ing.get_size()/2
@@ -129,7 +128,6 @@ func handle_new_ingredient(ingredient):
 	global_vars.held_object = null
 	
 	ingredient.hide()
-	ingredient.enable=false
 	held_ingredients.append(ingredient)
 	
 	emit_signal("new_ingredient")

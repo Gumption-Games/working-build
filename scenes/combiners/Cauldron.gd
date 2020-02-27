@@ -92,16 +92,16 @@ func _process(delta):
 		bowl.set_rotation_degrees(current + (velocity))
 		
 		# Modulate sprite to show feedback for how fast the stirring is
-		if not done:
-			if abs(velocity) > goal_upper:
-				# Too fast!!
-				bowl.set_modulate(Color(0.0, 0.2, 1.0))
-			elif abs(velocity) < goal_lower:
-				# Too slow!
-				bowl.set_modulate(Color(1.0, 0.2, 0.2))
-			else:
-				# Just right.
-				bowl.set_modulate(Color(1.0, 1.0, 1.0))
+#		if not done:
+#			if abs(velocity) > goal_upper:
+#				# Too fast!!
+#				bowl.set_modulate(Color(0.0, 0.2, 1.0))
+#			elif abs(velocity) < goal_lower:
+#				# Too slow!
+#				bowl.set_modulate(Color(1.0, 0.2, 0.2))
+#			else:
+#				# Just right.
+#				bowl.set_modulate(Color(1.0, 1.0, 1.0))
 
 
 func _input(event):
