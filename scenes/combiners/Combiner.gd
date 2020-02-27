@@ -3,6 +3,7 @@ class_name Combiner extends FittedHitboxObject
 signal new_ingredient
 signal no_ingredients
 signal multiple_ingredients
+signal correct_recipe_entered
 
 var held_ingredients = Array()
 var recipe_book
@@ -29,7 +30,7 @@ func _ready():
 func _on_Combiner_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		# Handles user clicks
-		if event.pressed:
+		if event.pressed and not result_name:
 			_combine_ingredients()
 
 
@@ -48,6 +49,7 @@ func _combine_ingredients():
 		# Let the tool do its thing
 		#_skill_check()
 		print("Determine success based on tool outcome")
+		emit_signal("correct_recipe_entered")
 	else:
 		# Reached if the recipe is wrong
 		_return_ingredients()

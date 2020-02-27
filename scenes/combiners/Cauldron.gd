@@ -47,6 +47,7 @@ func _ready():
 	connect("new_ingredient", self, "_on_new_ingredient")
 	connect("no_ingredients", self, "_on_no_ingredients")
 	connect("multiple_ingredients", self, "_on_multiple_ingredients")
+	connect("correct_recipe_entered", self, "_on_correct_recipe_entered")
 	set_disabled(true) # The Cauldron is empty to start
 	label.hide()
 
@@ -72,11 +73,15 @@ func _on_new_ingredient():
 
 func _on_no_ingredients():
 	CookingSound.stop()
+	
 
 
 func _on_multiple_ingredients():
 	CookingSound.play()
 	set_disabled(false) # The Cauldron is filled
+
+
+func _on_correct_recipe_entered():
 	allow_stirring = true
 	cook_timer.start()
 	label.text = str(int(cook_timer.get_time_left()))
@@ -253,3 +258,6 @@ func reset_cauldron():
 	label.set_modulate(Color(Color.white))
 	bowl.set_modulate(Color(Color.white))
 	label.hide()
+	result_name = null
+
+
