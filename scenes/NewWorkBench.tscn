@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/PrototypeAssets/potions.png" type="Texture" id=10]
+[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=11]
+[ext_resource path="res://assets/PrototypeAssets/potions2.png" type="Texture" id=12]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +22,9 @@ margin_top = 396.874
 margin_right = 1398.47
 margin_bottom = 665.874
 rect_scale = Vector2( 0.294375, 0.294375 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_right = 267.0
@@ -44,17 +50,37 @@ margin_bottom = 269.0
 texture_normal = ExtResource( 5 )
 
 [node name="Shelf" type="Sprite" parent="."]
-position = Vector2( 145.009, 54.2572 )
-scale = Vector2( 0.337706, 0.337706 )
+position = Vector2( 152.247, 56.8749 )
+scale = Vector2( 0.355106, 0.355274 )
 texture = ExtResource( 6 )
+
+[node name="Potions" type="Sprite" parent="."]
+position = Vector2( 151.517, 184.325 )
+scale = Vector2( 0.421833, 0.559921 )
+texture = ExtResource( 10 )
+
+[node name="Potions2" type="Sprite" parent="."]
+position = Vector2( 151.517, 309.325 )
+scale = Vector2( 0.421833, 0.559921 )
+texture = ExtResource( 12 )
 
 [node name="Cauldron" parent="." instance=ExtResource( 7 )]
 position = Vector2( 480, 200 )
 
 [node name="RedIngredient" parent="." instance=ExtResource( 8 )]
-position = Vector2( 34.4093, 32.3583 )
+position = Vector2( 35.1444, 34.5636 )
 
 [node name="BlueIngredient" parent="." instance=ExtResource( 9 )]
-position = Vector2( 77.4589, 33.1919 )
+position = Vector2( 81.8695, 34.6621 )
+
+[node name="Dialogue" type="Label" parent="."]
+margin_left = 7.0
+margin_top = 398.0
+margin_right = 303.0
+margin_bottom = 474.0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="_on_CauldronButton_pressed"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="_on_CuttingButton_pressed"]

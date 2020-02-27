@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/skillchecks/cutting/CuttingSkillCheck.gd"
 }, {
-"base": "Reference",
+"base": "SkillCheck",
 "class": "ExampleSkillCheck",
 "language": "GDScript",
 "path": "res://scenes/skillchecks/example/ExampleSkillCheck.gd"
@@ -79,7 +79,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/skillchecks/SkillCheck.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "TitleScreen",
 "language": "GDScript",
 "path": "res://scenes/title/TitleScreen.gd"
