@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name RecipeBook
-
 var type
 
 var book = Dictionary()

@@ -26,6 +26,7 @@ stream = ExtResource( 5 )
 volume_db = -10.0
 
 [node name="Bowl" type="Sprite" parent="." index="3"]
+editor/display_folded = true
 texture = ExtResource( 6 )
 
 [node name="Top" type="Area2D" parent="Bowl" index="0"]
