@@ -9,12 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
-"class": "BlueObject",
+"base": "Ingredient",
+"class": "BlueIngredient",
 "language": "GDScript",
-"path": "res://scenes/ingredients/BlueObject.gd"
+"path": "res://scenes/ingredients/BlueIngredient.gd"
 }, {
-"base": "Area2D",
+"base": "Combiner",
 "class": "Cauldron",
 "language": "GDScript",
 "path": "res://scenes/combiners/Cauldron.gd"
@@ -22,76 +22,121 @@ _global_script_classes=[ {
 "base": "SkillCheck",
 "class": "CauldronSkillCheck",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/CauldronSkillCheck.gd"
+"path": "res://scenes/skillchecks/cauldron/CauldronSkillCheck.gd"
 }, {
-"base": "Area2D",
+"base": "Node2D",
+"class": "CauldronTool",
+"language": "GDScript",
+"path": "res://scenes/tools/CauldronTool.gd"
+}, {
+"base": "FittedHitboxObject",
 "class": "Combiner",
 "language": "GDScript",
 "path": "res://scenes/combiners/Combiner.gd"
 }, {
 "base": "Area2D",
-"class": "DraggableObject",
+"class": "CutPoint",
 "language": "GDScript",
-"path": "res://scenes/DraggableObject.gd"
+"path": "res://scenes/skillchecks/cutting/CutPoint.gd"
 }, {
-"base": "SkillCheck",
+"base": "Node2D",
+"class": "CuttingSkillCheck",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/cutting/CuttingSkillCheck.gd"
+}, {
+"base": "Reference",
 "class": "ExampleSkillCheck",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/ExampleSkillCheck.gd"
+"path": "res://scenes/skillchecks/example/ExampleSkillCheck.gd"
 }, {
 "base": "Area2D",
-"class": "PurpleObject",
+"class": "FittedHitboxObject",
 "language": "GDScript",
-"path": "res://scenes/ingredients/PurpleObject.gd"
+"path": "res://scenes/FittedHitboxObject.gd"
+}, {
+"base": "FittedHitboxObject",
+"class": "Ingredient",
+"language": "GDScript",
+"path": "res://scenes/ingredients/Ingredient.gd"
+}, {
+"base": "Node2D",
+"class": "NewWorkBench",
+"language": "GDScript",
+"path": "res://scenes/NewWorkBench.gd"
+}, {
+"base": "Ingredient",
+"class": "PurpleIngredient",
+"language": "GDScript",
+"path": "res://scenes/ingredients/PurpleIngredient.gd"
 }, {
 "base": "Node2D",
 "class": "RecipeBook",
 "language": "GDScript",
-"path": "res://scenes/RecipeBook.gd"
+"path": "res://autoload/RecipeBook.gd"
 }, {
-"base": "Area2D",
-"class": "RedObject",
+"base": "Node2D",
+"class": "RecipeBookGUI",
 "language": "GDScript",
-"path": "res://scenes/ingredients/RedObject.gd"
+"path": "res://scenes/RecipeBookGUI.gd"
+}, {
+"base": "Ingredient",
+"class": "RedIngredient",
+"language": "GDScript",
+"path": "res://scenes/ingredients/RedIngredient.gd"
 }, {
 "base": "Node2D",
 "class": "SkillCheck",
 "language": "GDScript",
 "path": "res://scenes/skillchecks/SkillCheck.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "TitleScreen",
 "language": "GDScript",
-"path": "res://scenes/TitleScreen.gd"
+"path": "res://scenes/title/TitleScreen.gd"
+}, {
+"base": "Node2D",
+"class": "WorkBench",
+"language": "GDScript",
+"path": "res://scenes/WorkBench.gd"
 } ]
 _global_script_class_icons={
-"BlueObject": "",
+"BlueIngredient": "",
 "Cauldron": "",
 "CauldronSkillCheck": "",
+"CauldronTool": "",
 "Combiner": "",
-"DraggableObject": "",
+"CutPoint": "",
+"CuttingSkillCheck": "",
 "ExampleSkillCheck": "",
-"PurpleObject": "",
+"FittedHitboxObject": "",
+"Ingredient": "",
+"NewWorkBench": "",
+"PurpleIngredient": "",
 "RecipeBook": "",
-"RedObject": "",
+"RecipeBookGUI": "",
+"RedIngredient": "",
 "SkillCheck": "",
-"TitleScreen": ""
+"TitleScreen": "",
+"WorkBench": ""
 }
 
 [application]
 
 config/name="working-build"
-run/main_scene="res://scenes/TitleScreen.tscn"
+run/main_scene="res://scenes/title/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 GlobalVariables="*res://autoload/GlobalVariables.gd"
+RecipeBook="*res://autoload/RecipeBook.gd"
 
 [display]
 
 window/size/width=640
-window/size/height=360
+window/size/height=480
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [rendering]
 

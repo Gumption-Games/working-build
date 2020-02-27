@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
+[ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=2]
+[ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=3]
+[ext_resource path="res://assets/PrototypeAssets/chalkbutton.png" type="Texture" id=4]
+[ext_resource path="res://assets/PrototypeAssets/mortarbutton.png" type="Texture" id=5]
+[ext_resource path="res://assets/PrototypeAssets/shelf.png" type="Texture" id=6]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=9]
+
+[node name="NewWorkBench" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="SkillCheckButtons" type="HBoxContainer" parent="."]
+margin_left = 316.471
+margin_top = 396.874
+margin_right = 1398.47
+margin_bottom = 665.874
+rect_scale = Vector2( 0.294375, 0.294375 )
+
+[node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
+margin_right = 267.0
+margin_bottom = 269.0
+texture_normal = ExtResource( 2 )
+
+[node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
+margin_left = 271.0
+margin_right = 539.0
+margin_bottom = 269.0
+texture_normal = ExtResource( 3 )
+
+[node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
+margin_left = 543.0
+margin_right = 809.0
+margin_bottom = 269.0
+texture_normal = ExtResource( 4 )
+
+[node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
+margin_left = 813.0
+margin_right = 1082.0
+margin_bottom = 269.0
+texture_normal = ExtResource( 5 )
+
+[node name="Shelf" type="Sprite" parent="."]
+position = Vector2( 145.009, 54.2572 )
+scale = Vector2( 0.337706, 0.337706 )
+texture = ExtResource( 6 )
+
+[node name="Cauldron" parent="." instance=ExtResource( 7 )]
+position = Vector2( 480, 200 )
+
+[node name="RedIngredient" parent="." instance=ExtResource( 8 )]
+position = Vector2( 34.4093, 32.3583 )
+
+[node name="BlueIngredient" parent="." instance=ExtResource( 9 )]
+position = Vector2( 77.4589, 33.1919 )
+[connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="_on_CauldronButton_pressed"]
+[connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="_on_CuttingButton_pressed"]

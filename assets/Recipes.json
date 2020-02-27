@@ -1,0 +1,6 @@
+{
+  "BlueIngredient+RedIngredient": {
+    "result": "PurpleIngredient",
+    "combiner": "Cauldron"
+  }
+}

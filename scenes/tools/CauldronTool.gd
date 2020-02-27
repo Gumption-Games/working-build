@@ -1,15 +1,12 @@
-class_name Cauldron extends Combiner
+class_name CauldronTool extends Node2D
 
-# References to child nodes
-onready var StirSound := $StirSound
-onready var NewIngredientSound := $NewIngredientSound
-onready var CookingSound := $CookingSound
 onready var bowl : Sprite = $Bowl
 onready var top_shape : Area2D = $Bowl/Top/CollisionShape2D
 onready var right_shape : Area2D = $Bowl/Right/CollisionShape2D
 onready var bottom_shape : Area2D = $Bowl/Bottom/CollisionShape2D
 onready var left_shape : Area2D = $Bowl/Left/CollisionShape2D
 onready var bowl_empty : Sprite = $BowlEmpty
+onready var StirSound := $StirSound
 
 var allow_stirring := false
 
@@ -35,16 +32,8 @@ var done : bool = false
 var win : bool = false
 
 
-func _init():
-	type = "Cauldron"
-	minigame_path = "res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn"
-
-
 func _ready():
-	connect("new_ingredient", self, "_on_new_ingredient")
-	connect("no_ingredients", self, "_on_no_ingredients")
-	connect("multiple_ingredients", self, "_on_multiple_ingredients")
-	set_disabled(true) # The Cauldron is empty to start
+	set_disabled(true)
 
 
 func set_disabled(new_value:bool):
@@ -58,22 +47,6 @@ func set_disabled(new_value:bool):
 	else:
 		bowl.show()
 		bowl_empty.hide()
-
-
-func _on_new_ingredient():
-	if NewIngredientSound.is_playing():
-		NewIngredientSound.stop()
-	NewIngredientSound.play(0.0)
-
-
-func _on_no_ingredients():
-	CookingSound.stop()
-
-
-func _on_multiple_ingredients():
-	CookingSound.play()
-	set_disabled(false) # The Cauldron is filled
-	allow_stirring = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -92,16 +65,16 @@ func _process(delta):
 		bowl.set_rotation_degrees(current + (velocity))
 		
 		# Modulate sprite to show feedback for how fast the stirring is
-#		if not done:
-#			if abs(velocity) > goal_upper:
-#				# Too fast!!
-#				bowl.set_modulate(Color(0.0, 0.2, 1.0))
-#			elif abs(velocity) < goal_lower:
-#				# Too slow!
-#				bowl.set_modulate(Color(1.0, 0.2, 0.2))
-#			else:
-#				# Just right.
-#				bowl.set_modulate(Color(1.0, 1.0, 1.0))
+		if not done:
+			if abs(velocity) > goal_upper:
+				# Too fast!!
+				bowl.set_modulate(Color(0.0, 0.2, 1.0))
+			elif abs(velocity) < goal_lower:
+				# Too slow!
+				bowl.set_modulate(Color(1.0, 0.2, 0.2))
+			else:
+				# Just right.
+				bowl.set_modulate(Color(1.0, 1.0, 1.0))
 
 
 func _input(event):

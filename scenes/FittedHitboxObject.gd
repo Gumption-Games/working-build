@@ -1,13 +1,10 @@
-extends Area2D
+class_name FittedHitboxObject extends Area2D
 
 var type
-
-export var enable : bool = true
 
 var global_vars
 var IMG_PATH
 var size
-
 
 ### INITIALIZER METHODS ###
 
