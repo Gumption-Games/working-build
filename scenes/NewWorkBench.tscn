@@ -1,17 +1,30 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
-[ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=2]
-[ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=3]
-[ext_resource path="res://assets/PrototypeAssets/chalkbutton.png" type="Texture" id=4]
-[ext_resource path="res://assets/PrototypeAssets/mortarbutton.png" type="Texture" id=5]
-[ext_resource path="res://assets/PrototypeAssets/shelf.png" type="Texture" id=6]
-[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=2]
+[ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=3]
+[ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=4]
+[ext_resource path="res://assets/PrototypeAssets/chalkbutton.png" type="Texture" id=5]
+[ext_resource path="res://assets/PrototypeAssets/mortarbutton.png" type="Texture" id=6]
+[ext_resource path="res://assets/PrototypeAssets/shelf.png" type="Texture" id=7]
+[ext_resource path="res://assets/PrototypeAssets/potions.png" type="Texture" id=8]
+[ext_resource path="res://assets/PrototypeAssets/potions2.png" type="Texture" id=9]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=12]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Dialogue" type="Label" parent="."]
+margin_left = 7.0
+margin_top = 398.0
+margin_right = 303.0
+margin_bottom = 474.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
 margin_left = 316.471
@@ -19,41 +32,60 @@ margin_top = 396.874
 margin_right = 1398.47
 margin_bottom = 665.874
 rect_scale = Vector2( 0.294375, 0.294375 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_right = 267.0
 margin_bottom = 269.0
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 3 )
 
 [node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 271.0
 margin_right = 539.0
 margin_bottom = 269.0
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 4 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 543.0
 margin_right = 809.0
 margin_bottom = 269.0
-texture_normal = ExtResource( 4 )
+texture_normal = ExtResource( 5 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 813.0
 margin_right = 1082.0
 margin_bottom = 269.0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 6 )
 
 [node name="Shelf" type="Sprite" parent="."]
-position = Vector2( 145.009, 54.2572 )
-scale = Vector2( 0.337706, 0.337706 )
-texture = ExtResource( 6 )
+position = Vector2( 152.247, 56.8749 )
+scale = Vector2( 0.355106, 0.355274 )
+texture = ExtResource( 7 )
 
-[node name="Cauldron" parent="." instance=ExtResource( 7 )]
+[node name="Potions" type="Sprite" parent="."]
+position = Vector2( 151.517, 184.325 )
+scale = Vector2( 0.421833, 0.559921 )
+texture = ExtResource( 8 )
+
+[node name="Potions2" type="Sprite" parent="."]
+position = Vector2( 151.517, 309.325 )
+scale = Vector2( 0.421833, 0.559921 )
+texture = ExtResource( 9 )
+
+[node name="Cauldron" parent="." instance=ExtResource( 10 )]
 position = Vector2( 480, 200 )
 
-[node name="RedIngredient" parent="." instance=ExtResource( 8 )]
-position = Vector2( 34.4093, 32.3583 )
+[node name="RedIngredient" parent="." instance=ExtResource( 11 )]
+position = Vector2( 35.1444, 34.5636 )
 
-[node name="BlueIngredient" parent="." instance=ExtResource( 9 )]
-position = Vector2( 77.4589, 33.1919 )
+[node name="BlueIngredient" parent="." instance=ExtResource( 12 )]
+position = Vector2( 177.896, 35.5195 )
+
+[node name="BlueIngredient2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 128.606, 34.295 )
+
+[node name="RedIngredient2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 83.1654, 33.4377 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
