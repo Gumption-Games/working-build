@@ -38,18 +38,18 @@ func _on_Ingredient_input_event(viewport, event, shape_idx):
 # Avoids overlaps between objects
 func _handle_overlaps():
 	var overlaps = get_overlapping_areas()
-
-	for obj in overlaps:
-		# TODO: Handle combinations here
-		if obj is Combiner:	# Add object to combiner
-			obj.handle_new_ingredient(self)
-			return
-	# No combiner found -- avoid overlaps
-	# Distance to the centre of the overlapping area
-	var to_area = overlaps[0].position - self.position
-	# Chooses direction (left or right) based on which side self is closer to
-	var direction = 1 if to_area.x<0 else -1
-	position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
+	if overlaps:
+		for obj in overlaps:
+			# TODO: Handle combinations here
+			if obj is Combiner:	# Add object to combiner
+				obj.handle_new_ingredient(self)
+				return
+		# No combiner found -- avoid overlaps
+		# Distance to the centre of the overlapping area
+		var to_area = overlaps[0].position - self.position
+		# Chooses direction (left or right) based on which side self is closer to
+		var direction = 1 if to_area.x<0 else -1
+		position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
 
 ### PUBLIC METHODS ###
 
