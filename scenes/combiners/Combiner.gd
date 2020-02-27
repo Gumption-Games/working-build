@@ -27,7 +27,7 @@ func _ready():
 
 # Handles mouse inputs on the combiner
 func _on_Combiner_input_event(viewport, event, shape_idx):
-	if (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		# Handles user clicks
 		if event.pressed:
 			_combine_ingredients()
@@ -83,6 +83,9 @@ func _skill_check():
 
 # Adds a combination's result as a new instance in the current scene
 func _spawn_result(ingredient_name):
+	if held_ingredients.empty():
+		return
+	
 	# Create new instance of spawned ingredient
 	var path = "scenes/ingredients/"+ingredient_name+".tscn"
 	var result = load(path).instance()
@@ -137,11 +140,11 @@ func handle_new_ingredient(ingredient):
 
 # Called by the minigame on completion
 func minigame_result(success):
-	minigame.queue_free()
+	#minigame.queue_free()
 	
-	global_vars.freeze_scene(global_vars.workbench, false)
-	global_vars.workbench.show()
-	global_vars.current_combiner = null
+	#global_vars.freeze_scene(global_vars.workbench, false)
+	#global_vars.workbench.show()
+	#global_vars.current_combiner = null
 
 	if success:
 		_spawn_result(result_name)

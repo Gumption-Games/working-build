@@ -10,6 +10,10 @@ onready var right_shape : Area2D = $Bowl/Right/CollisionShape2D
 onready var bottom_shape : Area2D = $Bowl/Bottom/CollisionShape2D
 onready var left_shape : Area2D = $Bowl/Left/CollisionShape2D
 onready var bowl_empty : Sprite = $BowlEmpty
+onready var label : Label = $Label
+onready var cook_timer : Timer = $CookTimer
+onready var sitting_timer : Timer = $SittingTimer
+onready var burn_timer : Timer = $BurnTimer
 
 var allow_stirring := false
 
@@ -25,14 +29,13 @@ var spin_count : int = 0
 var velocity : float = 0.0
 export var VELOCITY_FACTOR : float = 1.1	# Increase velocity when stirring
 export var MAX_VELOCITY : float = 7.0		# The maximum velocity that can be achieved
-export var VELOCITY_DECAY : float = 0.01	# Decay velocity when no stirring
+export var VELOCITY_DECAY : float = 0.10	# Decay velocity when no stirring
 export var VELOCITY_THRESHOLD : float = 0.1	# Less than the threshold will clamp velocity to 0
-
-# Timing variables
-export var goal_lower : float = 3.0
+export var goal_lower : float = VELOCITY_THRESHOLD # 3.0
 export var goal_upper : float = 6.0
-var done : bool = false
-var win : bool = false
+
+enum OUTCOME { NONE, BURNED, DONE }
+var mixture_state
 
 
 func _init():
@@ -45,6 +48,7 @@ func _ready():
 	connect("no_ingredients", self, "_on_no_ingredients")
 	connect("multiple_ingredients", self, "_on_multiple_ingredients")
 	set_disabled(true) # The Cauldron is empty to start
+	label.hide()
 
 
 func set_disabled(new_value:bool):
@@ -74,24 +78,46 @@ func _on_multiple_ingredients():
 	CookingSound.play()
 	set_disabled(false) # The Cauldron is filled
 	allow_stirring = true
+	cook_timer.start()
+	label.text = str(int(cook_timer.get_time_left()))
+	label.show()
+	mixture_state = OUTCOME.NONE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if allow_stirring:
-		# Update velocity
-		if not Input.is_mouse_button_pressed(BUTTON_LEFT):
-			if abs(velocity) < VELOCITY_THRESHOLD:
-				velocity = 0
-			elif velocity >= VELOCITY_THRESHOLD:
-				velocity -= VELOCITY_DECAY
-			elif velocity <= -VELOCITY_THRESHOLD:
-				velocity += VELOCITY_DECAY
-		var current = bowl.get_rotation_degrees()
-		bowl.set_rotation_degrees(current + (velocity))
+	if allow_stirring: # TODO: switch to using an enum state machine
 		
-		# Modulate sprite to show feedback for how fast the stirring is
+		if mixture_state == OUTCOME.DONE:
+			label.text = "Done!"
+		elif mixture_state == OUTCOME.BURNED:
+			label.text = "Burned!"
+		else: # We're still stirring...
+		
+			# Decay velocity
+			if not Input.is_mouse_button_pressed(BUTTON_LEFT):
+				if abs(velocity) < VELOCITY_THRESHOLD:
+					velocity = 0
+				elif velocity >= VELOCITY_THRESHOLD:
+					velocity -= VELOCITY_DECAY
+				elif velocity <= -VELOCITY_THRESHOLD:
+					velocity += VELOCITY_DECAY
+			var current = bowl.get_rotation_degrees()
+			bowl.set_rotation_degrees(current + (velocity))
+			
+			label.text = str(int(cook_timer.get_time_left()))
+#			if not sitting_timer.is_stopped():
+#				if fmod(sitting_timer.get_time_left(), 0.5) == 0:
+#					label.set_modulate(Color(Color.red))
+#				else:
+#					label.set_modulate(Color(Color.white))
+			
+			if abs(velocity) < goal_lower and sitting_timer.is_stopped() and burn_timer.is_stopped():
+				# Make it start to burn
+				sitting_timer.start()
+				print("Burning!")
+		
 #		if not done:
 #			if abs(velocity) > goal_upper:
 #				# Too fast!!
@@ -131,7 +157,7 @@ func _on_Left_mouse_entered():
 
 func _detect_stir(AREA):
 	# Occurs when one of the 4 areas is entered by the mouse
-	if done:
+	if mixture_state != OUTCOME.NONE:
 		return
 	if pressed == true:
 		loop.append(AREA)
@@ -141,6 +167,15 @@ func _detect_stir(AREA):
 				_clockwise(loop)
 				_counter_clockwise(loop) 
 				loop.clear()
+				
+				# I'm stirring, it won't burn!
+				burn_timer.stop()
+				sitting_timer.stop()
+				label.set_modulate(Color(Color.white))
+				if StirSound.is_playing():
+					StirSound.stop()
+				StirSound.play(0.1)
+				
 			else:
 				loop.clear()
 
@@ -153,9 +188,6 @@ func _clockwise(array):
 			spin_count += 1
 			_acceleration(VELOCITY_FACTOR)
 			print("Clockwise")
-	if StirSound.is_playing():
-		StirSound.stop()
-	StirSound.play(0.1)
 
 
 func _counter_clockwise(array):
@@ -166,9 +198,6 @@ func _counter_clockwise(array):
 			spin_count -= 1
 			_acceleration(-VELOCITY_FACTOR)
 			print("Counter Clockwise")
-	if StirSound.is_playing():
-		StirSound.stop()
-	StirSound.play(0.1)
 
 
 func _acceleration(factor:float):
@@ -183,3 +212,44 @@ func _sum(array):
 		sum += i
 	return sum
 
+
+func _on_CookTimer_timeout():
+	# Yay! We stirred it without it burning.
+	mixture_state = OUTCOME.DONE
+	sitting_timer.stop()
+	burn_timer.stop()
+	
+
+func _on_SittingTimer_timeout():
+	# The mixture has sat for too long, and it will start to burn
+	burn_timer.start()
+	label.set_modulate(Color(Color.orange))
+
+
+func _on_BurnTimer_timeout():
+	# The mixture has burned!
+	mixture_state = OUTCOME.BURNED
+	label.set_modulate(Color(Color.red))
+	bowl.set_modulate(Color(0.8, 0.8, 0.8))
+
+
+func _on_Cauldron_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed:
+		if mixture_state == OUTCOME.DONE:
+			minigame_result(true)
+			reset_cauldron()
+		elif mixture_state == OUTCOME.BURNED:
+			minigame_result(false)
+			reset_cauldron()
+		else:
+			print("Not done yet...")
+
+
+func reset_cauldron():
+	cook_timer.stop()
+	sitting_timer.stop()
+	burn_timer.stop()
+	set_disabled(true)
+	label.set_modulate(Color(Color.white))
+	bowl.set_modulate(Color(Color.white))
+	label.hide()

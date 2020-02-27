@@ -56,5 +56,4 @@ position = Vector2( 34.4093, 32.3583 )
 
 [node name="BlueIngredient" parent="." instance=ExtResource( 9 )]
 position = Vector2( 77.4589, 33.1919 )
-[connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="_on_CauldronButton_pressed"]
-[connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="_on_CuttingButton_pressed"]
+[connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
