@@ -30,14 +30,14 @@ export var goal_upper : float = 6.0
 var done : bool = false
 var win : bool = false
 
+
 func _ready():
 	$Label.text = "Stir!\n" + str(timer.wait_time)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	# Update velocity
-	#print(velocity)
 	if not Input.is_mouse_button_pressed(BUTTON_LEFT):
 		if abs(velocity) < VELOCITY_THRESHOLD:
 			velocity = 0
@@ -72,7 +72,8 @@ func _process(delta):
 			dietimer.stop()
 			dietimer.wait_time = 5.0
 			sprite.set_modulate(Color(1.0, 1.0, 1.0))
-	
+
+
 func _input(event):
 	if event is InputEventMouseButton: 
 		if event.pressed == true:
@@ -80,17 +81,22 @@ func _input(event):
 		else:
 			pressed = false
 
+
 func _on_Top_mouse_entered():
 	on_area_entered(TOP)
+
 
 func _on_Right_mouse_entered():
 	on_area_entered(RIGHT)
 
+
 func _on_Bottom_mouse_entered():
 	on_area_entered(BOTTOM)
 
+
 func _on_Left_mouse_entered():
 	on_area_entered(LEFT)
+
 
 func _sum(array):
 	var sum = 0
@@ -98,10 +104,12 @@ func _sum(array):
 		sum += i
 	return sum
 
+
 func _acceleration(factor:float):
 	if velocity < MAX_VELOCITY and velocity > -MAX_VELOCITY:
 		velocity = velocity + factor
 		#velocity = (DEL_VELOCITY * (1 + DEL_VELOCITY/100.0))
+
 
 func _clockwise(array):
 	for combo in clockwise:
@@ -114,7 +122,8 @@ func _clockwise(array):
 	if StirSound.is_playing():
 		StirSound.stop()
 	StirSound.play(0.1)
-			
+
+
 func _counter_clockwise(array):
 	for combo in counter_clockwise:
 		if combo == array:
@@ -127,12 +136,11 @@ func _counter_clockwise(array):
 		StirSound.stop()
 	StirSound.play(0.1)
 
+
 func on_area_entered(pos):
 	# Occurs when one of the 4 areas is entered by the mouse
-	
 	if done:
 		return
-	
 	if pressed == true:
 		if timer.is_stopped():
 			timer.start()
@@ -147,6 +155,7 @@ func on_area_entered(pos):
 			else:
 				loop.clear()
 
+
 func _on_Timer_timeout():
 	# Win!
 	done = true
@@ -156,6 +165,7 @@ func _on_Timer_timeout():
 	label.text = "Done!\n" + str(int(timer.get_time_left()))
 	exittimer.start()
 
+
 func _on_DieTimer_timeout():
 	# Fail!
 	done = true
@@ -164,6 +174,7 @@ func _on_DieTimer_timeout():
 	dietimer.stop()
 	label.text = "Fail!\n" + str(int(timer.get_time_left()))
 	exittimer.start()
+
 
 func _on_ExitTimer_timeout():
 	pass #return_result(win)

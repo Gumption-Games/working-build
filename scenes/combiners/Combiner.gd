@@ -1,6 +1,4 @@
-extends "res://scenes/FittedHitboxObject.gd"
-
-class_name Combiner
+class_name Combiner extends "res://scenes/FittedHitboxObject.gd"
 
 signal new_ingredient
 signal no_ingredients
