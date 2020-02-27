@@ -30,6 +30,16 @@ _global_script_classes=[ {
 "path": "res://scenes/combiners/Combiner.gd"
 }, {
 "base": "Area2D",
+"class": "CutPoint",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/cutting/CutPoint.gd"
+}, {
+"base": "Node2D",
+"class": "CuttingSkillCheck",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/cutting/CuttingSkillCheck.gd"
+}, {
+"base": "Area2D",
 "class": "DraggableObject",
 "language": "GDScript",
 "path": "res://scenes/DraggableObject.gd"
@@ -84,6 +94,8 @@ _global_script_class_icons={
 "Cauldron": "",
 "CauldronSkillCheck": "",
 "Combiner": "",
+"CutPoint": "",
+"CuttingSkillCheck": "",
 "DraggableObject": "",
 "ExampleSkillCheck": "",
 "NewWorkBench": "",
