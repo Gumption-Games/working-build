@@ -5,7 +5,7 @@ onready var CookingSound := $CookingSound
 
 func _init():
 	type = "Cauldron"
-	minigame_path = "res://scenes/skillchecks/CauldronSkillCheck.tscn"
+	minigame_path = "res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn"
 
 func _ready():
 	connect("new_ingredient", self, "_on_new_ingredient")
