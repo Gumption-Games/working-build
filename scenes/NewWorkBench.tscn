@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
-[ext_resource path="res://scenes/skillchecks/CauldronSkillCheck.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/skillchecks/cutting/CuttingSkillCheck.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=4]
 [ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=5]
@@ -22,31 +22,31 @@ scale = Vector2( 0.4, 0.4 )
 position = Vector2( 468.912, 198.485 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="ViewButtons" type="HBoxContainer" parent="."]
+[node name="SkillCheckButtons" type="HBoxContainer" parent="."]
 margin_left = 316.471
 margin_top = 396.874
 margin_right = 1398.47
 margin_bottom = 665.874
 rect_scale = Vector2( 0.294375, 0.294375 )
 
-[node name="PotButton" type="TextureButton" parent="ViewButtons"]
+[node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_right = 267.0
 margin_bottom = 269.0
 texture_normal = ExtResource( 4 )
 
-[node name="KnifeButton" type="TextureButton" parent="ViewButtons"]
+[node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 271.0
 margin_right = 539.0
 margin_bottom = 269.0
 texture_normal = ExtResource( 5 )
 
-[node name="ChalkButton" type="TextureButton" parent="ViewButtons"]
+[node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 543.0
 margin_right = 809.0
 margin_bottom = 269.0
 texture_normal = ExtResource( 6 )
 
-[node name="MortarButton" type="TextureButton" parent="ViewButtons"]
+[node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 813.0
 margin_right = 1082.0
 margin_bottom = 269.0
@@ -65,3 +65,5 @@ position = Vector2( 39.7214, 37.6308 )
 
 [node name="BlueObject" parent="." instance=ExtResource( 10 )]
 position = Vector2( 86.1328, 38.4671 )
+[connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="_on_CauldronButton_pressed"]
+[connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="_on_CuttingButton_pressed"]

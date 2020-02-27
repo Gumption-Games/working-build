@@ -166,4 +166,4 @@ func _on_DieTimer_timeout():
 	exittimer.start()
 
 func _on_ExitTimer_timeout():
-	return_result(win)
+	pass #return_result(win)

@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "SkillCheck",
 "class": "CauldronSkillCheck",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/CauldronSkillCheck.gd"
+"path": "res://scenes/skillchecks/cauldron/CauldronSkillCheck.gd"
 }, {
 "base": "Area2D",
 "class": "Combiner",
@@ -44,12 +44,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/DraggableObject.gd"
 }, {
-"base": "SkillCheck",
+"base": "Reference",
 "class": "ExampleSkillCheck",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/ExampleSkillCheck.gd"
+"path": "res://scenes/skillchecks/example/ExampleSkillCheck.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "NewWorkBench",
 "language": "GDScript",
 "path": "res://scenes/NewWorkBench.gd"

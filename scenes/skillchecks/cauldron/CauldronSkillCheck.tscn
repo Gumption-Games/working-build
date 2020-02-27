@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/skillchecks/CauldronSkillCheck.gd" type="Script" id=1]
+[ext_resource path="res://scenes/skillchecks/cauldron/CauldronSkillCheck.gd" type="Script" id=1]
 [ext_resource path="res://assets/sfx/Stir(aggressive).wav" type="AudioStream" id=2]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/PrototypeAssets/Sprites/CauldronTopDown_B_Draft01_small.png" type="Texture" id=4]
