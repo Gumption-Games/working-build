@@ -1,6 +1,6 @@
 {
-  "BlueObject+RedObject": {
-    "result": "PurpleObject",
+  "BlueIngredient+RedIngredient": {
+    "result": "PurpleIngredient",
     "combiner": "Cauldron"
   }
 }

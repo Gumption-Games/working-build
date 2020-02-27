@@ -1,14 +1,18 @@
 class_name NewWorkBench extends Node2D
 
-onready var cauldron := $CauldronTool
-#onready var cutting := $CuttingSkillCheck
-#onready var skill_checks : Array = [cauldron, cutting]
-#
-## Called when the node enters the scene tree for the first time.
-#func _ready():
-#	hide_all_skill_checks()
-#	_on_CauldronButton_pressed()
-#
+onready var cauldron := $Cauldron
+onready var cutting := $CuttingSkillCheck
+onready var skill_checks : Array = [cauldron, cutting]
+
+onready var global_vars = get_node("/root/GlobalVariables")
+onready var book = get_node("/root/RecipeBook")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	global_vars.workbench = self
+	#hide_all_skill_checks()
+	#_on_CauldronButton_pressed()
+
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 ##func _process(delta):
 ##	pass

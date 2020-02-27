@@ -22,12 +22,10 @@ func _process(delta):
 
 
 # Called when input occurs AND mouse is within object's CollisionShape2D
-func _on_DraggableObject_input_event(viewport, event, shape_idx):
-	if not enable:
-		hide()
-		return
-
-	if (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
+func _on_Ingredient_input_event(viewport, event, shape_idx):
+	print("hello????")
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+		print("hey")
 		if event.pressed:
 			# Object is picked up
 			dragging = true
@@ -59,3 +57,4 @@ func _handle_overlaps():
 
 func get_size():
 	return self.size
+

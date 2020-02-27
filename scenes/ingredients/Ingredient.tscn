@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-[connection signal="input_event" from="." to="." method="_on_DraggableObject_input_event"]
+[connection signal="input_event" from="." to="." method="_on_Ingredient_input_event"]
