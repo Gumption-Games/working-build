@@ -1,10 +1,9 @@
-extends "res://scenes/FittedHitboxObject.gd"
-
-class_name Combiner
+class_name Combiner extends FittedHitboxObject
 
 signal new_ingredient
 signal no_ingredients
 signal multiple_ingredients
+signal correct_recipe_entered
 
 var held_ingredients = Array()
 var recipe_book
@@ -29,9 +28,9 @@ func _ready():
 
 # Handles mouse inputs on the combiner
 func _on_Combiner_input_event(viewport, event, shape_idx):
-	if (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		# Handles user clicks
-		if event.pressed:
+		if event.pressed and not result_name:
 			_combine_ingredients()
 
 
@@ -47,7 +46,10 @@ func _combine_ingredients():
 	print(recipe_book)
 	result_name = recipe_book.check_recipe(recipe, self.type)
 	if result_name:
-		_skill_check()
+		# Let the tool do its thing
+		#_skill_check()
+		print("Determine success based on tool outcome")
+		emit_signal("correct_recipe_entered")
 	else:
 		# Reached if the recipe is wrong
 		_return_ingredients()
@@ -83,6 +85,9 @@ func _skill_check():
 
 # Adds a combination's result as a new instance in the current scene
 func _spawn_result(ingredient_name):
+	if held_ingredients.empty():
+		return
+	
 	# Create new instance of spawned ingredient
 	var path = "scenes/ingredients/"+ingredient_name+".tscn"
 	var result = load(path).instance()
@@ -104,7 +109,6 @@ func _return_ingredients():
 	var ing
 	while !held_ingredients.empty():
 		ing = held_ingredients.pop_back()
-		ing.enable = true
 		# target gradually moves down to avoid stacking
 		target.y += ing.get_size().y
 		ing.position = target - ing.get_size()/2
@@ -129,7 +133,6 @@ func handle_new_ingredient(ingredient):
 	global_vars.held_object = null
 	
 	ingredient.hide()
-	ingredient.enable=false
 	held_ingredients.append(ingredient)
 	
 	emit_signal("new_ingredient")
@@ -139,11 +142,11 @@ func handle_new_ingredient(ingredient):
 
 # Called by the minigame on completion
 func minigame_result(success):
-	minigame.queue_free()
+	#minigame.queue_free()
 	
-	global_vars.freeze_scene(global_vars.workbench, false)
-	global_vars.workbench.show()
-	global_vars.current_combiner = null
+	#global_vars.freeze_scene(global_vars.workbench, false)
+	#global_vars.workbench.show()
+	#global_vars.current_combiner = null
 
 	if success:
 		_spawn_result(result_name)

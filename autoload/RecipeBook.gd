@@ -1,13 +1,11 @@
 extends Node2D
 
-class_name RecipeBook
-
 var type
 
 var book = Dictionary()
 var recipes_path = "assets/Recipes.json"
-var default_recipe = ["BlueObject", "RedObject"]
-var default_result = "PurpleObject"
+var default_recipe = ["BlueIngredient", "RedIngredient"]
+var default_result = "PurpleIngredient"
 
 
 ### INITIALIZER METHODS ###
