@@ -3,7 +3,7 @@ class_name Knife extends Combiner
 var CutPointScene := preload("res://scenes/combiners/CutPoint.tscn")
 
 # Play with these values to change the game
-export var hit_area_width := 40
+export var hit_area_width := 10
 export var hit_area_speed : float = 1.0
 export var amplitude_factor : float = 1.5
 export var num_cuts : int = 3
