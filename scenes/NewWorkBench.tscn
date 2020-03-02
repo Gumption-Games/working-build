@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
@@ -11,8 +11,9 @@
 [ext_resource path="res://assets/PrototypeAssets/potions.png" type="Texture" id=9]
 [ext_resource path="res://assets/PrototypeAssets/potions2.png" type="Texture" id=10]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=14]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -83,15 +84,19 @@ texture = ExtResource( 10 )
 [node name="Cauldron" parent="." instance=ExtResource( 11 )]
 position = Vector2( 480, 200 )
 
-[node name="RedIngredient" parent="." instance=ExtResource( 12 )]
+[node name="Knife" parent="." instance=ExtResource( 12 )]
+position = Vector2( 480, 200 )
+
+[node name="RedIngredient" parent="." instance=ExtResource( 13 )]
 position = Vector2( 35.1444, 34.5636 )
 
-[node name="BlueIngredient" parent="." instance=ExtResource( 13 )]
+[node name="BlueIngredient" parent="." instance=ExtResource( 14 )]
 position = Vector2( 177.896, 35.5195 )
 
-[node name="BlueIngredient2" parent="." instance=ExtResource( 13 )]
+[node name="BlueIngredient2" parent="." instance=ExtResource( 14 )]
 position = Vector2( 128.606, 34.295 )
 
-[node name="RedIngredient2" parent="." instance=ExtResource( 12 )]
+[node name="RedIngredient2" parent="." instance=ExtResource( 13 )]
 position = Vector2( 83.1654, 33.4377 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
+[connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
