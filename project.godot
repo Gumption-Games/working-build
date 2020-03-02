@@ -32,14 +32,14 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "CutPoint",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/cutting/CutPoint.gd"
+"path": "res://scenes/combiners/CutPoint.gd"
 }, {
 "base": "Node2D",
 "class": "CuttingSkillCheck",
 "language": "GDScript",
 "path": "res://scenes/skillchecks/cutting/CuttingSkillCheck.gd"
 }, {
-"base": "Reference",
+"base": "SkillCheck",
 "class": "ExampleSkillCheck",
 "language": "GDScript",
 "path": "res://scenes/skillchecks/example/ExampleSkillCheck.gd"
@@ -53,6 +53,11 @@ _global_script_classes=[ {
 "class": "Ingredient",
 "language": "GDScript",
 "path": "res://scenes/ingredients/Ingredient.gd"
+}, {
+"base": "Combiner",
+"class": "Knife",
+"language": "GDScript",
+"path": "res://scenes/combiners/Knife.gd"
 }, {
 "base": "Node2D",
 "class": "NewWorkBench",
@@ -79,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/skillchecks/SkillCheck.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "TitleScreen",
 "language": "GDScript",
 "path": "res://scenes/title/TitleScreen.gd"
@@ -99,6 +104,7 @@ _global_script_class_icons={
 "ExampleSkillCheck": "",
 "FittedHitboxObject": "",
 "Ingredient": "",
+"Knife": "",
 "NewWorkBench": "",
 "PurpleIngredient": "",
 "RecipeBookGUI": "",

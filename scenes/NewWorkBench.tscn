@@ -33,6 +33,7 @@ __meta__ = {
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
+editor/display_folded = true
 margin_left = 316.471
 margin_top = 396.874
 margin_right = 1398.47
