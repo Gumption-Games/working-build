@@ -99,6 +99,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/ingredients/RedIngredient.gd"
 }, {
+"base": "Node2D",
+"class": "Shelf",
+"language": "GDScript",
+"path": "res://scenes/Shelf.gd"
+}, {
 "base": "Ingredient",
 "class": "SilverSerpentRing",
 "language": "GDScript",
@@ -148,6 +153,7 @@ _global_script_class_icons={
 "RabbitsFoot": "",
 "RecipeBookGUI": "",
 "RedIngredient": "",
+"Shelf": "",
 "SilverSerpentRing": "",
 "Silverware": "",
 "SkillCheck": "",
