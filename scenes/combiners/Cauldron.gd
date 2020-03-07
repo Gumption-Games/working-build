@@ -69,16 +69,15 @@ func _on_new_ingredient():
 	if NewIngredientSound.is_playing():
 		NewIngredientSound.stop()
 	NewIngredientSound.play(0.0)
+	set_disabled(false) # The Cauldron is filled
 
 
 func _on_no_ingredients():
 	CookingSound.stop()
-	
 
 
 func _on_multiple_ingredients():
 	CookingSound.play()
-	set_disabled(false) # The Cauldron is filled
 
 
 func _on_correct_recipe_entered():
