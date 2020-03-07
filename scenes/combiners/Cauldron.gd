@@ -207,7 +207,6 @@ func _counter_clockwise(array):
 func _acceleration(factor:float):
 	if velocity < MAX_VELOCITY and velocity > -MAX_VELOCITY:
 		velocity = velocity + factor
-		#velocity = (DEL_VELOCITY * (1 + DEL_VELOCITY/100.0))
 
 
 func _sum(array):

@@ -98,19 +98,15 @@ func _spawn_result(ingredient_name):
 	# Place new ingredient on the Shelf
 	GlobalVariables.shelf.place_new_ing(result)
 	
-	# Frees all held ingredients and clears held_ingredients
-	_clear_held_ingredients()
+	_return_ingredients()
+	held_ingredients.clear()
 
 
 # Ejects held ingredients on failed combination
 func _return_ingredients():
-	var target = self.position - get_size()/2
 	var ing
 	while !held_ingredients.empty():
 		ing = held_ingredients.pop_back()
-#		# target gradually moves down to avoid stacking
-#		target.y += ing.get_size().y
-#		ing.position = target - ing.get_size()/2
 		ing.set_position(ing.sticky_pos)
 		ing.enable()
 		ing.show()
