@@ -69,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/NewWorkBench.gd"
 }, {
-"base": "Reference",
+"base": "Ingredient",
 "class": "PlasticSnake",
 "language": "GDScript",
 "path": "res://scenes/ingredients/PlasticSnake.gd"
