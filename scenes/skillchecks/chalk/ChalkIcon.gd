@@ -1,4 +1,4 @@
-extends "res://scenes/ingredients/Ingredient.gd"
+extends FittedHitboxObject
 
 var chalk
 
