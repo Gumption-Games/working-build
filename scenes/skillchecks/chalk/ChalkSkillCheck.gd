@@ -13,6 +13,7 @@ var pressed = false
 var positions
 
 var CircleNode = preload("./CircleNode.tscn")
+var chalk_start_point = Vector2(40, 100)
 
 var path_length = {
 	EASY: 4,
@@ -57,6 +58,7 @@ const neighbors = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Chalk/ChalkIcon.position = chalk_start_point
 	print(ProjectSettings.get_setting("display/window/size/height"))
 	
 	difficulty = EASY
@@ -69,11 +71,12 @@ func _ready():
 		var new_node = CircleNode.instance()
 		new_node.idx = idx
 		new_node.position = positions[idx]
-		new_node.connect("node_entered", self, "_test_signals")
+		new_node.connect("node_entered", self, "_detect_connection")
 		add_child(new_node)
 
 func _test_signals(idx):
 	print("Entered ", idx)
+
 
 func _input(event):
 	# Detect pressed in order to use it in 
@@ -83,45 +86,13 @@ func _input(event):
 		else:
 			pressed = false
 			path.clear()
+	if $Chalk/ChalkIcon.dragging and event is InputEventMouseMotion:
+		$Chalk.add_point(event.position)
 
-func _on_one_mouse_entered():
-	current = 1
-	_detect_connection(current)
 
-func _on_two_mouse_entered():
-	current = 2
-	_detect_connection(current)
-	
-func _on_three_mouse_entered():
-	current = 3
-	_detect_connection(current)
-
-func _on_four_mouse_entered():
-	current = 4
-	_detect_connection(current)
-
-func _on_five_mouse_entered():
-	current = 5
-	_detect_connection(current)
-
-func _on_six_mouse_entered():
-	current = 6
-	_detect_connection(current)
-
-func _on_seven_mouse_entered():
-	current = 7
-	_detect_connection(current)
-
-func _on_eight_mouse_entered():
-	current = 8
-	_detect_connection(current)
-
-func _on_nine_mouse_entered():
-	current = 9
-	_detect_connection(current)
-	
 func _detect_connection(NODE):
-	if pressed == true:
+#	if pressed == true:
+	if $Chalk/ChalkIcon.dragging:
 		path.append(NODE)
 		if path == generated_path:
 			print('WINNER')
@@ -164,7 +135,8 @@ func generate_path():
 	var new_node = pool[randi() % pool.size()] # Grab a random starting node
 	generated_path = [ new_node ]
 
-	while len(path) < path_length[difficulty]:
+	while len(generated_path) < path_length[difficulty]:
+		print(generated_path)
 		pool = neighbors[new_node] # Pick from last node's neighbours
 		
 		while generated_path.has(new_node):
@@ -175,6 +147,7 @@ func generate_path():
 			
 			# If the path corners itself, we must return early
 			if pool.empty():
+				print("Cornered!")
 				return generated_path
 		
 		# If a suitable node is found, add to generated path

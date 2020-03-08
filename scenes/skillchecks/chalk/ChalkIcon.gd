@@ -1,10 +1,10 @@
 extends Ingredient
 
-var chalk
+var scene
 
 
 func _ready():
-	chalk = get_parent()
+	scene = get_parent()
 
 
 func _on_ChalkIcon_input_event(viewport, event, shape_idx):
@@ -15,4 +15,4 @@ func _on_ChalkIcon_input_event(viewport, event, shape_idx):
 		else:
 			# Held object is being dropped
 			dragging = false
-			chalk.reset()
+			scene.reset()
