@@ -69,11 +69,11 @@ func _ready():
 		var new_node = CircleNode.instance()
 		new_node.idx = idx
 		new_node.position = positions[idx]
+		new_node.connect("node_entered", self, "_test_signals")
 		add_child(new_node)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _test_signals(idx):
+	print("Entered ", idx)
 
 func _input(event):
 	# Detect pressed in order to use it in 
