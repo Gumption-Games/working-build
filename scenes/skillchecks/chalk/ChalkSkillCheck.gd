@@ -4,15 +4,15 @@ const EASY = 1
 const MED = 2
 const HARD = 3
 
-var difficulty
+const CircleNode = preload("./CircleNode.tscn")
 var rng = RandomNumberGenerator.new()
-var current = null
+
+var difficulty = EASY
 var path = []
 var generated_path = []
 var pressed = false
 var positions
 
-var CircleNode = preload("./CircleNode.tscn")
 var chalk_start_point = Vector2(40, 100)
 
 var path_length = {
@@ -27,6 +27,8 @@ var nodes = {
 	HARD: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
 			13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 }
+
+var node_ids = {}
 
 const neighbors = {
     0: [1, 5, 6],
@@ -58,12 +60,10 @@ const neighbors = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Chalk/ChalkIcon.position = chalk_start_point
+	$ChalkIcon.position = chalk_start_point
 	print(ProjectSettings.get_setting("display/window/size/height"))
-	
-	difficulty = EASY
-	rng.randomize()
-	generate_path()
+
+	randomize()
 	
 	# Instance all required nodes for current difficulty
 	_calculate_positions()
@@ -72,36 +72,23 @@ func _ready():
 		new_node.idx = idx
 		new_node.position = positions[idx]
 		new_node.connect("node_entered", self, "_detect_connection")
+		node_ids[idx] = new_node
 		add_child(new_node)
-
-func _test_signals(idx):
-	print("Entered ", idx)
 
 
 func _input(event):
-	# Detect pressed in order to use it in 
-	if event is InputEventMouseButton: 
-		if event.pressed == true:
-			pressed = true
-		else:
-			pressed = false
-			path.clear()
-	if $Chalk/ChalkIcon.dragging and event is InputEventMouseMotion:
+	if $ChalkIcon.dragging and event is InputEventMouseMotion:
 		$Chalk.add_point(event.position)
 
 
 func _detect_connection(NODE):
-#	if pressed == true:
-	if $Chalk/ChalkIcon.dragging:
+	if $ChalkIcon.dragging:
 		path.append(NODE)
 		if path == generated_path:
 			print('WINNER')
-		for i in range(path.size()):
-			if path[i] != generated_path[i]:
-				print('incorrect')
 		print(path)
 		
-###NeW
+
 
 func _calculate_positions():
 	var centre = Vector2()
@@ -113,14 +100,17 @@ func _calculate_positions():
 	var spacing = 50
 	if difficulty == EASY:
 		width = 3
+		spacing = 65
 	elif difficulty == MED:
 		width = 4
 	elif difficulty == HARD:
 		width = 5
+
 	var used = nodes[difficulty]
 	var row_ends = []
 	for i in range(width): row_ends.append(used[i*width-1])
 	centre.y -= (width-1)*spacing
+
 	for idx in used:
 		positions[idx] = centre
 		if not idx in row_ends:
@@ -130,16 +120,16 @@ func _calculate_positions():
 			centre.x -= width*spacing
 			centre.y -= (width-2) * spacing
 
-func generate_path():
-	var pool = nodes[difficulty]
+
+func _generate_path():
+	var pool = nodes[difficulty].duplicate()
 	var new_node = pool[randi() % pool.size()] # Grab a random starting node
 	generated_path = [ new_node ]
 
 	while len(generated_path) < path_length[difficulty]:
-		print(generated_path)
-		pool = neighbors[new_node] # Pick from last node's neighbours
+		pool = neighbors[new_node].duplicate() # Pick from last node's neighbours
 		
-		while generated_path.has(new_node):
+		while generated_path.has(new_node) or not new_node in nodes[difficulty]:
 			# Pick random item and remove from pool
 			var rand_idx = randi() % pool.size()
 			new_node = pool[rand_idx]
@@ -147,11 +137,40 @@ func generate_path():
 			
 			# If the path corners itself, we must return early
 			if pool.empty():
+				print(generated_path)
 				print("Cornered!")
-				return generated_path
+				return
 		
 		# If a suitable node is found, add to generated path
 		generated_path.append(new_node)
-	
-	# Suitable path generated; print
 	print(generated_path)
+
+
+func _show_path_hint():
+#	var hint_nodes = _get_nodes_by_id(generated_path)
+#	print(hint_nodes)
+	for idx in generated_path:
+		node_ids[idx].flash()
+		yield(get_tree().create_timer(0.4), "timeout")
+
+func _get_nodes_by_id(needed: Array):
+	var nodes_dict = {}
+	var children = get_children()
+	print(get_child_count())
+	for node in children:
+		print(node.get("type"))
+		if node.get("type") != "CircleNode":
+			continue
+		if node.idx in needed:
+			nodes_dict[node.idx] = node
+	return nodes_dict
+
+func reset():
+	path.clear()
+	OS.delay_msec(400)
+	$Chalk.clear_points()
+	$ChalkIcon.position = chalk_start_point
+
+func _on_Start():
+	_generate_path()
+	_show_path_hint()
