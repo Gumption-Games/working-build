@@ -10,17 +10,21 @@ var current = null
 var path = []
 var generated_path = []
 var pressed = false
+var positions
 
-var nodes = {
-	EASY: [0, 1, 2, 5, 6, 7, 10, 11, 12],
-	MED: [0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18],
-	HARD: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-			13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]]
-}
+var CircleNode = preload("./CircleNode.tscn")
+
 var path_length = {
 	EASY: 4,
 	MED: 6,
 	HARD: 9
+}
+
+var nodes = {
+	EASY: [0, 1, 2, 5, 6, 7, 10, 11, 12],
+	MED: [0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18],
+	HARD: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+			13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 }
 
 const neighbors = {
@@ -53,9 +57,19 @@ const neighbors = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(ProjectSettings.get_setting("display/window/size/height"))
+	
 	difficulty = EASY
 	rng.randomize()
 	generate_path()
+	
+	# Instance all required nodes for current difficulty
+	_calculate_positions()
+	for idx in nodes[difficulty]:
+		var new_node = CircleNode.instance()
+		new_node.idx = idx
+		new_node.position = positions[idx]
+		add_child(new_node)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -115,7 +129,36 @@ func _detect_connection(NODE):
 			if path[i] != generated_path[i]:
 				print('incorrect')
 		print(path)
+		
+###NeW
+
+func _calculate_positions():
+	var centre = Vector2()
+	positions = Dictionary()
+	centre.x = ProjectSettings.get_setting("display/window/size/width")/2
+	centre.y = ProjectSettings.get_setting("display/window/size/height")/2
 	
+	var width
+	var spacing = 50
+	if difficulty == EASY:
+		width = 3
+	elif difficulty == MED:
+		width = 4
+	elif difficulty == HARD:
+		width = 5
+	var used = nodes[difficulty]
+	var row_ends = []
+	for i in range(width): row_ends.append(used[i*width-1])
+	centre.y -= (width-1)*spacing
+	for idx in used:
+		positions[idx] = centre
+		if not idx in row_ends:
+			centre.x += spacing
+			centre.y += spacing
+		else: # End of the row
+			centre.x -= width*spacing
+			centre.y -= (width-2) * spacing
+
 func generate_path():
 	var pool = nodes[difficulty]
 	var new_node = pool[randi() % pool.size()] # Grab a random starting node

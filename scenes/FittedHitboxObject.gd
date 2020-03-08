@@ -5,6 +5,7 @@ var type
 var global_vars
 var IMG_PATH
 var size
+var collision_shape
 
 ### INITIALIZER METHODS ###
 
@@ -16,7 +17,6 @@ func _ready():
 	global_vars = get_node("/root/GlobalVariables")
 	
 	var sprite = _check_for_sprite()
-	print(sprite, get_class())
 	if !sprite:
 		# Creates new sprite using IMG_PATH for texture
 		var image = load(IMG_PATH)
@@ -28,7 +28,7 @@ func _ready():
 	self.size = sprite.texture.get_size()
 	
 	# Initialize a CollisionShape with a rectangle the size of the sprite
-	var collision_shape = CollisionShape2D.new()
+	collision_shape = CollisionShape2D.new()
 	var rectangle = RectangleShape2D.new()
 	rectangle.set_extents(self.size/2)
 	collision_shape.set_shape(rectangle)

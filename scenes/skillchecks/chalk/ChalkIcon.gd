@@ -1,4 +1,4 @@
-extends FittedHitboxObject
+extends Ingredient
 
 var chalk
 
