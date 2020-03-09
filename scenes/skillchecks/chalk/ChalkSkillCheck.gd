@@ -12,6 +12,10 @@ var path = []
 var generated_path = []
 var pressed = false
 var positions
+var failed = false
+var score = 0
+var lives = 3
+var flash_delay = 0.4
 
 var chalk_start_point = Vector2(40, 100)
 
@@ -81,13 +85,18 @@ func _input(event):
 		$Chalk.add_point(event.position)
 
 
+func _wait(time):
+	yield(get_tree().create_timer(time), "timeout")
+
+
 func _detect_connection(NODE):
-	if $ChalkIcon.dragging:
+	if $ChalkIcon.dragging and not NODE in path:
 		path.append(NODE)
 		if path == generated_path:
 			print('WINNER')
+		elif len(path) > path_length[difficulty]:
+			failed = true
 		print(path)
-		
 
 
 func _calculate_positions():
@@ -146,13 +155,6 @@ func _generate_path():
 	print(generated_path)
 
 
-func _show_path_hint():
-#	var hint_nodes = _get_nodes_by_id(generated_path)
-#	print(hint_nodes)
-	for idx in generated_path:
-		node_ids[idx].flash()
-		yield(get_tree().create_timer(0.4), "timeout")
-
 func _get_nodes_by_id(needed: Array):
 	var nodes_dict = {}
 	var children = get_children()
@@ -165,12 +167,60 @@ func _get_nodes_by_id(needed: Array):
 			nodes_dict[node.idx] = node
 	return nodes_dict
 
+
+func _get_outcome():
+	return path == generated_path
+
+
+func _update_scores(success):
+	if success:
+		_win_state()
+		print("Winner! Score = %d"%score)
+	else:
+		_fail_state()
+		print("Loser! %d lives left."%lives)
+
+
+func _win_state():
+	score += 1
+	$ChalkIcon.disabled = true
+	yield(_flash_all('G', flash_delay*2), "completed")
+	$Button.disabled = false
+
+
+func _fail_state():
+	lives -= 1
+	# flash for failure
+	for i in range(3):
+		yield(_flash_all('R', flash_delay), "completed")
+	yield(get_tree().create_timer(0.5), "timeout")
+	_show_path_hint()
+
+
+func _show_path_hint():
+#	var hint_nodes = _get_nodes_by_id(generated_path)
+#	print(hint_nodes)
+	for idx in generated_path:
+		yield(node_ids[idx].flash('B', flash_delay), "completed")
+
+
+func _flash_all(c, delay):
+	for node in node_ids.values():
+		node.flash(c, delay)
+	yield(get_tree().create_timer(2*delay), "timeout")
+
+
+func _on_Start():
+	$Button.disabled = true
+	_generate_path()
+	_show_path_hint()
+	$ChalkIcon.disabled = false
+
+
 func reset():
-	path.clear()
+	var success = _get_outcome()
 	OS.delay_msec(400)
 	$Chalk.clear_points()
 	$ChalkIcon.position = chalk_start_point
-
-func _on_Start():
-	_generate_path()
-	_show_path_hint()
+	_update_scores(success)
+	path.clear()

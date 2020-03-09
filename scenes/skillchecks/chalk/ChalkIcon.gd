@@ -1,6 +1,7 @@
 extends Ingredient
 
 var scene
+var disabled = true
 
 
 func _ready():
@@ -8,6 +9,7 @@ func _ready():
 
 
 func _on_ChalkIcon_input_event(viewport, event, shape_idx):
+	if disabled: return
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		if event.pressed:
 			# Object is picked up

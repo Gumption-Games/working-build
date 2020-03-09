@@ -6,11 +6,11 @@
 
 [sub_resource type="GDScript" id=1]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 3 )
 
 [node name="ChalkSkillCheck" type="Node2D"]
@@ -31,7 +31,7 @@ script = ExtResource( 2 )
 [node name="Label" type="Label" parent="."]
 margin_left = 70.0
 margin_top = 80.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Magic Time"
 
 [node name="Button" type="Button" parent="."]
@@ -40,7 +40,7 @@ margin_left = 80.0
 margin_top = 120.0
 margin_right = 12.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "START"
 [connection signal="input_event" from="ChalkIcon" to="ChalkIcon" method="_on_ChalkIcon_input_event"]
 [connection signal="pressed" from="Button" to="." method="_on_Start"]

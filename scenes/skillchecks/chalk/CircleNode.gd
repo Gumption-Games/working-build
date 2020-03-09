@@ -9,8 +9,7 @@ func _init():
 func _on_CircleNode_mouse_entered():
 	emit_signal("node_entered", idx)
 
-func flash():
-	print("node ", idx, " flashing")
-	$Sprite.modulate = Color(0, 0, 1) # blue shade
-	yield(get_tree().create_timer(0.4), "timeout")
+func flash(c, delay):
+	$Sprite.modulate = Color(int(c=='R'), int(c=='G'), int(c=='B')) # blue shade
+	yield(get_tree().create_timer(delay), "timeout")
 	$Sprite.modulate = Color(1, 1, 1) # reset to default
