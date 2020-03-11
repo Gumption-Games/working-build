@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/combiners/Knife.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/frogleg_small.png" type="Texture" id=2]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/frogleg_small.png" type="Texture" id=2]
+
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/dpcomic-crowned.ttf"

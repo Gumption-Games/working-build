@@ -7,11 +7,12 @@ var pos := Vector2(0.0, 0.0)
 onready var topleft :Vector2 = $Sprite.get_position() + (margin/2)
 
 func _ready():
+	# globalvars for combiners to place new ingredients
 	GlobalVariables.shelf = self
 	
 	# Arrange the initial ingredients
 	for child in get_children():
-		if child is Ingredient:
+		if child is Ingredient and child.visible:
 			# Place it at the (x,y) position on the shelf
 			place_new_ing(child)
 
@@ -22,7 +23,9 @@ func place_new_ing(ing : Ingredient):
 	"""
 	var new_x : float = topleft.x + (margin.x * pos.x)
 	var new_y : float = topleft.y + (margin.y * pos.y)
-	ing.set_position(Vector2(new_x, new_y))
+	var new_pos := Vector2(new_x, new_y)
+	ing.set_position(new_pos)
+	ing.sticky_pos = new_pos
 	pos.x += 1.0
 	if pos.x >= ings_per_row:
 		pos.x = 0.0
