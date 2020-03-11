@@ -37,11 +37,38 @@ export var goal_upper : float = 6.0
 enum OUTCOME { NONE, BURNED, DONE }
 var mixture_state
 
+signal max_changed(new_value)
+signal changed(new_value)
+signal depleted
+signal balance_changed(new_value)
+onready var progressbar : ProgressBar = $ProgressBar
+onready var balancebar : HSlider = $BalanceBar
+onready var balance : float = 0
+export var progress_max : int = 100	setget set_max# This may be changed to starting progress
+onready var progress = 20 setget set_current
+
+func set_balance(value):
+	balance = value
+	balance = clamp(balance, 0, 10)
+	emit_signal("balance_changed", balance)
+
+func set_max(value):
+	progress_max = value
+	progress_max = max(1, value)
+	emit_signal("max_changed", progress_max)
+	
+func set_current(value):
+	progress = value
+	progress = clamp(progress, 0, progress_max)
+	emit_signal("changed", progress)
+	
+	if progress == 0:
+		emit_signal("depleted")
+		
 
 func _init():
 	type = "Cauldron"
 	minigame_path = "res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn"
-
 
 func _ready():
 	connect("new_ingredient", self, "_on_new_ingredient")
@@ -50,6 +77,9 @@ func _ready():
 	connect("correct_recipe_entered", self, "_on_correct_recipe_entered")
 	set_disabled(true) # The Cauldron is empty to start
 	label.hide()
+	progressbar.hide()
+	emit_signal("max_changed", progress_max)
+	emit_signal("changed", progress)
 
 
 func set_disabled(new_value:bool):
@@ -86,6 +116,7 @@ func _on_correct_recipe_entered():
 	cook_timer.start()
 	label.text = str(int(cook_timer.get_time_left()))
 	label.show()
+	progressbar.show()
 	mixture_state = OUTCOME.NONE
 
 
@@ -99,7 +130,15 @@ func _process(delta):
 		elif mixture_state == OUTCOME.BURNED:
 			label.text = "Burned!"
 		else: # We're still stirring...
-		
+			if velocity > 0:
+				set_balance(balance + (velocity*delta))
+			else:
+				set_balance(balance - (velocity*delta))
+			
+			if velocity >= goal_lower and velocity <= goal_upper: 
+				set_current((progress + 5*delta))
+			else:
+				set_current((progress - 5*delta))
 			# Decay velocity
 			if not Input.is_mouse_button_pressed(BUTTON_LEFT):
 				if abs(velocity) < VELOCITY_THRESHOLD:
