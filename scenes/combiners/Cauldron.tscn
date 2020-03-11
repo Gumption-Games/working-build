@@ -1,25 +1,99 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/combiners/Combiner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/combiners/Cauldron.gd" type="Script" id=2]
-[ext_resource path="res://assets/PrototypeAssets/Sprites/Cauldron_Draft01_small.png" type="Texture" id=3]
-[ext_resource path="res://assets/PrototypeAssets/Sprites/Cauldron_Draft01_small_filled.png" type="Texture" id=4]
-[ext_resource path="res://assets/sfx/water2metal.wav" type="AudioStream" id=5]
-[ext_resource path="res://assets/sfx/Medium Simmer.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/water2metal.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sfx/Medium Simmer.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/Stir(aggressive).wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/CauldronTopDown_B_Draft01_small.png" type="Texture" id=6]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/CauldronTopDown_B_Draft01_small_empty.png" type="Texture" id=7]
+[ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=8]
 
-[node name="Cauldron" instance=ExtResource( 1 )]
+[sub_resource type="CircleShape2D" id=1]
+radius = 90.0
+
+[sub_resource type="Theme" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+
+size = 48
+font_data = ExtResource( 8 )
+
+[node name="Cauldron" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="Empty" type="Sprite" parent="." index="0"]
-texture = ExtResource( 3 )
+[node name="NewIngredientSound" type="AudioStreamPlayer2D" parent="." index="0"]
+stream = ExtResource( 3 )
 
-[node name="Filled" type="Sprite" parent="." index="1"]
-visible = false
-texture = ExtResource( 4 )
-
-[node name="NewIngredientSound" type="AudioStreamPlayer2D" parent="." index="2"]
-stream = ExtResource( 5 )
-
-[node name="CookingSound" type="AudioStreamPlayer2D" parent="." index="3"]
-stream = ExtResource( 6 )
+[node name="CookingSound" type="AudioStreamPlayer2D" parent="." index="1"]
+stream = ExtResource( 4 )
 volume_db = -10.0
+
+[node name="StirSound" type="AudioStreamPlayer2D" parent="." index="2"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+
+[node name="Bowl" type="Sprite" parent="." index="3"]
+editor/display_folded = true
+texture = ExtResource( 6 )
+
+[node name="Top" type="Area2D" parent="Bowl" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Top" index="0"]
+position = Vector2( 0, -125 )
+shape = SubResource( 1 )
+
+[node name="Right" type="Area2D" parent="Bowl" index="1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Right" index="0"]
+position = Vector2( 125, 0 )
+shape = SubResource( 1 )
+
+[node name="Bottom" type="Area2D" parent="Bowl" index="2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Bottom" index="0"]
+position = Vector2( 0, 125 )
+shape = SubResource( 1 )
+
+[node name="Left" type="Area2D" parent="Bowl" index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bowl/Left" index="0"]
+position = Vector2( -125, 0 )
+shape = SubResource( 1 )
+
+[node name="BowlEmpty" type="Sprite" parent="." index="4"]
+visible = false
+texture = ExtResource( 7 )
+
+[node name="CookTimer" type="Timer" parent="." index="5"]
+wait_time = 10.0
+one_shot = true
+
+[node name="SittingTimer" type="Timer" parent="." index="6"]
+wait_time = 5.0
+one_shot = true
+
+[node name="BurnTimer" type="Timer" parent="." index="7"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Label" type="Label" parent="." index="8"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -130.5
+margin_top = -186.0
+margin_right = 130.5
+margin_bottom = -133.0
+theme = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "Cook Timer"
+align = 1
+valign = 2
+[connection signal="input_event" from="." to="." method="_on_Cauldron_input_event"]
+[connection signal="mouse_entered" from="Bowl/Top" to="." method="_on_Top_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Right" to="." method="_on_Right_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Bottom" to="." method="_on_Bottom_mouse_entered"]
+[connection signal="mouse_entered" from="Bowl/Left" to="." method="_on_Left_mouse_entered"]
+[connection signal="timeout" from="CookTimer" to="." method="_on_CookTimer_timeout"]
+[connection signal="timeout" from="SittingTimer" to="." method="_on_SittingTimer_timeout"]
+[connection signal="timeout" from="BurnTimer" to="." method="_on_BurnTimer_timeout"]

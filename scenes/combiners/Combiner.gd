@@ -1,13 +1,13 @@
-extends "res://scenes/FittedHitboxObject.gd"
-
-class_name Combiner
+class_name Combiner extends FittedHitboxObject
 
 signal new_ingredient
 signal no_ingredients
 signal multiple_ingredients
+signal correct_recipe_entered
 
 var held_ingredients = Array()
 var recipe_book
+
 var minigame_path
 var minigame
 var result_name
@@ -19,17 +19,18 @@ func _init():
 	IMG_PATH = ".import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 	type = "Combiner"
 	# minigame_path is assigned in each inherited scene
-	# Load recipebook
-	recipe_book = preload("res://scenes/RecipeBook.gd").new()
+
+func _ready():
+	recipe_book = get_node("/root/RecipeBook")
 
 
 ### PRIVATE METHODS ###
 
 # Handles mouse inputs on the combiner
 func _on_Combiner_input_event(viewport, event, shape_idx):
-	if (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		# Handles user clicks
-		if event.pressed:
+		if event.pressed and not result_name:
 			_combine_ingredients()
 
 
@@ -42,9 +43,13 @@ func _combine_ingredients():
 	var recipe = _convert_held_to_recipe()
 
 	# Then check against the combiner's recipe book
-	result_name = recipe_book.check_recipe(recipe)
+	print(recipe_book)
+	result_name = recipe_book.check_recipe(recipe, self.type)
 	if result_name:
-		_skill_check()
+		# Let the tool do its thing
+		#_skill_check()
+		print("Determine success based on tool outcome")
+		emit_signal("correct_recipe_entered")
 	else:
 		# Reached if the recipe is wrong
 		_return_ingredients()
@@ -80,6 +85,9 @@ func _skill_check():
 
 # Adds a combination's result as a new instance in the current scene
 func _spawn_result(ingredient_name):
+	if held_ingredients.empty():
+		return
+	
 	# Create new instance of spawned ingredient
 	var path = "scenes/ingredients/"+ingredient_name+".tscn"
 	var result = load(path).instance()
@@ -87,24 +95,20 @@ func _spawn_result(ingredient_name):
 	# Add new ingredient to scene
 	get_tree().current_scene.add_child(result)
 	
-	# Move new ingredient to below combiner
-	var offset = Vector2(0, get_size().y * 0.75)
-	result.position = self.position + offset
+	# Place new ingredient on the Shelf
+	GlobalVariables.shelf.place_new_ing(result)
 	
-	# Frees all held ingredients and clears held_ingredients
-	_clear_held_ingredients()
+	_return_ingredients()
+	held_ingredients.clear()
 
 
 # Ejects held ingredients on failed combination
 func _return_ingredients():
-	var target = self.position - get_size()/2
 	var ing
 	while !held_ingredients.empty():
 		ing = held_ingredients.pop_back()
-		ing.enable = true
-		# target gradually moves down to avoid stacking
-		target.y += ing.get_size().y
-		ing.position = target - ing.get_size()/2
+		ing.set_position(ing.sticky_pos)
+		ing.enable()
 		ing.show()
 		
 	emit_signal("no_ingredients")
@@ -125,10 +129,10 @@ func _clear_held_ingredients():
 func handle_new_ingredient(ingredient):
 	global_vars.held_object = null
 	
-	ingredient.hide()
-	ingredient.enable=false
 	held_ingredients.append(ingredient)
-	print("Combiner:: ", held_ingredients)
+	
+	ingredient.disable()
+	ingredient.hide()
 	
 	emit_signal("new_ingredient")
 	if held_ingredients.size() >= 2:
@@ -137,11 +141,11 @@ func handle_new_ingredient(ingredient):
 
 # Called by the minigame on completion
 func minigame_result(success):
-	minigame.queue_free()
+	#minigame.queue_free()
 	
-	global_vars.freeze_scene(global_vars.workbench, false)
-	global_vars.workbench.show()
-	global_vars.current_combiner = null
+	#global_vars.freeze_scene(global_vars.workbench, false)
+	#global_vars.workbench.show()
+	#global_vars.current_combiner = null
 
 	if success:
 		_spawn_result(result_name)

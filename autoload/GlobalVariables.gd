@@ -1,8 +1,11 @@
 extends Node2D
 
+var SCREEN_SIZE : Vector2 = OS.get_screen_size()
+
 var held_object
 var current_combiner
 var workbench
+var shelf : Shelf
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
