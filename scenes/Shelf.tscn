@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Shelf.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/purple.png" type="Texture" id=2]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/purple.png" type="Texture" id=2]
 [ext_resource path="res://scenes/ingredients/PlasticSnake.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ingredients/Gasoline.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ingredients/Silverware.tscn" type="PackedScene" id=5]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/ingredients/SnakeOil.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ingredients/QuickSilver.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/ingredients/SilverSerpentRing.tscn" type="PackedScene" id=9]
+
 
 [node name="Shelf" type="Node2D"]
 script = ExtResource( 1 )
