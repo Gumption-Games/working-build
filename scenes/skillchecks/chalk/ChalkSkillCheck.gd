@@ -5,9 +5,10 @@ const MED = 2
 const HARD = 3
 
 const CircleNode = preload("./CircleNode.tscn")
+const score_text = "Score: %d\nLives: %d"
 var rng = RandomNumberGenerator.new()
 
-var difficulty = EASY
+var difficulty = MED
 var path = []
 var generated_path = []
 var pressed = false
@@ -16,20 +17,22 @@ var failed = false
 var score = 0
 var lives = 3
 var flash_delay = 0.4
+var delay_increment = 0.9
 
 var chalk_start_point = Vector2(40, 100)
 
 var path_length = {
-	EASY: 4,
+	EASY: 5,
 	MED: 6,
-	HARD: 9
+	HARD: 8
 }
 
 var nodes = {
 	EASY: [0, 1, 2, 5, 6, 7, 10, 11, 12],
 	MED: [0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18],
-	HARD: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-			13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+	HARD: [0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18]
+#	HARD: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+#			13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 }
 
 var node_ids = {}
@@ -64,7 +67,7 @@ const neighbors = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$ChalkIcon.position = chalk_start_point
+	$UI/ChalkIcon.position = chalk_start_point
 	print(ProjectSettings.get_setting("display/window/size/height"))
 
 	randomize()
@@ -81,7 +84,7 @@ func _ready():
 
 
 func _input(event):
-	if $ChalkIcon.dragging and event is InputEventMouseMotion:
+	if $UI/ChalkIcon.dragging and event is InputEventMouseMotion:
 		$Chalk.add_point(event.position)
 
 
@@ -90,7 +93,7 @@ func _wait(time):
 
 
 func _detect_connection(NODE):
-	if $ChalkIcon.dragging and not NODE in path:
+	if $UI/ChalkIcon.dragging and not NODE in path:
 		path.append(NODE)
 		if path == generated_path:
 			print('WINNER')
@@ -139,16 +142,16 @@ func _generate_path():
 		pool = neighbors[new_node].duplicate() # Pick from last node's neighbours
 		
 		while generated_path.has(new_node) or not new_node in nodes[difficulty]:
-			# Pick random item and remove from pool
-			var rand_idx = randi() % pool.size()
-			new_node = pool[rand_idx]
-			pool.remove(rand_idx)
-			
 			# If the path corners itself, we must return early
 			if pool.empty():
 				print(generated_path)
 				print("Cornered!")
 				return
+
+			# Pick random item and remove from pool
+			var rand_idx = randi() % pool.size()
+			new_node = pool[rand_idx]
+			pool.remove(rand_idx)
 		
 		# If a suitable node is found, add to generated path
 		generated_path.append(new_node)
@@ -168,8 +171,12 @@ func _get_nodes_by_id(needed: Array):
 	return nodes_dict
 
 
-func _get_outcome():
-	return path == generated_path
+func _get_outcome(): # TODO: find a more efficient way to do this check
+	var result = path==generated_path
+	var path_minus_first = generated_path.duplicate()
+	path_minus_first.pop_front()
+
+	return result or path == path_minus_first
 
 
 func _update_scores(success):
@@ -179,29 +186,53 @@ func _update_scores(success):
 	else:
 		_fail_state()
 		print("Loser! %d lives left."%lives)
+	$Scores.set_text(score_text%[score, lives])
 
 
 func _win_state():
 	score += 1
-	$ChalkIcon.disabled = true
-	yield(_flash_all('G', flash_delay*2), "completed")
+	flash_delay *= delay_increment
+	$UI/ChalkIcon.disabled = true
+	yield(_flash_all('G', 1.0), "completed")
+	$Button.set_text("Next")
 	$Button.disabled = false
 
 
 func _fail_state():
 	lives -= 1
+	if lives <= 0:
+		_reset_game()
+		return
 	# flash for failure
 	for i in range(3):
-		yield(_flash_all('R', flash_delay), "completed")
+		yield(_flash_all('R', 0.4), "completed")
 	yield(get_tree().create_timer(0.5), "timeout")
 	_show_path_hint()
+
+
+func _reset_game():
+	$UI/ChalkIcon.disabled = true
+	$UI/Fail.visible = true
+	yield(get_tree().create_timer(3), "timeout")
+	lives = 3
+	score = 0
+	$Scores.set_text(score_text%[score, lives])
+	$Button.set_text("Try Again")
+	$Button.disabled = false
 
 
 func _show_path_hint():
 #	var hint_nodes = _get_nodes_by_id(generated_path)
 #	print(hint_nodes)
+	$UI/ChalkIcon.hide() # Disable chalk while path is shown
+	print("hidden")
 	for idx in generated_path:
 		yield(node_ids[idx].flash('B', flash_delay), "completed")
+
+	# Move chalk to starting node
+	$UI/ChalkIcon.position = node_ids[generated_path[0]].position
+	$UI/ChalkIcon.show()
+	print("shown")
 
 
 func _flash_all(c, delay):
@@ -211,16 +242,19 @@ func _flash_all(c, delay):
 
 
 func _on_Start():
+	$UI/Fail.visible = false
 	$Button.disabled = true
 	_generate_path()
 	_show_path_hint()
-	$ChalkIcon.disabled = false
+	$UI/ChalkIcon.disabled = false
 
 
 func reset():
 	var success = _get_outcome()
 	OS.delay_msec(400)
 	$Chalk.clear_points()
-	$ChalkIcon.position = chalk_start_point
+#	$UI/ChalkIcon.position = chalk_start_point
+	$UI/ChalkIcon.hide()
+	print("hidden")
 	_update_scores(success)
 	path.clear()

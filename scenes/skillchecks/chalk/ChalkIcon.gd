@@ -5,7 +5,7 @@ var disabled = true
 
 
 func _ready():
-	scene = get_parent()
+	scene = get_parent().get_parent()
 
 
 func _on_ChalkIcon_input_event(viewport, event, shape_idx):
