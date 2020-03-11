@@ -1,6 +1,4 @@
-
 [gd_scene load_steps=11 format=2]
-
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
@@ -32,7 +30,6 @@ __meta__ = {
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_left = 312.011
 margin_top = 6.66593
 margin_right = 1394.01
@@ -54,12 +51,14 @@ margin_bottom = 269.0
 texture_normal = ExtResource( 5 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
+visible = false
 margin_left = 543.0
 margin_right = 809.0
 margin_bottom = 269.0
 texture_normal = ExtResource( 6 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
+visible = false
 margin_left = 813.0
 margin_right = 1082.0
 margin_bottom = 269.0
