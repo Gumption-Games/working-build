@@ -12,9 +12,10 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 90.0
 
-[sub_resource type="Theme" id=3]
+[sub_resource type="Theme" id=2]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
+
 size = 48
 font_data = ExtResource( 8 )
 
@@ -65,7 +66,7 @@ visible = false
 texture = ExtResource( 7 )
 
 [node name="CookTimer" type="Timer" parent="." index="5"]
-wait_time = 30.0
+wait_time = 10.0
 one_shot = true
 
 [node name="SittingTimer" type="Timer" parent="." index="6"]
@@ -83,8 +84,8 @@ margin_left = -130.5
 margin_top = -186.0
 margin_right = 130.5
 margin_bottom = -133.0
-theme = SubResource( 3 )
-custom_fonts/font = SubResource( 2 )
+theme = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Cook Timer"
 align = 1
 valign = 2

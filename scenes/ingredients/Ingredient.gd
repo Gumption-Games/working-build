@@ -1,8 +1,7 @@
 class_name Ingredient extends FittedHitboxObject
 
-
 var dragging : bool = false
-
+var sticky_pos : Vector2
 
 ### INITIALIZER METHODS ###
 
@@ -28,6 +27,7 @@ func _on_Ingredient_input_event(viewport, event, shape_idx):
 			# Object is picked up
 			dragging = true
 			global_vars.held_object = self
+			sticky_pos = get_position() # Save pos for resetting
 		else:
 			# Held object is being dropped
 			dragging = false
@@ -41,15 +41,22 @@ func _handle_overlaps():
 	if overlaps:
 		for obj in overlaps:
 			# TODO: Handle combinations here
-			if obj is Combiner:	# Add object to combiner
+			if obj is Combiner: # Add object to combiner
 				obj.handle_new_ingredient(self)
 				return
+		
+		# Reset to the original position
+		self.set_position(sticky_pos)
+		
 		# No combiner found -- avoid overlaps
 		# Distance to the centre of the overlapping area
 		var to_area = overlaps[0].position - self.position
 		# Chooses direction (left or right) based on which side self is closer to
 		var direction = 1 if to_area.x<0 else -1
 		position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
+	else:
+		self.set_position(sticky_pos)
+
 
 ### PUBLIC METHODS ###
 

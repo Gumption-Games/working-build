@@ -2,5 +2,89 @@
   "BlueIngredient+RedIngredient": {
     "result": "PurpleIngredient",
     "combiner": "Cauldron"
-  }
+  },
+  "PlasticSnake+Gasoline": {
+    "result": "SnakeOil",
+    "combiner": "Cauldron"
+  },
+  "Silverware+RabbitsFoot": {
+    "result": "QuickSilver",
+    "combiner": "Cauldron"
+  },
+  "WaterBottle+Cross": {
+    "result": "HolyWater",
+    "combiner": "Cauldron"
+  },
+  "BikeWheel+Cross": {
+    "result": "PrayerWheel",
+    "combiner": "Circle"
+  },
+  "Silverware+Tongue": {
+    "result": "SilverTongue",
+    "combiner": "Circle"
+  },
+  "DeckofCards+PlasticStars": {
+    "result": "TarotDeck",
+    "combiner": "Circle"
+  },
+  "BikeWheel+PlasticStars": {
+    "result": "ZodiacWheel",
+    "combiner": "Circle"
+  },
+  "Cat+Bag": {
+    "result": "Cat-in-the-bag",
+    "combiner": "Circle"
+  },
+  "FrogLegs+Tongue": {
+    "result": "Frog-in-your-Throat",
+    "combiner": "Caudron"
+  },
+  "WaterBottle+Thyme": {
+    "result": "Timeinabottle",
+    "combiner": "Cauldron"
+  },
+  "FrogLegs+Fish": {
+    "result": "Sailor'sSea-legAle",
+    "combiner": "Cauldron"
+  },
+  "Silverware+Fish": {
+    "result": "SilverFish",
+    "combiner": "Circle"
+  },
+  "Gold+Heart": {
+    "result": "Heart-of-Gold",
+    "combiner": "Cauldron"
+  },
+  "QuickSilver+SnakeOil": {
+    "result": "SilverSerpentRing",
+    "combiner": "Cauldron"
+  },
+  "HolyWater+PrayerWheels": {
+    "result": "WheelofFaith",
+    "combiner": "Circle"
+  },
+  "TarotDeck+ZodiacWheels": {
+    "result": "WheelofFate",
+    "combiner": "Circle"
+  },
+  "LeprechaunCharm+ZodiacWheels": {
+    "result": "WheelofFortune",
+    "combiner": "Circle"
+  },
+  "Rabbit'sPocket-Watch+PrayerWheels": {
+    "result": "WheelofTime",
+    "combiner": "Circle"
+  },
+  "BrokenClock+Rabbit'sFoot": {
+    "result": "Rabbit'sPocketWatch",
+    "combiner": "Circle"
+  },
+  "Apple+PlasticSnake": {
+    "result": "AppleofEden",
+    "combiner": "Circle"
+  },
+  "LeprechaunCharm+Cat-in-the-Bag": {
+    "result": "LiquidLuck",
+    "combiner": "Cauldron"
+  },
 }
