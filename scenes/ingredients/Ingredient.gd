@@ -9,6 +9,7 @@ func _init():
 	IMG_PATH = ".import/circle.png-6efbe600b7e2418cd5091089237d13c1.stex"
 	type = "Ingredient"
 
+
 ### PRIVATE METHODS ###
 
 # Taken from:
@@ -55,6 +56,7 @@ func _handle_overlaps():
 		position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
 	else:
 		self.set_position(sticky_pos)
+
 
 ### PUBLIC METHODS ###
 

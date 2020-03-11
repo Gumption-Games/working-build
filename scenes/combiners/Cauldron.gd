@@ -78,6 +78,188 @@ func _on_no_ingredients():
 
 func _on_multiple_ingredients():
 	CookingSound.play()
+	set_disabled(false) # The Cauldron is filled
+
+
+func _on_correct_recipe_entered():
+	allow_stirring = true
+	cook_timer.start()
+	label.text = str(int(cook_timer.get_time_left()))
+	label.show()
+	mixture_state = OUTCOME.NONE
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if allow_stirring: # TODO: switch to using an enum state machine
+		
+		if mixture_state == OUTCOME.DONE:
+			label.text = "Done!"
+		elif mixture_state == OUTCOME.BURNED:
+			label.text = "Burned!"
+		else: # We're still stirring...
+		
+			# Decay velocity
+			if not Input.is_mouse_button_pressed(BUTTON_LEFT):
+				if abs(velocity) < VELOCITY_THRESHOLD:
+					velocity = 0
+				elif velocity >= VELOCITY_THRESHOLD:
+					velocity -= VELOCITY_DECAY
+				elif velocity <= -VELOCITY_THRESHOLD:
+					velocity += VELOCITY_DECAY
+			var current = bowl.get_rotation_degrees()
+			bowl.set_rotation_degrees(current + (velocity))
+			
+			label.text = str(int(cook_timer.get_time_left()))
+#			if not sitting_timer.is_stopped():
+#				if fmod(sitting_timer.get_time_left(), 0.5) == 0:
+#					label.set_modulate(Color(Color.red))
+#				else:
+#					label.set_modulate(Color(Color.white))
+			
+			if abs(velocity) < goal_lower and sitting_timer.is_stopped() and burn_timer.is_stopped():
+				# Make it start to burn
+				sitting_timer.start()
+				print("Burning!")
+		
+#		if not done:
+#			if abs(velocity) > goal_upper:
+#				# Too fast!!
+#				bowl.set_modulate(Color(0.0, 0.2, 1.0))
+#			elif abs(velocity) < goal_lower:
+#				# Too slow!
+#				bowl.set_modulate(Color(1.0, 0.2, 0.2))
+#			else:
+#				# Just right.
+#				bowl.set_modulate(Color(1.0, 1.0, 1.0))
+
+
+func _input(event):
+	# Detect pressed in order to use it in 
+	if event is InputEventMouseButton: 
+		if event.pressed == true:
+			pressed = true
+		else:
+			pressed = false
+
+
+func _on_Top_mouse_entered():
+	_detect_stir(TOP)
+
+
+func _on_Right_mouse_entered():
+	_detect_stir(RIGHT)
+
+
+func _on_Bottom_mouse_entered():
+	_detect_stir(BOTTOM)
+
+
+func _on_Left_mouse_entered():
+	_detect_stir(LEFT)
+
+
+func _detect_stir(AREA):
+	# Occurs when one of the 4 areas is entered by the mouse
+	if mixture_state != OUTCOME.NONE:
+		return
+	if pressed == true:
+		loop.append(AREA)
+		if loop.size() == k:
+			print(loop)
+			if _sum(loop) == max_value:
+				_clockwise(loop)
+				_counter_clockwise(loop) 
+				loop.clear()
+				
+				# I'm stirring, it won't burn!
+				burn_timer.stop()
+				sitting_timer.stop()
+				label.set_modulate(Color(Color.white))
+				if StirSound.is_playing():
+					StirSound.stop()
+				StirSound.play(0.1)
+				
+			else:
+				loop.clear()
+
+
+func _clockwise(array):
+	for combo in clockwise:
+		if combo == array:
+			if spin_count < 1:
+				spin_count = 0
+			spin_count += 1
+			_acceleration(VELOCITY_FACTOR)
+			print("Clockwise")
+
+
+func _counter_clockwise(array):
+	for combo in counter_clockwise:
+		if combo == array:
+			if spin_count > 1:
+				spin_count = 0
+			spin_count -= 1
+			_acceleration(-VELOCITY_FACTOR)
+			print("Counter Clockwise")
+
+
+func _acceleration(factor:float):
+	if velocity < MAX_VELOCITY and velocity > -MAX_VELOCITY:
+		velocity = velocity + factor
+		#velocity = (DEL_VELOCITY * (1 + DEL_VELOCITY/100.0))
+
+
+func _sum(array):
+	var sum = 0
+	for i in array:
+		sum += i
+	return sum
+
+
+func _on_CookTimer_timeout():
+	# Yay! We stirred it without it burning.
+	mixture_state = OUTCOME.DONE
+	sitting_timer.stop()
+	burn_timer.stop()
+	
+
+func _on_SittingTimer_timeout():
+	# The mixture has sat for too long, and it will start to burn
+	burn_timer.start()
+	label.set_modulate(Color(Color.orange))
+
+
+func _on_BurnTimer_timeout():
+	# The mixture has burned!
+	mixture_state = OUTCOME.BURNED
+	label.set_modulate(Color(Color.red))
+	bowl.set_modulate(Color(0.8, 0.8, 0.8))
+
+
+func _on_Cauldron_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed:
+		if mixture_state == OUTCOME.DONE:
+			minigame_result(true)
+			reset_cauldron()
+		elif mixture_state == OUTCOME.BURNED:
+			minigame_result(false)
+			reset_cauldron()
+		else:
+			print("Not done yet...")
+
+
+func reset_cauldron():
+	cook_timer.stop()
+	sitting_timer.stop()
+	burn_timer.stop()
+	set_disabled(true)
+	label.set_modulate(Color(Color.white))
+	bowl.set_modulate(Color(Color.white))
+	label.hide()
+	result_name = null
+
 
 
 func _on_correct_recipe_entered():
