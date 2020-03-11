@@ -78,6 +78,7 @@ func _on_no_ingredients():
 
 func _on_multiple_ingredients():
 	CookingSound.play()
+	set_disabled(false) # The Cauldron is filled
 
 
 func _on_correct_recipe_entered():
@@ -207,6 +208,7 @@ func _counter_clockwise(array):
 func _acceleration(factor:float):
 	if velocity < MAX_VELOCITY and velocity > -MAX_VELOCITY:
 		velocity = velocity + factor
+		#velocity = (DEL_VELOCITY * (1 + DEL_VELOCITY/100.0))
 
 
 func _sum(array):
@@ -257,5 +259,3 @@ func reset_cauldron():
 	bowl.set_modulate(Color(Color.white))
 	label.hide()
 	result_name = null
-
-
