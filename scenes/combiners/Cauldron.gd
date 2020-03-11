@@ -49,7 +49,7 @@ onready var progress = 20 setget set_current
 
 func set_balance(value):
 	balance = value
-	balance = clamp(balance, 0, 10)
+	balance = clamp(balance, -10, 10)
 	emit_signal("balance_changed", balance)
 
 func set_max(value):
@@ -78,6 +78,7 @@ func _ready():
 	set_disabled(true) # The Cauldron is empty to start
 	label.hide()
 	progressbar.hide()
+	balancebar.hide()
 	emit_signal("max_changed", progress_max)
 	emit_signal("changed", progress)
 
@@ -117,6 +118,7 @@ func _on_correct_recipe_entered():
 	label.text = str(int(cook_timer.get_time_left()))
 	label.show()
 	progressbar.show()
+	balancebar.show()
 	mixture_state = OUTCOME.NONE
 
 
@@ -130,10 +132,10 @@ func _process(delta):
 		elif mixture_state == OUTCOME.BURNED:
 			label.text = "Burned!"
 		else: # We're still stirring...
-			if velocity > 0:
-				set_balance(balance + (velocity*delta))
+			if abs(velocity) > 0:
+				set_balance(velocity)
 			else:
-				set_balance(balance - (velocity*delta))
+				set_balance(0)
 			
 			if velocity >= goal_lower and velocity <= goal_upper: 
 				set_current((progress + 5*delta))

@@ -42,7 +42,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="Cauldron" instance=ExtResource( 1 )]
+[node name="Cauldron" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="NewIngredientSound" type="AudioStreamPlayer2D" parent="." index="0"]
