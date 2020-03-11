@@ -7,7 +7,7 @@
     "result": "SnakeOil",
     "combiner": "Cauldron"
   },
-  "Silverware+Rabbit'sFoot": {
+  "Silverware+RabbitsFoot": {
     "result": "QuickSilver",
     "combiner": "Cauldron"
   },
@@ -56,8 +56,8 @@
     "combiner": "Cauldron"
   },
   "QuickSilver+SnakeOil": {
-    "result": "SilverSerpent'sRing",
-    "combiner": "Circle"
+    "result": "SilverSerpentRing",
+    "combiner": "Cauldron"
   },
   "HolyWater+PrayerWheels": {
     "result": "WheelofFaith",

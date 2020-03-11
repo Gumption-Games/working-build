@@ -5,6 +5,7 @@ var type
 var global_vars
 var IMG_PATH
 var size
+var collision_shape : CollisionShape2D
 
 ### INITIALIZER METHODS ###
 
@@ -28,11 +29,27 @@ func _ready():
 	self.size = sprite.texture.get_size()
 	
 	# Initialize a CollisionShape with a rectangle the size of the sprite
-	var collision_shape = CollisionShape2D.new()
+	var new_collision_shape = CollisionShape2D.new()
 	var rectangle = RectangleShape2D.new()
 	rectangle.set_extents(self.size/2)
-	collision_shape.set_shape(rectangle)
-	add_child(collision_shape)
+	new_collision_shape.set_shape(rectangle)
+	add_child(new_collision_shape)
+	
+	self.collision_shape = new_collision_shape
+
+
+func enable():
+	if collision_shape:
+		collision_shape.set_disabled(false)
+		return true
+	return false
+
+
+func disable():
+	if collision_shape:
+		collision_shape.set_disabled(true)
+		return true
+	return false
 
 
 ### PARENT METHOD OVERRIDES ###
