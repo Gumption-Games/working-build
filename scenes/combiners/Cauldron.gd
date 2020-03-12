@@ -60,7 +60,7 @@ func set_progress(value):
 		mixture_state = OUTCOME.DONE
 	if progress == 0:
 		mixture_state = OUTCOME.BURNED
-		emit_signal("depleted")
+		#emit_signal("depleted")
 		
 # Balance Bar variables
 onready var balancebar : HSlider = $BalanceBar
@@ -109,6 +109,7 @@ func set_disabled(new_value:bool):
 	right_shape.set_disabled(new_value)
 	left_shape.set_disabled(new_value)
 	bottom_shape.set_disabled(new_value)
+	allow_stirring = false
 	if new_value: # if bowl is disabled
 		bowl.hide()
 		bowl_empty.show()
@@ -120,8 +121,6 @@ func set_disabled(new_value:bool):
 	else:
 		bowl.show()
 		bowl_empty.hide()
-		progressbar.show()
-		balancebar.show()
 
 func _on_new_ingredient():
 	if NewIngredientSound.is_playing():
@@ -132,10 +131,11 @@ func _on_new_ingredient():
 func _on_no_ingredients():
 	CookingSound.stop()
 
-
 func _on_multiple_ingredients():
 	CookingSound.play()
 	set_disabled(false) # The Cauldron is filled
+	progressbar.show()
+	balancebar.show()
 
 func _on_correct_recipe_entered():
 	allow_stirring = true
@@ -261,7 +261,4 @@ func reset_cauldron():
 	label.set_modulate(Color(Color.white))
 	bowl.set_modulate(Color(Color.white))
 	label.hide()
-	progressbar.hide()
-	balancebar.hide()
-	mixture_state = OUTCOME.NONE
 	result_name = null
