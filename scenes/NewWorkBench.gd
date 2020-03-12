@@ -32,4 +32,3 @@ func show_knife():
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(knife, false)
 	knife.show()
-

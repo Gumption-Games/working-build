@@ -95,23 +95,20 @@ func _spawn_result(ingredient_name):
 	# Add new ingredient to scene
 	get_tree().current_scene.add_child(result)
 	
-	# Move new ingredient to below combiner
-	var offset = Vector2(0, get_size().y * 0.75)
-	result.position = self.position + offset
+	# Place new ingredient on the Shelf
+	GlobalVariables.shelf.place_new_ing(result)
 	
-	# Frees all held ingredients and clears held_ingredients
-	_clear_held_ingredients()
+	_return_ingredients()
+	held_ingredients.clear()
 
 
 # Ejects held ingredients on failed combination
 func _return_ingredients():
-	var target = self.position - get_size()/2
 	var ing
 	while !held_ingredients.empty():
 		ing = held_ingredients.pop_back()
-		# target gradually moves down to avoid stacking
-		target.y += ing.get_size().y
-		ing.position = target - ing.get_size()/2
+		ing.set_position(ing.sticky_pos)
+		ing.enable()
 		ing.show()
 		
 	emit_signal("no_ingredients")
@@ -132,8 +129,10 @@ func _clear_held_ingredients():
 func handle_new_ingredient(ingredient):
 	global_vars.held_object = null
 	
-	ingredient.hide()
 	held_ingredients.append(ingredient)
+	
+	ingredient.disable()
+	ingredient.hide()
 	
 	emit_signal("new_ingredient")
 	if held_ingredients.size() >= 2:

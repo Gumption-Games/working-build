@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
@@ -7,13 +7,9 @@
 [ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=5]
 [ext_resource path="res://assets/PrototypeAssets/chalkbutton.png" type="Texture" id=6]
 [ext_resource path="res://assets/PrototypeAssets/mortarbutton.png" type="Texture" id=7]
-[ext_resource path="res://assets/PrototypeAssets/shelf.png" type="Texture" id=8]
-[ext_resource path="res://assets/PrototypeAssets/potions.png" type="Texture" id=9]
-[ext_resource path="res://assets/PrototypeAssets/potions2.png" type="Texture" id=10]
-[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=10]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -34,10 +30,10 @@ __meta__ = {
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
-margin_left = 316.471
-margin_top = 396.874
-margin_right = 1398.47
-margin_bottom = 665.874
+margin_left = 312.011
+margin_top = 6.66593
+margin_right = 1394.01
+margin_bottom = 275.666
 rect_scale = Vector2( 0.294375, 0.294375 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -55,48 +51,25 @@ margin_bottom = 269.0
 texture_normal = ExtResource( 5 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
+visible = false
 margin_left = 543.0
 margin_right = 809.0
 margin_bottom = 269.0
 texture_normal = ExtResource( 6 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
+visible = false
 margin_left = 813.0
 margin_right = 1082.0
 margin_bottom = 269.0
 texture_normal = ExtResource( 7 )
 
-[node name="Shelf" type="Sprite" parent="."]
-position = Vector2( 152.247, 56.8749 )
-scale = Vector2( 0.355106, 0.355274 )
-texture = ExtResource( 8 )
+[node name="Cauldron" parent="." instance=ExtResource( 8 )]
+position = Vector2( 480, 300 )
 
-[node name="Potions" type="Sprite" parent="."]
-position = Vector2( 151.517, 184.325 )
-scale = Vector2( 0.421833, 0.559921 )
-texture = ExtResource( 9 )
+[node name="Knife" parent="." instance=ExtResource( 9 )]
+position = Vector2( 480, 300 )
 
-[node name="Potions2" type="Sprite" parent="."]
-position = Vector2( 151.517, 309.325 )
-scale = Vector2( 0.421833, 0.559921 )
-texture = ExtResource( 10 )
-
-[node name="Cauldron" parent="." instance=ExtResource( 11 )]
-position = Vector2( 480, 200 )
-
-[node name="Knife" parent="." instance=ExtResource( 12 )]
-position = Vector2( 480, 200 )
-
-[node name="RedIngredient" parent="." instance=ExtResource( 13 )]
-position = Vector2( 35.1444, 34.5636 )
-
-[node name="BlueIngredient" parent="." instance=ExtResource( 14 )]
-position = Vector2( 177.896, 35.5195 )
-
-[node name="BlueIngredient2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 128.606, 34.295 )
-
-[node name="RedIngredient2" parent="." instance=ExtResource( 13 )]
-position = Vector2( 83.1654, 33.4377 )
+[node name="Shelf" parent="." instance=ExtResource( 10 )]
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
