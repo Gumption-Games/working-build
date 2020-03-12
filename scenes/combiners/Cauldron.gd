@@ -37,35 +37,57 @@ export var goal_upper : float = 6.0
 enum OUTCOME { NONE, BURNED, DONE }
 var mixture_state
 
-signal max_changed(new_value)
-signal changed(new_value)
-signal depleted
-signal balance_changed(new_value)
+# Progress Bar variables
 onready var progressbar : ProgressBar = $ProgressBar
-onready var balancebar : HSlider = $BalanceBar
-onready var balance : float = 0
-export var progress_max : int = 100	setget set_max# This may be changed to starting progress
-onready var progress = 20 setget set_current
+signal progress_max_changed(new_value)
+signal progress_changed(new_value)
+signal depleted
+export var progress_max : int = 100	setget set_max_progress
+onready var progress = 30 setget set_progress
 
-func set_balance(value):
-	balance = value
-	balance = clamp(balance, -10, 10)
-	emit_signal("balance_changed", balance)
-
-func set_max(value):
+# Progress Bar functions
+func set_max_progress(value):
 	progress_max = value
 	progress_max = max(1, value)
-	emit_signal("max_changed", progress_max)
+	emit_signal("progress_max_changed", progress_max)
 	
-func set_current(value):
+func set_progress(value):
 	progress = value
 	progress = clamp(progress, 0, progress_max)
-	emit_signal("changed", progress)
+	emit_signal("progress_changed", progress)
 	
+	if progress == 100:
+		mixture_state = OUTCOME.DONE
 	if progress == 0:
+		mixture_state = OUTCOME.BURNED
 		emit_signal("depleted")
 		
+# Balance Bar variables
+onready var balancebar : HSlider = $BalanceBar
+signal balance_min_changed(new_value)
+signal balance_max_changed(new_value)
+signal balance_changed(new_value)
+export var balance_min : int = -MAX_VELOCITY setget set_min_balance
+export var balance_max : int = MAX_VELOCITY setget set_max_balance
+onready var balance : float = 0
 
+# Balance Bar functions
+func set_min_balance(value):
+	balance_min = value
+	balance_min = min(0, value)
+	print("this is the balance", balance_min)
+	emit_signal("balance_min_changed", balance_min)
+	
+func set_max_balance(value):
+	balance_max = value
+	balance_max = max(1, value)
+	emit_signal("balance_max_changed", balance_max)
+	
+func set_balance(value):
+	balance = value
+	balance = clamp(balance, -MAX_VELOCITY, MAX_VELOCITY)
+	emit_signal("balance_changed", balance)
+		
 func _init():
 	type = "Cauldron"
 	minigame_path = "res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn"
@@ -77,11 +99,10 @@ func _ready():
 	connect("correct_recipe_entered", self, "_on_correct_recipe_entered")
 	set_disabled(true) # The Cauldron is empty to start
 	label.hide()
-	progressbar.hide()
-	balancebar.hide()
-	emit_signal("max_changed", progress_max)
-	emit_signal("changed", progress)
-
+	emit_signal("progress_max_changed", progress_max)
+	emit_signal("progress_changed", progress)
+	emit_signal("balance_min_changed", balance_min)
+	emit_signal("balance_max_changed", balance_max)
 
 func set_disabled(new_value:bool):
 	top_shape.set_disabled(new_value)
@@ -91,36 +112,34 @@ func set_disabled(new_value:bool):
 	if new_value: # if bowl is disabled
 		bowl.hide()
 		bowl_empty.show()
+		progressbar.hide()
+		balancebar.hide()
+		set_progress(30)
+		set_balance(0)
+		velocity = 0
 	else:
 		bowl.show()
 		bowl_empty.hide()
-
+		progressbar.show()
+		balancebar.show()
 
 func _on_new_ingredient():
 	if NewIngredientSound.is_playing():
 		NewIngredientSound.stop()
 	NewIngredientSound.play(0.0)
 
-
 func _on_no_ingredients():
 	CookingSound.stop()
 	
-
-
 func _on_multiple_ingredients():
 	CookingSound.play()
 	set_disabled(false) # The Cauldron is filled
 
-
 func _on_correct_recipe_entered():
 	allow_stirring = true
-	cook_timer.start()
-	label.text = str(int(cook_timer.get_time_left()))
-	label.show()
 	progressbar.show()
 	balancebar.show()
 	mixture_state = OUTCOME.NONE
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -128,9 +147,17 @@ func _process(delta):
 	if allow_stirring: # TODO: switch to using an enum state machine
 		
 		if mixture_state == OUTCOME.DONE:
+			balancebar.hide()
+			progressbar.hide()
 			label.text = "Done!"
+			label.show()
+			
 		elif mixture_state == OUTCOME.BURNED:
+			balancebar.hide()
+			progressbar.hide()
 			label.text = "Burned!"
+			label.show()
+
 		else: # We're still stirring...
 			if abs(velocity) > 0:
 				set_balance(velocity)
@@ -138,9 +165,9 @@ func _process(delta):
 				set_balance(0)
 			
 			if velocity >= goal_lower and velocity <= goal_upper: 
-				set_current((progress + 5*delta))
+				set_progress((progress + 5*delta))
 			else:
-				set_current((progress - 5*delta))
+				set_progress((progress - 5*delta))
 			# Decay velocity
 			if not Input.is_mouse_button_pressed(BUTTON_LEFT):
 				if abs(velocity) < VELOCITY_THRESHOLD:
@@ -151,31 +178,7 @@ func _process(delta):
 					velocity += VELOCITY_DECAY
 			var current = bowl.get_rotation_degrees()
 			bowl.set_rotation_degrees(current + (velocity))
-			
-			label.text = str(int(cook_timer.get_time_left()))
-#			if not sitting_timer.is_stopped():
-#				if fmod(sitting_timer.get_time_left(), 0.5) == 0:
-#					label.set_modulate(Color(Color.red))
-#				else:
-#					label.set_modulate(Color(Color.white))
-			
-			if abs(velocity) < goal_lower and sitting_timer.is_stopped() and burn_timer.is_stopped():
-				# Make it start to burn
-				sitting_timer.start()
-				print("Burning!")
-		
-#		if not done:
-#			if abs(velocity) > goal_upper:
-#				# Too fast!!
-#				bowl.set_modulate(Color(0.0, 0.2, 1.0))
-#			elif abs(velocity) < goal_lower:
-#				# Too slow!
-#				bowl.set_modulate(Color(1.0, 0.2, 0.2))
-#			else:
-#				# Just right.
-#				bowl.set_modulate(Color(1.0, 1.0, 1.0))
-
-
+	
 func _input(event):
 	# Detect pressed in order to use it in 
 	if event is InputEventMouseButton: 
@@ -184,22 +187,17 @@ func _input(event):
 		else:
 			pressed = false
 
-
 func _on_Top_mouse_entered():
 	_detect_stir(TOP)
-
 
 func _on_Right_mouse_entered():
 	_detect_stir(RIGHT)
 
-
 func _on_Bottom_mouse_entered():
 	_detect_stir(BOTTOM)
 
-
 func _on_Left_mouse_entered():
 	_detect_stir(LEFT)
-
 
 func _detect_stir(AREA):
 	# Occurs when one of the 4 areas is entered by the mouse
@@ -214,17 +212,12 @@ func _detect_stir(AREA):
 				_counter_clockwise(loop) 
 				loop.clear()
 				
-				# I'm stirring, it won't burn!
-				burn_timer.stop()
-				sitting_timer.stop()
-				label.set_modulate(Color(Color.white))
 				if StirSound.is_playing():
 					StirSound.stop()
 				StirSound.play(0.1)
 				
 			else:
 				loop.clear()
-
 
 func _clockwise(array):
 	for combo in clockwise:
@@ -233,8 +226,6 @@ func _clockwise(array):
 				spin_count = 0
 			spin_count += 1
 			_acceleration(VELOCITY_FACTOR)
-			print("Clockwise")
-
 
 func _counter_clockwise(array):
 	for combo in counter_clockwise:
@@ -243,42 +234,17 @@ func _counter_clockwise(array):
 				spin_count = 0
 			spin_count -= 1
 			_acceleration(-VELOCITY_FACTOR)
-			print("Counter Clockwise")
-
 
 func _acceleration(factor:float):
 	if velocity < MAX_VELOCITY and velocity > -MAX_VELOCITY:
 		velocity = velocity + factor
-		#velocity = (DEL_VELOCITY * (1 + DEL_VELOCITY/100.0))
-
 
 func _sum(array):
 	var sum = 0
 	for i in array:
 		sum += i
 	return sum
-
-
-func _on_CookTimer_timeout():
-	# Yay! We stirred it without it burning.
-	mixture_state = OUTCOME.DONE
-	sitting_timer.stop()
-	burn_timer.stop()
 	
-
-func _on_SittingTimer_timeout():
-	# The mixture has sat for too long, and it will start to burn
-	burn_timer.start()
-	label.set_modulate(Color(Color.orange))
-
-
-func _on_BurnTimer_timeout():
-	# The mixture has burned!
-	mixture_state = OUTCOME.BURNED
-	label.set_modulate(Color(Color.red))
-	bowl.set_modulate(Color(0.8, 0.8, 0.8))
-
-
 func _on_Cauldron_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		if mixture_state == OUTCOME.DONE:
@@ -287,18 +253,13 @@ func _on_Cauldron_input_event(viewport, event, shape_idx):
 		elif mixture_state == OUTCOME.BURNED:
 			minigame_result(false)
 			reset_cauldron()
-		else:
-			print("Not done yet...")
-
 
 func reset_cauldron():
-	cook_timer.stop()
-	sitting_timer.stop()
-	burn_timer.stop()
 	set_disabled(true)
 	label.set_modulate(Color(Color.white))
 	bowl.set_modulate(Color(Color.white))
 	label.hide()
+	progressbar.hide()
+	balancebar.hide()
+	mixture_state = OUTCOME.NONE
 	result_name = null
-
-
