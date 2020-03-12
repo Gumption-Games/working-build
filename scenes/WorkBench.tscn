@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scenes/WorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/PrototypeAssets/Backdrops/Workbench_Base_Draft02_small.png" type="Texture" id=2]
-[ext_resource path="res://scenes/ingredients/RedObject.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/ingredients/BlueObject.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/ingredients/PurpleObject.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ingredients/RedIngredient.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ingredients/BlueIngredient.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ingredients/PurpleIngredient.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/RecipeBookGUI.tscn" type="PackedScene" id=7]
 

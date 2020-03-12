@@ -9,12 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
-"class": "BlueObject",
+"base": "Ingredient",
+"class": "BlueIngredient",
 "language": "GDScript",
-"path": "res://scenes/ingredients/BlueObject.gd"
+"path": "res://scenes/ingredients/BlueIngredient.gd"
 }, {
-"base": "Area2D",
+"base": "Combiner",
 "class": "Cauldron",
 "language": "GDScript",
 "path": "res://scenes/combiners/Cauldron.gd"
@@ -22,72 +22,150 @@ _global_script_classes=[ {
 "base": "SkillCheck",
 "class": "CauldronSkillCheck",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/CauldronSkillCheck.gd"
+"path": "res://scenes/skillchecks/cauldron/CauldronSkillCheck.gd"
 }, {
-"base": "Area2D",
+"base": "FittedHitboxObject",
 "class": "Combiner",
 "language": "GDScript",
 "path": "res://scenes/combiners/Combiner.gd"
 }, {
 "base": "Area2D",
-"class": "DraggableObject",
+"class": "CutPoint",
 "language": "GDScript",
-"path": "res://scenes/DraggableObject.gd"
+"path": "res://scenes/combiners/CutPoint.gd"
+}, {
+"base": "Node2D",
+"class": "CuttingSkillCheck",
+"language": "GDScript",
+"path": "res://scenes/skillchecks/cutting/CuttingSkillCheck.gd"
 }, {
 "base": "SkillCheck",
 "class": "ExampleSkillCheck",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/ExampleSkillCheck.gd"
+"path": "res://scenes/skillchecks/example/ExampleSkillCheck.gd"
 }, {
 "base": "Area2D",
-"class": "PurpleObject",
+"class": "FittedHitboxObject",
 "language": "GDScript",
-"path": "res://scenes/ingredients/PurpleObject.gd"
+"path": "res://scenes/FittedHitboxObject.gd"
+}, {
+"base": "Ingredient",
+"class": "Gasoline",
+"language": "GDScript",
+"path": "res://scenes/ingredients/Gasoline.gd"
+}, {
+"base": "FittedHitboxObject",
+"class": "Ingredient",
+"language": "GDScript",
+"path": "res://scenes/ingredients/Ingredient.gd"
+}, {
+"base": "Combiner",
+"class": "Knife",
+"language": "GDScript",
+"path": "res://scenes/combiners/Knife.gd"
 }, {
 "base": "Node2D",
-"class": "RecipeBook",
+"class": "NewWorkBench",
 "language": "GDScript",
-"path": "res://autoload/RecipeBook.gd"
+"path": "res://scenes/NewWorkBench.gd"
+}, {
+"base": "Ingredient",
+"class": "PlasticSnake",
+"language": "GDScript",
+"path": "res://scenes/ingredients/PlasticSnake.gd"
+}, {
+"base": "Ingredient",
+"class": "PurpleIngredient",
+"language": "GDScript",
+"path": "res://scenes/ingredients/PurpleIngredient.gd"
+}, {
+"base": "Ingredient",
+"class": "QuickSilver",
+"language": "GDScript",
+"path": "res://scenes/ingredients/QuickSilver.gd"
+}, {
+"base": "Ingredient",
+"class": "RabbitsFoot",
+"language": "GDScript",
+"path": "res://scenes/ingredients/RabbitsFoot.gd"
 }, {
 "base": "Node2D",
 "class": "RecipeBookGUI",
 "language": "GDScript",
 "path": "res://scenes/RecipeBookGUI.gd"
 }, {
-"base": "Area2D",
-"class": "RedObject",
+"base": "Ingredient",
+"class": "RedIngredient",
 "language": "GDScript",
-"path": "res://scenes/ingredients/RedObject.gd"
+"path": "res://scenes/ingredients/RedIngredient.gd"
+}, {
+"base": "Node2D",
+"class": "Shelf",
+"language": "GDScript",
+"path": "res://scenes/Shelf.gd"
+}, {
+"base": "Ingredient",
+"class": "SilverSerpentRing",
+"language": "GDScript",
+"path": "res://scenes/ingredients/SilverSerpentRing.gd"
+}, {
+"base": "Ingredient",
+"class": "Silverware",
+"language": "GDScript",
+"path": "res://scenes/ingredients/Silverware.gd"
 }, {
 "base": "Node2D",
 "class": "SkillCheck",
 "language": "GDScript",
 "path": "res://scenes/skillchecks/SkillCheck.gd"
 }, {
+"base": "Ingredient",
+"class": "SnakeOil",
+"language": "GDScript",
+"path": "res://scenes/ingredients/SnakeOil.gd"
+}, {
 "base": "Node",
 "class": "TitleScreen",
 "language": "GDScript",
-"path": "res://scenes/TitleScreen.gd"
+"path": "res://scenes/title/TitleScreen.gd"
+}, {
+"base": "Node2D",
+"class": "WorkBench",
+"language": "GDScript",
+"path": "res://scenes/WorkBench.gd"
 } ]
 _global_script_class_icons={
-"BlueObject": "",
+"BlueIngredient": "",
 "Cauldron": "",
 "CauldronSkillCheck": "",
 "Combiner": "",
-"DraggableObject": "",
+"CutPoint": "",
+"CuttingSkillCheck": "",
 "ExampleSkillCheck": "",
-"PurpleObject": "",
-"RecipeBook": "",
+"FittedHitboxObject": "",
+"Gasoline": "",
+"Ingredient": "",
+"Knife": "",
+"NewWorkBench": "",
+"PlasticSnake": "",
+"PurpleIngredient": "",
+"QuickSilver": "",
+"RabbitsFoot": "",
 "RecipeBookGUI": "",
-"RedObject": "",
+"RedIngredient": "",
+"Shelf": "",
+"SilverSerpentRing": "",
+"Silverware": "",
 "SkillCheck": "",
-"TitleScreen": ""
+"SnakeOil": "",
+"TitleScreen": "",
+"WorkBench": ""
 }
 
 [application]
 
 config/name="working-build"
-run/main_scene="res://scenes/TitleScreen.tscn"
+run/main_scene="res://scenes/title/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -98,7 +176,9 @@ RecipeBook="*res://autoload/RecipeBook.gd"
 [display]
 
 window/size/width=640
-window/size/height=360
+window/size/height=480
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [rendering]
 
