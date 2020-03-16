@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Shelf.gd" type="Script" id=1]
 [ext_resource path="res://assets/PrototypeAssets/Sprites/purple.png" type="Texture" id=2]
@@ -6,9 +6,6 @@
 [ext_resource path="res://scenes/ingredients/Gasoline.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ingredients/Silverware.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ingredients/RabbitsFoot.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/ingredients/SnakeOil.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/ingredients/QuickSilver.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/ingredients/SilverSerpentRing.tscn" type="PackedScene" id=9]
 
 [node name="Shelf" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,7 +13,6 @@ ings_per_row = 4
 margin = Vector2( 61, 81 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 6.93273, 6.93273 )
 scale = Vector2( 1.11395, 0.848277 )
 texture = ExtResource( 2 )
 centered = false
@@ -32,15 +28,3 @@ position = Vector2( 140.375, 40.7541 )
 
 [node name="RabbitsFoot" parent="." instance=ExtResource( 6 )]
 position = Vector2( 198.947, 41.0526 )
-
-[node name="SnakeOil" parent="." instance=ExtResource( 7 )]
-visible = false
-position = Vector2( 43.6999, 103.55 )
-
-[node name="QuickSilver" parent="." instance=ExtResource( 8 )]
-visible = false
-position = Vector2( 166.25, 105.45 )
-
-[node name="SilverSerpentRing" parent="." instance=ExtResource( 9 )]
-visible = false
-position = Vector2( 105.234, 160.172 )

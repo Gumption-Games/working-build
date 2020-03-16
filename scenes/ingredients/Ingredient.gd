@@ -20,7 +20,7 @@ func _ready():
 # 2020-01-30
 func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and dragging:
-		position = get_global_mouse_position()
+		set_global_position(get_global_mouse_position())
 
 
 func _on_Ingredient_input_event(viewport, event, shape_idx):
@@ -30,7 +30,7 @@ func _on_Ingredient_input_event(viewport, event, shape_idx):
 			# Object is picked up
 			dragging = true
 			global_vars.held_object = self
-			sticky_pos = get_position() # Save pos for resetting
+			sticky_pos = get_global_position() # Save pos for resetting
 		else:
 			# Held object is being dropped
 			dragging = false
@@ -49,7 +49,7 @@ func _handle_overlaps():
 				return
 		
 		# Reset to the original position
-		self.set_position(sticky_pos)
+		GlobalVariables.shelf.put_back_ing(self)
 		
 		# No combiner found -- avoid overlaps
 		# Distance to the centre of the overlapping area
@@ -58,7 +58,7 @@ func _handle_overlaps():
 		#var direction = 1 if to_area.x<0 else -1
 		#position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
 	else:
-		self.set_position(sticky_pos)
+		GlobalVariables.shelf.put_back_ing(self)
 
 
 func _set_label(label_str:String):
