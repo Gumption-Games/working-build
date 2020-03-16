@@ -9,8 +9,6 @@
 
 [node name="Shelf" type="Node2D"]
 script = ExtResource( 1 )
-ings_per_row = 4
-margin = Vector2( 61, 81 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1, 1.46 )
