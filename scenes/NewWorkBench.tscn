@@ -3,10 +3,10 @@
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
 [ext_resource path="res://scenes/Dialogue.gd" type="Script" id=3]
-[ext_resource path="res://assets/PrototypeAssets/potbutton.png" type="Texture" id=4]
-[ext_resource path="res://assets/PrototypeAssets/knifebutton.png" type="Texture" id=5]
-[ext_resource path="res://assets/PrototypeAssets/chalkbutton.png" type="Texture" id=6]
-[ext_resource path="res://assets/PrototypeAssets/mortarbutton.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/Button_Transmutation_Proto2.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=7]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=10]
@@ -20,49 +20,56 @@ volume_db = -10.0
 autoplay = true
 
 [node name="Dialogue" type="Label" parent="."]
-margin_left = 7.0
-margin_top = 398.0
-margin_right = 303.0
-margin_bottom = 474.0
+margin_left = 10.0
+margin_top = 510.0
+margin_right = 306.0
+margin_bottom = 586.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
-margin_left = 110.0
-margin_top = -4.76837e-07
-margin_right = 1192.0
-margin_bottom = 269.0
-rect_scale = Vector2( 0.294375, 0.294375 )
+editor/display_folded = true
+margin_left = 7.0
+margin_top = 6.66593
+margin_right = 1089.0
+margin_bottom = 106.666
+rect_scale = Vector2( 0.543912, 0.543912 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
-margin_right = 267.0
-margin_bottom = 269.0
+margin_right = 262.0
+margin_bottom = 100.0
 texture_normal = ExtResource( 4 )
 
 [node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
-margin_left = 271.0
-margin_right = 539.0
-margin_bottom = 269.0
+margin_left = 266.0
+margin_right = 528.0
+margin_bottom = 100.0
 texture_normal = ExtResource( 5 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
-visible = false
-margin_left = 543.0
-margin_right = 809.0
-margin_bottom = 269.0
+margin_left = 532.0
+margin_right = 794.0
+margin_bottom = 100.0
 texture_normal = ExtResource( 6 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
-visible = false
-margin_left = 813.0
-margin_right = 1082.0
-margin_bottom = 269.0
+margin_left = 798.0
+margin_right = 1061.0
+margin_bottom = 100.0
 texture_normal = ExtResource( 7 )
+
+[node name="ShelfLabel" type="Label" parent="."]
+margin_left = 627.815
+margin_top = 20.0
+margin_right = 700.815
+margin_bottom = 34.0
+rect_scale = Vector2( 1.9864, 1.9864 )
+text = "Ingredients"
 
 [node name="Cauldron" parent="." instance=ExtResource( 8 )]
 position = Vector2( 280, 300 )
@@ -71,6 +78,6 @@ position = Vector2( 280, 300 )
 position = Vector2( 280, 300 )
 
 [node name="Shelf" parent="." instance=ExtResource( 10 )]
-position = Vector2( 550, 6.66593 )
+position = Vector2( 590, 60 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
