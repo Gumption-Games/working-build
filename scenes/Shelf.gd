@@ -1,10 +1,12 @@
 class_name Shelf extends Node2D
 
 export var ings_per_row := 3
-export var margin := Vector2(60.0, 60.0)
+export var ing_scale := Vector2(0.25, 0.25)
+export var margin := Vector2(66.0, 66.0)
 var pos := Vector2(0.0, 0.0)
 
-onready var topleft :Vector2 = $Sprite.get_position() + (margin/2)
+onready var topleft :Vector2 = $Sprite.get_global_position() + (margin/2)
+
 
 func _ready():
 	# globalvars for combiners to place new ingredients
@@ -24,9 +26,15 @@ func place_new_ing(ing : Ingredient):
 	var new_x : float = topleft.x + (margin.x * pos.x)
 	var new_y : float = topleft.y + (margin.y * pos.y)
 	var new_pos := Vector2(new_x, new_y)
-	ing.set_position(new_pos)
 	ing.sticky_pos = new_pos
+	ing.set_scale(ing_scale)
+	put_back_ing(ing)
 	pos.x += 1.0
 	if pos.x >= ings_per_row:
 		pos.x = 0.0
 		pos.y += 1.0
+
+
+func put_back_ing(ing : Ingredient):
+	ing.set_global_position(ing.sticky_pos)
+

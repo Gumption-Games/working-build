@@ -118,7 +118,7 @@ func set_disabled(new_value:bool):
 		set_progress(30)
 		set_balance(0)
 		velocity = 0
-	else:
+	else: # bowl is holding something; show it
 		bowl.show()
 		bowl_empty.hide()
 
@@ -130,12 +130,11 @@ func _on_new_ingredient():
 
 func _on_no_ingredients():
 	CookingSound.stop()
+	set_disabled(true)
 
 func _on_multiple_ingredients():
 	CookingSound.play()
 	set_disabled(false) # The Cauldron is filled
-	progressbar.show()
-	balancebar.show()
 
 func _on_correct_recipe_entered():
 	allow_stirring = true

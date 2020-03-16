@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/glyphs SFX.wav-9da466fb3457b8fb214e998f544aa795.sample"
+
+[deps]
+
+source_file="res://assets/sfx/glyphs SFX.wav"
+dest_files=[ "res://.import/glyphs SFX.wav-9da466fb3457b8fb214e998f544aa795.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
