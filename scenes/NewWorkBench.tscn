@@ -1,30 +1,43 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
-[ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
-[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=3]
-[ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=4]
-[ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=5]
-[ext_resource path="res://assets/images/Button_Transmutation_Proto2.png" type="Texture" id=6]
-[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=7]
-[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=2]
+[ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=3]
+[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=4]
+[ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/Button_Transmutation_Proto2.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=8]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=11]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BackgroundWood" type="Sprite" parent="."]
+position = Vector2( 7, 61.3931 )
+scale = Vector2( 0.534965, 0.534965 )
+texture = ExtResource( 2 )
+centered = false
 
 [node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 2 )
+stream = ExtResource( 3 )
 volume_db = -10.0
 autoplay = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Dialogue" type="Label" parent="."]
-margin_left = 10.0
-margin_top = 510.0
-margin_right = 306.0
-margin_bottom = 586.0
-script = ExtResource( 3 )
+margin_left = 7.2982
+margin_top = 524.59
+margin_right = 303.298
+margin_bottom = 600.59
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,25 +56,25 @@ __meta__ = {
 [node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_right = 262.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 4 )
+texture_normal = ExtResource( 5 )
 
 [node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 266.0
 margin_right = 528.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 6 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 532.0
 margin_right = 794.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 7 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 798.0
 margin_right = 1061.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 7 )
+texture_normal = ExtResource( 8 )
 
 [node name="ShelfLabel" type="Label" parent="."]
 margin_left = 627.815
@@ -71,15 +84,15 @@ margin_bottom = 34.0
 rect_scale = Vector2( 1.9864, 1.9864 )
 text = "Ingredients"
 
-[node name="Cauldron" parent="." instance=ExtResource( 8 )]
+[node name="Cauldron" parent="." instance=ExtResource( 9 )]
 position = Vector2( 280, 300 )
 scale = Vector2( 1.18642, 1.18642 )
 
-[node name="Knife" parent="." instance=ExtResource( 9 )]
+[node name="Knife" parent="." instance=ExtResource( 10 )]
 position = Vector2( 280, 300 )
 scale = Vector2( 1.24841, 1.24841 )
 
-[node name="Shelf" parent="." instance=ExtResource( 10 )]
+[node name="Shelf" parent="." instance=ExtResource( 11 )]
 position = Vector2( 590, 60 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
