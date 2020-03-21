@@ -103,7 +103,7 @@ func _spawn_result(ingredient_name):
 		GlobalVariables.shelf.add_child(result)
 		# Place new ingredient on the Shelf
 		GlobalVariables.shelf.place_new_ing(result)
-		emit_signal("ingredient_discovered")
+		emit_signal("ingredient_discovered", result)
 	_return_ingredients()
 	held_ingredients.clear()
 
