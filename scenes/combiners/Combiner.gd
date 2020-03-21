@@ -4,6 +4,7 @@ signal new_ingredient
 signal no_ingredients
 signal multiple_ingredients
 signal correct_recipe_entered
+signal ingredient_discovered
 
 var held_ingredients = Array()
 var recipe_book
@@ -12,6 +13,7 @@ var minigame_path
 var minigame
 var result_name
 
+onready var workbench = find_parent("NewWorkBench")
 
 ### INITIALIZER METHODS ###
 
@@ -22,7 +24,7 @@ func _init():
 
 func _ready():
 	recipe_book = get_node("/root/RecipeBook")
-
+	connect("ingredient_discovered", workbench, "_on_ingredient_discovered")
 
 ### PRIVATE METHODS ###
 
@@ -101,7 +103,7 @@ func _spawn_result(ingredient_name):
 		GlobalVariables.shelf.add_child(result)
 		# Place new ingredient on the Shelf
 		GlobalVariables.shelf.place_new_ing(result)
-		
+		emit_signal("ingredient_discovered")
 	_return_ingredients()
 	held_ingredients.clear()
 
