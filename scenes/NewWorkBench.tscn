@@ -23,6 +23,9 @@ position = Vector2( 7, 61.3931 )
 scale = Vector2( 0.534965, 0.534965 )
 texture = ExtResource( 2 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="bgm" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )

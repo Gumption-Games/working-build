@@ -88,16 +88,20 @@ func _spawn_result(ingredient_name):
 	if held_ingredients.empty():
 		return
 	
-	# Create new instance of spawned ingredient
-	var path = "scenes/ingredients/"+ingredient_name+".tscn"
-	var result = load(path).instance()
-	
-	# Add new ingredient to scene
-	get_tree().current_scene.add_child(result)
-	
-	# Place new ingredient on the Shelf
-	GlobalVariables.shelf.place_new_ing(result)
-	
+	# Check to see if we already have that ingredient
+	# WARNING: this is conflating Ing type and recipe result
+	#		** Ing's type needs to match its name in the Recipe book
+	print("New Ingredient name: ", ingredient_name)
+	var learned :bool = GlobalVariables.shelf.learn_ing_type(ingredient_name)
+	if learned: # if the result is an undiscovered ingredient
+		# Create new instance of spawned ingredient
+		var path = "scenes/ingredients/"+ingredient_name+".tscn"
+		var result = load(path).instance()
+		# Add new ingredient to scene
+		GlobalVariables.shelf.add_child(result)
+		# Place new ingredient on the Shelf
+		GlobalVariables.shelf.place_new_ing(result)
+		
 	_return_ingredients()
 	held_ingredients.clear()
 

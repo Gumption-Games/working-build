@@ -15,6 +15,7 @@ onready var cook_timer : Timer = $CookTimer
 onready var sitting_timer : Timer = $SittingTimer
 onready var burn_timer : Timer = $BurnTimer
 
+export var skip_stirring := false
 var allow_stirring := false
 
 # Stirring variables
@@ -248,7 +249,7 @@ func _sum(array):
 	
 func _on_Cauldron_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
-		if mixture_state == OUTCOME.DONE:
+		if mixture_state == OUTCOME.DONE or skip_stirring:
 			minigame_result(true)
 			reset_cauldron()
 		elif mixture_state == OUTCOME.BURNED:
