@@ -1,7 +1,7 @@
 class_name CutPoint extends Area2D
 
-var width : float = 5.0 	# by default; gets overwritten
-var height: float = 20.0	# by default; gets overwritten
+var width : float = 2.0 # by default; gets overwritten
+var height: float = 2.0 # by default; gets overwritten
 onready var shape : RectangleShape2D = $CollisionShape2D.shape
 
 var cut := false
