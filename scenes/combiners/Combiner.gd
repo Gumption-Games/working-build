@@ -107,10 +107,9 @@ func _return_ingredients():
 	var ing
 	while !held_ingredients.empty():
 		ing = held_ingredients.pop_back()
-		ing.set_position(ing.sticky_pos)
+		GlobalVariables.shelf.put_back_ing(ing)
 		ing.enable()
 		ing.show()
-		
 	emit_signal("no_ingredients")
 
 

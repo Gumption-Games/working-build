@@ -2,6 +2,7 @@ class_name Ingredient extends FittedHitboxObject
 
 var dragging : bool = false
 var sticky_pos : Vector2
+onready var label : Label = $Label
 
 ### INITIALIZER METHODS ###
 
@@ -9,6 +10,8 @@ func _init():
 	IMG_PATH = ".import/circle.png-6efbe600b7e2418cd5091089237d13c1.stex"
 	type = "Ingredient"
 
+func _ready():
+	label.hide()
 
 ### PRIVATE METHODS ###
 
@@ -17,17 +20,17 @@ func _init():
 # 2020-01-30
 func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and dragging:
-		position = get_global_mouse_position()
+		set_global_position(get_global_mouse_position())
 
 
-# Called when input occurs AND mouse is within object's CollisionShape2D
 func _on_Ingredient_input_event(viewport, event, shape_idx):
+	# If input occurs AND mouse is within object's CollisionShape2D
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		if event.pressed:
 			# Object is picked up
 			dragging = true
 			global_vars.held_object = self
-			sticky_pos = get_position() # Save pos for resetting
+			sticky_pos = get_global_position() # Save pos for resetting
 		else:
 			# Held object is being dropped
 			dragging = false
@@ -46,16 +49,35 @@ func _handle_overlaps():
 				return
 		
 		# Reset to the original position
-		self.set_position(sticky_pos)
+		GlobalVariables.shelf.put_back_ing(self)
 		
 		# No combiner found -- avoid overlaps
 		# Distance to the centre of the overlapping area
-		var to_area = overlaps[0].position - self.position
+		#var to_area = overlaps[0].position - self.position
 		# Chooses direction (left or right) based on which side self is closer to
-		var direction = 1 if to_area.x<0 else -1
-		position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
+		#var direction = 1 if to_area.x<0 else -1
+		#position.x += to_area.x + (overlaps[0].get_size().x + self.size.x)/2 * direction
 	else:
-		self.set_position(sticky_pos)
+		GlobalVariables.shelf.put_back_ing(self)
+
+
+func _set_label(label_str:String):
+	label.text = label_str
+	#void set_margins_preset( LayoutPreset preset, LayoutPresetMode resize_mode=0, int margin=0 )
+	#var layoutpreset : LayoutPreset = LayoutPreset.CENTER
+	#label.set_margins_preset( \
+	#		LayoutPreset.CENTER, \
+	#		LayoutPresetMode.PRESET_MODE_KEEP_SIZE, \
+	#		40 \
+	#)
+
+
+func _on_Ingredient_mouse_entered():
+	label.visible = true
+
+
+func _on_Ingredient_mouse_exited():
+	label.visible = false
 
 
 ### PUBLIC METHODS ###

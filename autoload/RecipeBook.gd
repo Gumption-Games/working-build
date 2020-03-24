@@ -3,7 +3,7 @@ extends Node2D
 var type
 
 var book = Dictionary()
-var recipes_path = "assets/Recipes.json"
+var recipes_path = "res://assets/Recipes.json"
 var default_recipe = ["BlueIngredient", "RedIngredient"]
 var default_result = "PurpleIngredient"
 
