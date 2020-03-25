@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=2]
-[ext_resource path="res://assets/bgm/bgLoop.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/bgm/bg1.ogg" type="AudioStream" id=3]
 [ext_resource path="res://scenes/Dialogue.gd" type="Script" id=4]
 [ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=6]
@@ -10,7 +10,8 @@
 [ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=8]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=12]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,11 +26,14 @@ centered = false
 stream = ExtResource( 3 )
 volume_db = -10.0
 autoplay = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Dialogue" type="Label" parent="."]
-margin_left = 7.2982
+margin_left = 106.809
 margin_top = 524.59
-margin_right = 303.298
+margin_right = 556.809
 margin_bottom = 600.59
 script = ExtResource( 4 )
 __meta__ = {
@@ -85,7 +89,11 @@ scale = Vector2( 1.18642, 1.18642 )
 position = Vector2( 280, 300 )
 scale = Vector2( 1.24841, 1.24841 )
 
-[node name="Shelf" parent="." instance=ExtResource( 11 )]
+[node name="Chalk" parent="." instance=ExtResource( 11 )]
+position = Vector2( 280, 300 )
+
+[node name="Shelf" parent="." instance=ExtResource( 12 )]
 position = Vector2( 590, 60 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
+[connection signal="pressed" from="SkillCheckButtons/ChalkButton" to="." method="show_chalk"]
