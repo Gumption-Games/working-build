@@ -5,7 +5,8 @@ onready var book = get_node("/root/RecipeBook")
 
 onready var cauldron := $Cauldron
 onready var knife := $Knife
-onready var combiners : Array = [cauldron, knife]
+onready var chalk := $Chalk
+onready var combiners : Array = [cauldron, knife, chalk]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -32,3 +33,9 @@ func show_knife():
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(knife, false)
 	knife.show()
+
+
+func show_chalk():
+	hide_all_combiners()
+	GlobalVariables.freeze_scene(chalk, false)
+	chalk.show()

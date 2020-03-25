@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=2]
@@ -10,7 +10,8 @@
 [ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=8]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=12]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -43,7 +44,6 @@ __meta__ = {
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_left = 7.0
 margin_top = 6.66593
 margin_right = 1089.0
@@ -92,7 +92,11 @@ scale = Vector2( 1.18642, 1.18642 )
 position = Vector2( 280, 300 )
 scale = Vector2( 1.24841, 1.24841 )
 
-[node name="Shelf" parent="." instance=ExtResource( 11 )]
+[node name="Chalk" parent="." instance=ExtResource( 11 )]
+position = Vector2( 280, 300 )
+
+[node name="Shelf" parent="." instance=ExtResource( 12 )]
 position = Vector2( 590, 60 )
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
+[connection signal="pressed" from="SkillCheckButtons/ChalkButton" to="." method="show_chalk"]
