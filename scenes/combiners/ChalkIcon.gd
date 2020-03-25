@@ -1,4 +1,4 @@
-extends FittedHitboxObject
+class_name ChalkIcon extends FittedHitboxObject
 
 var scene
 var disabled : bool = true

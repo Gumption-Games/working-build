@@ -1,4 +1,4 @@
-extends "res://scenes/combiners/Combiner.gd"
+class_name Chalk extends Combiner
 
 const EASY = 1
 const MED = 2
@@ -9,7 +9,7 @@ const score_text = "Score: %d\nLives: %d"
 onready var scores := $HUD/Scores
 onready var start_button := $HUD/Button
 onready var chalk_icon := $UI/ChalkIcon
-onready var chalk_line := $Chalk
+onready var chalk_line := $ChalkLine
 var rng = RandomNumberGenerator.new()
 
 var difficulty = MED
