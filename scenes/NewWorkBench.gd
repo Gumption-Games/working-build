@@ -6,7 +6,8 @@ onready var new_ing_dialog_scene = preload("res://scenes/gui/NewIngPopup.tscn")
 
 onready var cauldron := $Cauldron
 onready var knife := $Knife
-onready var combiners : Array = [cauldron, knife]
+onready var chalk := $Chalk
+onready var combiners : Array = [cauldron, knife, chalk]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,6 +36,12 @@ func show_knife():
 	knife.show()
 
 
+func show_chalk():
+	hide_all_combiners()
+	GlobalVariables.freeze_scene(chalk, false)
+	chalk.show()
+
+	
 func _on_ingredient_discovered(ing:Ingredient):
 	var ing_name = ing.label.text
 	var popup = new_ing_dialog_scene.instance()
@@ -47,4 +54,3 @@ func _on_ingredient_discovered(ing:Ingredient):
 		popup_spr.set_position(Vector2(popup.size.x*0.5, popup.size.y*0.45))
 		popup.add_child(popup_spr)
 	popup.popup()
-

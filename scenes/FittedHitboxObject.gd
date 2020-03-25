@@ -17,9 +17,11 @@ func _ready():
 	global_vars = get_node("/root/GlobalVariables")
 	
 	var sprite = _check_for_sprite()
-	if !sprite:
+	if !sprite && IMG_PATH:
 		# Creates new sprite using IMG_PATH for texture
 		var image = load(IMG_PATH)
+		print("Loading ", IMG_PATH)
+		print(type)
 		sprite = Sprite.new()
 		sprite.set_texture(image)
 		sprite.set_name("Sprite")
