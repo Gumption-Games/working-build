@@ -1,47 +1,46 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
-[ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
-[ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=3]
-[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=4]
-[ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=5]
-[ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=6]
-[ext_resource path="res://assets/images/Button_Transmutation_Proto2.png" type="Texture" id=7]
-[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=8]
-[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=2]
+[ext_resource path="res://assets/bgm/bg1.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/bgm/bg4.ogg" type="AudioStream" id=4]
+[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=5]
+[ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/Button_Transmutation_Proto2.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=9]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=13]
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 2 )
-volume_db = -10.0
-autoplay = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="BackgroundWood" type="Sprite" parent="."]
 position = Vector2( 7, 61.3931 )
 scale = Vector2( 0.534965, 0.534965 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 centered = false
-__meta__ = {
-"_edit_lock_": true
-}
+
+[node name="bgm1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+
+[node name="bgm2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+
+[node name="BgmTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
 
 [node name="Dialogue" type="Label" parent="."]
 margin_left = 106.809
 margin_top = 524.59
 margin_right = 556.809
 margin_bottom = 600.59
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -59,25 +58,25 @@ __meta__ = {
 [node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_right = 262.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 6 )
 
 [node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 266.0
 margin_right = 528.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 7 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 532.0
 margin_right = 794.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 7 )
+texture_normal = ExtResource( 8 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 798.0
 margin_right = 1061.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 8 )
+texture_normal = ExtResource( 9 )
 
 [node name="ShelfLabel" type="Label" parent="."]
 margin_left = 627.815
@@ -87,20 +86,22 @@ margin_bottom = 34.0
 rect_scale = Vector2( 1.9864, 1.9864 )
 text = "Ingredients"
 
-[node name="Cauldron" parent="." instance=ExtResource( 9 )]
+[node name="Cauldron" parent="." instance=ExtResource( 10 )]
 position = Vector2( 280, 300 )
 scale = Vector2( 1.18642, 1.18642 )
-skip_stirring = true
 
-[node name="Knife" parent="." instance=ExtResource( 10 )]
+[node name="Knife" parent="." instance=ExtResource( 11 )]
 position = Vector2( 280, 300 )
 scale = Vector2( 1.24841, 1.24841 )
 
-[node name="Chalk" parent="." instance=ExtResource( 11 )]
+[node name="Chalk" parent="." instance=ExtResource( 12 )]
 position = Vector2( 280, 300 )
 
-[node name="Shelf" parent="." instance=ExtResource( 12 )]
+[node name="Shelf" parent="." instance=ExtResource( 13 )]
 position = Vector2( 590, 60 )
+[connection signal="finished" from="bgm1" to="." method="_on_bgm_finished"]
+[connection signal="finished" from="bgm2" to="." method="_on_bgm_finished"]
+[connection signal="timeout" from="BgmTimer" to="." method="_cycle_bgm"]
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
 [connection signal="pressed" from="SkillCheckButtons/ChalkButton" to="." method="show_chalk"]

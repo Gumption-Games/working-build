@@ -4,6 +4,11 @@ onready var global_vars = get_node("/root/GlobalVariables")
 onready var book = get_node("/root/RecipeBook")
 onready var new_ing_dialog_scene = preload("res://scenes/gui/NewIngPopup.tscn")
 
+onready var bgm1 := $bgm1
+onready var bgm2 := $bgm2
+onready var bgms :Array = [bgm1, bgm2] # Cycle between background music tracks
+onready var bgm_index := 0
+onready var bgm_timer := $BgmTimer # Period of silence between music tracks
 onready var cauldron := $Cauldron
 onready var knife := $Knife
 onready var chalk := $Chalk
@@ -16,6 +21,7 @@ func _ready():
 	global_vars.current_combiner = cauldron # Do we need this?
 	hide_all_combiners()
 	show_cauldron()
+	_cycle_bgm() # Start the background music
 
 
 func hide_all_combiners():
@@ -54,3 +60,20 @@ func _on_ingredient_discovered(ing:Ingredient):
 		popup_spr.set_position(Vector2(popup.size.x*0.5, popup.size.y*0.45))
 		popup.add_child(popup_spr)
 	popup.popup()
+
+
+func _on_bgm_finished():
+	bgm_timer.start() # Buffer of silence between music
+
+
+# Triggered on BgmTimer timeout
+func _cycle_bgm():
+	if bgm_index >= bgms.size():
+		# We reached the end of the tracklist; restart it
+		bgm_index = 0
+		bgm_timer.start() # Extra long silence before the tracklist repeats
+		return
+	bgms[bgm_index].play()
+	bgm_index += 1
+
+
