@@ -12,6 +12,8 @@ var minigame_path
 var minigame
 var result_name
 
+onready var RejectionSound := $RejectionSound
+onready var CompletionSound := $CompletionSound
 
 ### INITIALIZER METHODS ###
 
@@ -106,6 +108,7 @@ func _spawn_result(ingredient_name):
 func _return_ingredients():
 	var ing
 	while !held_ingredients.empty():
+		RejectionSound.play(0.0)
 		ing = held_ingredients.pop_back()
 		GlobalVariables.shelf.put_back_ing(ing)
 		ing.enable()
@@ -148,6 +151,7 @@ func minigame_result(success):
 
 	if success:
 		_spawn_result(result_name)
+		CompletionSound.play(0.0)
 	else:
 		_return_ingredients()
 
