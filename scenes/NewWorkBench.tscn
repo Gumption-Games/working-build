@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=2]
-[ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/bgm/bg1.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/images/Wood_Backdrop-07.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Dialogue.gd" type="Script" id=4]
 [ext_resource path="res://assets/images/Button_Cauldron_Proto2.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/Button_Cut_Proto2.png" type="Texture" id=6]
@@ -19,24 +19,27 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="BackgroundWood" type="Sprite" parent="."]
-position = Vector2( 7, 61.3931 )
-scale = Vector2( 0.534965, 0.534965 )
-texture = ExtResource( 2 )
-centered = false
-
 [node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 2 )
 volume_db = -10.0
 autoplay = true
 __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="BackgroundWood" type="Sprite" parent="."]
+position = Vector2( 7, 61.3931 )
+scale = Vector2( 0.534965, 0.534965 )
+texture = ExtResource( 3 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Dialogue" type="Label" parent="."]
-margin_left = 7.2982
+margin_left = 106.809
 margin_top = 524.59
-margin_right = 303.298
+margin_right = 556.809
 margin_bottom = 600.59
 script = ExtResource( 4 )
 __meta__ = {
@@ -87,6 +90,7 @@ text = "Ingredients"
 [node name="Cauldron" parent="." instance=ExtResource( 9 )]
 position = Vector2( 280, 300 )
 scale = Vector2( 1.18642, 1.18642 )
+skip_stirring = true
 
 [node name="Knife" parent="." instance=ExtResource( 10 )]
 position = Vector2( 280, 300 )

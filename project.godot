@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/combiners/Combiner.gd"
 }, {
-"base": "Reference",
+"base": "Area2D",
 "class": "CutPoint",
 "language": "GDScript",
 "path": "res://scenes/combiners/CutPoint.gd"
@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/combiners/Knife.gd"
 }, {
+"base": "Popup",
+"class": "NewIngPopup",
+"language": "GDScript",
+"path": "res://scenes/gui/NewIngPopup.gd"
+}, {
 "base": "Node2D",
 "class": "NewWorkBench",
 "language": "GDScript",
@@ -102,7 +107,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "RecipeBookGUI",
 "language": "GDScript",
-"path": "res://scenes/RecipeBookGUI.gd"
+"path": "res://scenes/gui/RecipeBookGUI.gd"
 }, {
 "base": "Ingredient",
 "class": "RedIngredient",
@@ -158,6 +163,7 @@ _global_script_class_icons={
 "Gasoline": "",
 "Ingredient": "",
 "Knife": "",
+"NewIngPopup": "",
 "NewWorkBench": "",
 "PlasticSnake": "",
 "PurpleIngredient": "",
