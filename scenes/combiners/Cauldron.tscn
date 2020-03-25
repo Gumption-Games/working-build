@@ -45,17 +45,17 @@ corner_radius_bottom_left = 8
 [node name="Cauldron" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="NewIngredientSound" type="AudioStreamPlayer2D" parent="." index="0"]
+[node name="NewIngredientSound" type="AudioStreamPlayer" parent="." index="0"]
 stream = ExtResource( 3 )
 volume_db = -15.0
 
-[node name="CookingSound" type="AudioStreamPlayer2D" parent="." index="1"]
+[node name="CookingSound" type="AudioStreamPlayer" parent="." index="1"]
 stream = ExtResource( 4 )
 volume_db = -10.0
 
-[node name="StirSound" type="AudioStreamPlayer2D" parent="." index="2"]
+[node name="StirSound" type="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource( 5 )
-volume_db = -10.0
+volume_db = -13.0
 
 [node name="Bowl" type="Sprite" parent="." index="3"]
 texture = ExtResource( 6 )

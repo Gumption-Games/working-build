@@ -25,11 +25,11 @@ centered = false
 
 [node name="bgm1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="bgm2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="BgmTimer" type="Timer" parent="."]
 wait_time = 30.0
