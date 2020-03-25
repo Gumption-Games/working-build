@@ -39,8 +39,8 @@ func _ready():
 		cutpoint.name = 'dot2_%d' % (i+1)
 		#dot2.rect_size = Vector2(2,2)
 		var cutpoint_rect_pivot_offset = Vector2(1,1)
-		cutpoint.width = 8
-		cutpoint.height = 8
+		cutpoint.width = 8.0
+		cutpoint.height = 8.0
 		cutpoint.position = (center-cutpoint_rect_pivot_offset) + Vector2(cos(deg2rad(angle2)), sin(deg2rad(angle2))) * 100
 		#dot2.color = Color('#ffffff')
 		cutpoint.shape.set_extents(Vector2(cutpoint.width, cutpoint.height))
