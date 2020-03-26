@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/combiners/Celestial.gd" type="Script" id=1]
 [ext_resource path="res://assets/PrototypeAssets/celest_wheel.png" type="Texture" id=2]
 [ext_resource path="res://assets/PrototypeAssets/celest_hand.png" type="Texture" id=3]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/CauldronTopDown_B_Draft01_small_empty.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/dpcomic-crowned.ttf"
@@ -10,9 +11,6 @@ font_path = "res://assets/fonts/dpcomic-crowned.ttf"
 [sub_resource type="DynamicFont" id=2]
 size = 32
 font_data = SubResource( 1 )
-
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 5.48865
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 25.0
@@ -50,6 +48,9 @@ radius = 25.0
 [sub_resource type="CircleShape2D" id=15]
 radius = 25.0
 
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 5.48865
+
 [node name="Celestial" type="Area2D"]
 script = ExtResource( 1 )
 
@@ -72,11 +73,131 @@ __meta__ = {
 [node name="Wheel" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
+[node name="_0_" type="Area2D" parent="Wheel"]
+position = Vector2( 33, -125 )
+
+[node name="Sprite_0_" type="Sprite" parent="Wheel/_0_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_0_"]
+shape = SubResource( 4 )
+
+[node name="_1_" type="Area2D" parent="Wheel"]
+position = Vector2( 90, -90 )
+
+[node name="Sprite_1_" type="Sprite" parent="Wheel/_1_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_1_"]
+shape = SubResource( 5 )
+
+[node name="_2_" type="Area2D" parent="Wheel"]
+position = Vector2( 120, -33 )
+
+[node name="Sprite_2_" type="Sprite" parent="Wheel/_2_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Wheel/_2_"]
+shape = SubResource( 6 )
+
+[node name="_3_" type="Area2D" parent="Wheel"]
+position = Vector2( 120, 33 )
+
+[node name="Sprite_3_" type="Sprite" parent="Wheel/_3_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_3_"]
+shape = SubResource( 7 )
+
+[node name="_4_" type="Area2D" parent="Wheel"]
+position = Vector2( 90, 90 )
+
+[node name="Sprite_4_" type="Sprite" parent="Wheel/_4_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_4_"]
+shape = SubResource( 8 )
+
+[node name="_5_" type="Area2D" parent="Wheel"]
+position = Vector2( 33, 125 )
+
+[node name="Sprite_5_" type="Sprite" parent="Wheel/_5_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_5_"]
+shape = SubResource( 9 )
+
+[node name="_6_" type="Area2D" parent="Wheel"]
+position = Vector2( -33, 125 )
+
+[node name="Sprite_6_" type="Sprite" parent="Wheel/_6_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_6_"]
+shape = SubResource( 10 )
+
+[node name="_7_" type="Area2D" parent="Wheel"]
+position = Vector2( -90, 90 )
+
+[node name="Sprite_7_" type="Sprite" parent="Wheel/_7_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_7_"]
+shape = SubResource( 11 )
+
+[node name="_8_" type="Area2D" parent="Wheel"]
+position = Vector2( -120, 33 )
+
+[node name="Sprite_8_" type="Sprite" parent="Wheel/_8_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_8_"]
+shape = SubResource( 12 )
+
+[node name="_9_" type="Area2D" parent="Wheel"]
+position = Vector2( -120, -33 )
+
+[node name="Sprite_9_" type="Sprite" parent="Wheel/_9_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_9_"]
+shape = SubResource( 13 )
+
+[node name="_10_" type="Area2D" parent="Wheel"]
+position = Vector2( -90, -90 )
+
+[node name="Sprite_10_" type="Sprite" parent="Wheel/_10_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_10_"]
+shape = SubResource( 14 )
+
+[node name="_11_" type="Area2D" parent="Wheel"]
+position = Vector2( -33, -125 )
+
+[node name="Sprite_11_" type="Sprite" parent="Wheel/_11_"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_11_"]
+shape = SubResource( 15 )
+
 [node name="Arm" type="TextureRect" parent="Wheel"]
 margin_left = -20.3627
 margin_top = -167.788
 margin_right = 19.6373
-margin_bottom = 0.211517
+margin_bottom = 0.212006
 texture = ExtResource( 3 )
 stretch_mode = 6
 __meta__ = {
@@ -88,78 +209,7 @@ position = Vector2( 20, 40 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/Arm/HitArea"]
 shape = SubResource( 3 )
-
-[node name="_1_" type="Area2D" parent="Wheel"]
-position = Vector2( 33, -125 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_1_"]
-shape = SubResource( 4 )
-
-[node name="_2_" type="Area2D" parent="Wheel"]
-position = Vector2( 90, -90 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_2_"]
-shape = SubResource( 5 )
-
-[node name="_3_" type="Area2D" parent="Wheel"]
-position = Vector2( 120, -33 )
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Wheel/_3_"]
-shape = SubResource( 6 )
-
-[node name="_4_" type="Area2D" parent="Wheel"]
-position = Vector2( 120, 33 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_4_"]
-shape = SubResource( 7 )
-
-[node name="_5_" type="Area2D" parent="Wheel"]
-position = Vector2( 90, 90 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_5_"]
-shape = SubResource( 8 )
-
-[node name="_6_" type="Area2D" parent="Wheel"]
-position = Vector2( 33, 125 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_6_"]
-shape = SubResource( 9 )
-
-[node name="_7_" type="Area2D" parent="Wheel"]
-position = Vector2( -33, 125 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_7_"]
-shape = SubResource( 10 )
-
-[node name="_8_" type="Area2D" parent="Wheel"]
-position = Vector2( -90, 90 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_8_"]
-shape = SubResource( 11 )
-
-[node name="_9_" type="Area2D" parent="Wheel"]
-position = Vector2( -120, 33 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_9_"]
-shape = SubResource( 12 )
-
-[node name="_10_" type="Area2D" parent="Wheel"]
-position = Vector2( -120, -33 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_10_"]
-shape = SubResource( 13 )
-
-[node name="_11_" type="Area2D" parent="Wheel"]
-position = Vector2( -90, -90 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_11_"]
-shape = SubResource( 14 )
-
-[node name="_12_" type="Area2D" parent="Wheel"]
-position = Vector2( -33, -125 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel/_12_"]
-shape = SubResource( 15 )
+[connection signal="area_shape_entered" from="Wheel/_0_" to="." method="_on__0__area_shape_entered"]
 [connection signal="area_shape_entered" from="Wheel/_1_" to="." method="_on__1__area_shape_entered"]
 [connection signal="area_shape_entered" from="Wheel/_2_" to="." method="_on__2__area_shape_entered"]
 [connection signal="area_shape_entered" from="Wheel/_3_" to="." method="_on__3__area_shape_entered"]
@@ -171,4 +221,3 @@ shape = SubResource( 15 )
 [connection signal="area_shape_entered" from="Wheel/_9_" to="." method="_on__9__area_shape_entered"]
 [connection signal="area_shape_entered" from="Wheel/_10_" to="." method="_on__10__area_shape_entered"]
 [connection signal="area_shape_entered" from="Wheel/_11_" to="." method="_on__11__area_shape_entered"]
-[connection signal="area_shape_entered" from="Wheel/_12_" to="." method="_on__12__area_shape_entered"]
