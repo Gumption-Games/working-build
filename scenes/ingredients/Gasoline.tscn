@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/ingredients/Ingredient.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ingredients/Gasoline.gd" type="Script" id=2]
-[ext_resource path="res://assets/images/Gasoline.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/ing_gasoline.png" type="Texture" id=3]
 
 [node name="Gasoline" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
