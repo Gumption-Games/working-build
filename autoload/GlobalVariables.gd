@@ -6,6 +6,7 @@ var held_object
 var current_combiner
 var workbench
 var shelf : Shelf
+var shelf_label = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +27,8 @@ func freeze_node(node, freeze): # freeze = true freezes nodes, false thaws
 	node.set_process_internal(!freeze)
 	node.set_process_unhandled_input(!freeze)
 	node.set_process_unhandled_key_input(!freeze)
+	if node is CollisionShape2D:
+		node.set_disabled(freeze)
 
 func freeze_scene(node, freeze):
 	freeze_node(node, freeze)

@@ -4,14 +4,18 @@ signal new_ingredient
 signal no_ingredients
 signal multiple_ingredients
 signal correct_recipe_entered
+signal ingredient_discovered
 
-var held_ingredients = Array()
+var held_ingredients : Array = [] # Array
 var recipe_book
 
 var minigame_path
 var minigame
 var result_name
 
+onready var RejectionSound := $RejectionSound
+onready var CompletionSound := $CompletionSound
+onready var workbench = find_parent("NewWorkBench")
 
 ### INITIALIZER METHODS ###
 
@@ -22,6 +26,7 @@ func _init():
 
 func _ready():
 	recipe_book = get_node("/root/RecipeBook")
+	connect("ingredient_discovered", workbench, "_on_ingredient_discovered")
 
 
 ### PRIVATE METHODS ###
@@ -29,6 +34,7 @@ func _ready():
 # Handles mouse inputs on the combiner
 func _on_Combiner_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+		print("clicked")
 		# Handles user clicks
 		if event.pressed and not result_name:
 			_combine_ingredients()
@@ -36,6 +42,7 @@ func _on_Combiner_input_event(viewport, event, shape_idx):
 
 # Attempts to combine all held ingredients
 func _combine_ingredients():
+	print("Holding: ", held_ingredients)
 	if held_ingredients.empty():
 		return
 
@@ -43,8 +50,8 @@ func _combine_ingredients():
 	var recipe = _convert_held_to_recipe()
 
 	# Then check against the combiner's recipe book
-	print(recipe_book)
 	result_name = recipe_book.check_recipe(recipe, self.type)
+	print("Result: ", result_name)
 	if result_name:
 		# Let the tool do its thing
 		#_skill_check()
@@ -88,16 +95,21 @@ func _spawn_result(ingredient_name):
 	if held_ingredients.empty():
 		return
 	
-	# Create new instance of spawned ingredient
-	var path = "scenes/ingredients/"+ingredient_name+".tscn"
-	var result = load(path).instance()
-	
-	# Add new ingredient to scene
-	get_tree().current_scene.add_child(result)
-	
-	# Place new ingredient on the Shelf
-	GlobalVariables.shelf.place_new_ing(result)
-	
+	# Check to see if we already have that ingredient
+	# WARNING: this is conflating Ing type and recipe result
+	#		** Ing's type needs to match its name in the Recipe book
+	print("New Ingredient name: ", ingredient_name)
+	var learned :bool = GlobalVariables.shelf.learn_ing_type(ingredient_name)
+	if learned: # if the result is an undiscovered ingredient
+		# Create new instance of spawned ingredient
+		var path = "scenes/ingredients/"+ingredient_name+".tscn"
+		var result = load(path).instance()
+		# Add new ingredient to scene
+		GlobalVariables.shelf.add_child(result)
+		# Place new ingredient on the Shelf
+		GlobalVariables.shelf.place_new_ing(result)
+		CompletionSound.play(0.0)
+		emit_signal("ingredient_discovered", result)
 	_return_ingredients()
 	held_ingredients.clear()
 
@@ -106,6 +118,7 @@ func _spawn_result(ingredient_name):
 func _return_ingredients():
 	var ing
 	while !held_ingredients.empty():
+		RejectionSound.play(0.0)
 		ing = held_ingredients.pop_back()
 		GlobalVariables.shelf.put_back_ing(ing)
 		ing.enable()
@@ -148,6 +161,7 @@ func minigame_result(success):
 
 	if success:
 		_spawn_result(result_name)
+		
 	else:
 		_return_ingredients()
 

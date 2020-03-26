@@ -17,7 +17,7 @@ var failed = false
 var score = 0
 var lives = 3
 var flash_delay = 0.4
-var delay_increment = 0.9
+var delay_increment = 0.8
 
 var chalk_start_point = Vector2(40, 100)
 
