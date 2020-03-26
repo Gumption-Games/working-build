@@ -39,6 +39,7 @@ func _on_Combiner_input_event(viewport, event, shape_idx):
 
 # Attempts to combine all held ingredients
 func _combine_ingredients():
+	print("Holding: ", held_ingredients)
 	if held_ingredients.empty():
 		return
 
@@ -46,8 +47,8 @@ func _combine_ingredients():
 	var recipe = _convert_held_to_recipe()
 
 	# Then check against the combiner's recipe book
-	print(recipe_book)
 	result_name = recipe_book.check_recipe(recipe, self.type)
+	print("Result: ", result_name)
 	if result_name:
 		# Let the tool do its thing
 		#_skill_check()

@@ -33,6 +33,7 @@ __meta__ = {
 }
 
 [node name="HUD" type="Node2D" parent="."]
+visible = false
 
 [node name="Label" type="Label" parent="HUD"]
 margin_left = -261.778
@@ -62,7 +63,7 @@ custom_fonts/font = SubResource( 3 )
 text = "START"
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 2
+layer = 5
 
 [node name="ChalkIcon" type="Area2D" parent="UI"]
 position = Vector2( -400, -300 )
@@ -82,5 +83,10 @@ custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "FAIL
 "
 align = 1
+
+[node name="Line2D" type="Line2D" parent="."]
+default_color = Color( 0.588235, 0.588235, 0.784314, 0.784314 )
+texture_mode = 62341488
+[connection signal="input_event" from="." to="." method="_on_Combiner_input_event"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Start"]
 [connection signal="input_event" from="UI/ChalkIcon" to="UI/ChalkIcon" method="_on_ChalkIcon_input_event"]

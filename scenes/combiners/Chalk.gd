@@ -10,11 +10,13 @@ onready var scores := $HUD/Scores
 onready var start_button := $HUD/Button
 onready var chalk_icon := $UI/ChalkIcon
 onready var chalk_line := $ChalkLine
+onready var sprite := $Sprite
 var rng = RandomNumberGenerator.new()
 
 var difficulty = MED
 var path = []
 var generated_path = []
+var cemented_lines = []
 var pressed = false
 var positions
 var failed = false
@@ -72,11 +74,12 @@ const neighbors = {
 
 
 func _init():
-	type = "Chalk"
+	type = "Circle"
 
 
 func _ready():
-	$Sprite.hide()
+#	$Sprite.hide()
+	connect("correct_recipe_entered", self, "_on_correct_recipe_entered")
 	if get_owner() == null:
 		centre.x = ProjectSettings.get_setting("display/window/size/width")/2
 		centre.y = ProjectSettings.get_setting("display/window/size/height")/2
@@ -88,16 +91,7 @@ func _ready():
 	print(centre*2)
 
 	randomize()
-	
-	# Instance all required nodes for current difficulty
 	_calculate_positions()
-	for idx in nodes[difficulty]:
-		var new_node = CircleNode.instance()
-		new_node.idx = idx
-		new_node.position = positions[idx]
-		new_node.connect("node_entered", self, "_detect_connection")
-		node_ids[idx] = new_node
-		add_child(new_node)
 
 
 func _input(event):
@@ -145,6 +139,24 @@ func _calculate_positions():
 		else: # End of the row
 			centre.x -= width*spacing
 			centre.y -= (width-2) * spacing
+
+
+func _instance_nodes():
+	# Instance all required nodes for current difficulty
+	for idx in nodes[difficulty]:
+		var new_node = CircleNode.instance()
+		new_node.z_index = 3
+		new_node.idx = idx
+		new_node.position = positions[idx]
+		new_node.connect("node_entered", self, "_detect_connection")
+		node_ids[idx] = new_node
+		add_child(new_node)
+
+
+func _on_correct_recipe_entered():
+	sprite.hide()
+	_instance_nodes()
+	$HUD.show()
 
 
 func _generate_path():
@@ -207,9 +219,23 @@ func _win_state():
 	score += 1
 	flash_delay *= delay_increment
 	chalk_icon.disabled = true
-	yield(_flash_all('G', 1.0), "completed")
+#	yield(_flash_all('G', 1.0), "completed")
+	_cement_line()
 	start_button.set_text("Next")
 	start_button.disabled = false
+
+
+func _cement_line():
+	var new_line = Line2D.new()
+	add_child(new_line)
+	new_line.z_index = 1
+
+	for idx in generated_path:
+		var point = node_ids[idx].position
+		print(point)
+		new_line.add_point(point)
+	new_line.default_color = Color(0.6, 0.6, 0.8, 0.8)
+	cemented_lines.append(new_line)
 
 
 func _fail_state():
