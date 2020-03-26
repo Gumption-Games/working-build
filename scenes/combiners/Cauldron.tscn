@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/combiners/Combiner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/combiners/Cauldron.gd" type="Script" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/PrototypeAssets/balanceSlider.png" type="Texture" id=9]
 [ext_resource path="res://assets/PrototypeAssets/sweetspotSlider.png" type="Texture" id=10]
-[ext_resource path="res://assets/PrototypeAssets/directional_arrow_draft.png" type="Texture" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 90.0
@@ -70,6 +69,14 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id=9]
 draw_center = false
+
+[sub_resource type="StreamTexture" id=10]
+flags = 4
+load_path = "res://.import/directional_arrow_draft.png-e9bb7589288de2c7a37dd0656dba9ed2.stex"
+
+[sub_resource type="StreamTexture" id=11]
+flags = 4
+load_path = "res://.import/directional_arrow_draft.png-e9bb7589288de2c7a37dd0656dba9ed2.stex"
 
 [node name="Cauldron" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -202,7 +209,7 @@ margin_top = 128.0
 margin_right = 543.0
 margin_bottom = 286.0
 rect_scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 11 )
+texture = SubResource( 10 )
 stretch_mode = 6
 flip_h = true
 flip_v = true
@@ -216,7 +223,7 @@ margin_top = 128.0
 margin_right = 543.0
 margin_bottom = 286.0
 rect_scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 11 )
+texture = SubResource( 11 )
 stretch_mode = 6
 flip_v = true
 __meta__ = {
