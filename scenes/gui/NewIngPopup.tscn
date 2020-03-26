@@ -1,9 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/gui/NewIngPopup.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/Snake Oil.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/images/Snake Oil.png" type="Texture" id=3]
 
 [sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 2 )
 
 [node name="NewIngPopup" type="Popup"]
 visible = true
@@ -21,16 +31,18 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 220.0
-margin_bottom = 160.0
+margin_bottom = 170.0
 color = Color( 0.168627, 0.164706, 0.239216, 1 )
 
 [node name="Prefix" type="Label" parent="ColorRect"]
-margin_left = 10.5
+margin_left = 16.0044
 margin_top = 10.0
-margin_right = 249.5
-margin_bottom = 24.0
+margin_right = 244.004
+margin_bottom = 27.0
 theme = SubResource( 1 )
-text = "You discovered a new ingredient!"
+custom_fonts/font = SubResource( 2 )
+text = "You discovered a
+ new ingredient!"
 align = 1
 
 [node name="TextureRect" type="TextureRect" parent="ColorRect"]
@@ -41,22 +53,24 @@ margin_right = 249.5
 margin_bottom = 288.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 stretch_mode = 6
 
 [node name="IngName" type="Label" parent="ColorRect"]
 margin_left = 10.5
-margin_top = 150.0
+margin_top = 140.569
 margin_right = 249.5
-margin_bottom = 164.0
+margin_bottom = 158.569
+custom_fonts/font = SubResource( 3 )
 text = "IngName"
 align = 1
 
 [node name="Button" type="Button" parent="ColorRect"]
 margin_left = 10.5
-margin_top = 170.0
+margin_top = 172.253
 margin_right = 249.5
-margin_bottom = 190.0
+margin_bottom = 196.253
+custom_fonts/font = SubResource( 4 )
 text = "Ok"
 [connection signal="popup_hide" from="." to="." method="_destroy"]
 [connection signal="pressed" from="ColorRect/Button" to="." method="_destroy"]
