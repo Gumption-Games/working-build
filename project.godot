@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/skillchecks/cauldron/CauldronSkillCheck.gd"
 }, {
+"base": "Combiner",
+"class": "Chalk",
+"language": "GDScript",
+"path": "res://scenes/combiners/Chalk.gd"
+}, {
+"base": "FittedHitboxObject",
+"class": "ChalkIcon",
+"language": "GDScript",
+"path": "res://scenes/combiners/ChalkIcon.gd"
+}, {
 "base": "FittedHitboxObject",
 "class": "Combiner",
 "language": "GDScript",
@@ -64,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/combiners/Knife.gd"
 }, {
+"base": "Popup",
+"class": "NewIngPopup",
+"language": "GDScript",
+"path": "res://scenes/gui/NewIngPopup.gd"
+}, {
 "base": "Node2D",
 "class": "NewWorkBench",
 "language": "GDScript",
@@ -92,7 +107,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "RecipeBookGUI",
 "language": "GDScript",
-"path": "res://scenes/RecipeBookGUI.gd"
+"path": "res://scenes/gui/RecipeBookGUI.gd"
 }, {
 "base": "Ingredient",
 "class": "RedIngredient",
@@ -138,6 +153,8 @@ _global_script_class_icons={
 "BlueIngredient": "",
 "Cauldron": "",
 "CauldronSkillCheck": "",
+"Chalk": "",
+"ChalkIcon": "",
 "Combiner": "",
 "CutPoint": "",
 "CuttingSkillCheck": "",
@@ -146,6 +163,7 @@ _global_script_class_icons={
 "Gasoline": "",
 "Ingredient": "",
 "Knife": "",
+"NewIngPopup": "",
 "NewWorkBench": "",
 "PlasticSnake": "",
 "PurpleIngredient": "",
@@ -175,8 +193,7 @@ RecipeBook="*res://autoload/RecipeBook.gd"
 
 [display]
 
-window/size/width=640
-window/size/height=480
+window/size/width=800
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

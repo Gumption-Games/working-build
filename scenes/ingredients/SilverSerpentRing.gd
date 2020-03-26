@@ -5,4 +5,4 @@ func _init():
 	type = "SilverSerpentRing"
 
 func _ready():
-	_set_label("Silver\nSerpent Ring")
+	_set_label("Silver Serpent Ring")
