@@ -35,18 +35,21 @@ func show_cauldron(): # Connected to CauldronButton
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(cauldron, false)
 	cauldron.show()
+	$TicSound.play()
 
 
 func show_celestial():
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(celestial, false)
 	celestial.show()
+	$TicSound.play()
 
 
 func show_chalk():
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(chalk, false)
 	chalk.show()
+	$TicSound.play()
 
 	
 func _on_ingredient_discovered(ing:Ingredient):

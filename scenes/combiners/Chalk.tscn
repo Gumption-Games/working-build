@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/combiners/Chalk.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/combiners/ChalkIcon.gd" type="Script" id=3]
 [ext_resource path="res://assets/sfx/rejection SFX.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/sfx/completion3.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/glyphs SFX.wav" type="AudioStream" id=6]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -31,6 +32,7 @@ texture = SubResource( 1 )
 
 [node name="ChalkLine" type="Line2D" parent="."]
 default_color = Color( 0.862745, 0.862745, 0.470588, 1 )
+texture_mode = 4
 script = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -101,6 +103,10 @@ pitch_scale = 0.8
 [node name="CompletionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -15.0
+
+[node name="GlyphSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -5.0
 [connection signal="correct_recipe_entered" from="." to="." method="_on_correct_recipe_entered"]
 [connection signal="input_event" from="." to="." method="_on_Combiner_input_event"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Start"]

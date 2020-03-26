@@ -110,6 +110,8 @@ func _detect_connection(NODE):
 			print('WINNER')
 		elif len(path) > path_length[difficulty]:
 			failed = true
+		else:
+			$GlyphSound.play()
 		print(path)
 
 
@@ -225,6 +227,8 @@ func _win_state():
 	start_button.disabled = false
 	if score >= 3:
 		_end_game(true)
+	else:
+		$CompletionSound.play()
 
 
 func _cement_line():

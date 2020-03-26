@@ -31,6 +31,7 @@ func _on_Ingredient_input_event(viewport, event, shape_idx):
 			dragging = true
 			global_vars.held_object = self
 			sticky_pos = get_global_position() # Save pos for resetting
+			$TicSound.play()
 		else:
 			# Held object is being dropped
 			dragging = false
