@@ -28,34 +28,36 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -174.5
-margin_top = -18.0
+margin_top = -83.1604
 margin_right = 174.5
-margin_bottom = 18.0
+margin_bottom = 27.8396
 custom_fonts/font = SubResource( 1 )
-text = "The Silver Serpent Ring"
+text = "The 
+Silver Serpent 
+Ring"
 align = 1
 
-[node name="Button" type="Button" parent="Label"]
+[node name="Button" type="Button" parent="."]
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -51.3807
-margin_top = 25.6284
+margin_top = -181.372
 margin_right = 39.6193
-margin_bottom = 67.6284
+margin_bottom = -139.372
 custom_fonts/font = SubResource( 2 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" type="TextureButton" parent="Label"]
-margin_left = 93.8521
-margin_top = 60.2928
-margin_right = 248.852
-margin_bottom = 106.293
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 319.352
+margin_top = 342.293
+margin_right = 474.352
+margin_bottom = 388.293
 texture_normal = ExtResource( 4 )
-[connection signal="pressed" from="Label/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="Label/TextureButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_Button_pressed"]
