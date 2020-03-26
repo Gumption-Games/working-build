@@ -120,7 +120,6 @@ align = 1
 [node name="Cauldron" parent="." instance=ExtResource( 14 )]
 position = Vector2( 282.025, 320.406 )
 scale = Vector2( 1.18642, 1.18642 )
-skip_stirring = true
 
 [node name="Celestial" parent="." instance=ExtResource( 15 )]
 position = Vector2( 281.034, 320.406 )

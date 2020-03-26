@@ -154,6 +154,7 @@ func _instance_nodes():
 
 
 func _on_correct_recipe_entered():
+	print("SHOW HUD")
 	sprite.hide()
 	_instance_nodes()
 	$HUD.show()

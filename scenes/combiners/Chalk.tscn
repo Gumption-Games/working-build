@@ -31,7 +31,6 @@ texture = SubResource( 1 )
 
 [node name="ChalkLine" type="Line2D" parent="."]
 default_color = Color( 0.862745, 0.862745, 0.470588, 1 )
-texture_mode = 53
 script = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -41,6 +40,7 @@ __meta__ = {
 visible = false
 
 [node name="Label" type="Label" parent="HUD"]
+visible = false
 margin_left = -261.778
 margin_top = -160.916
 margin_right = -131.778
@@ -49,9 +49,9 @@ custom_fonts/font = SubResource( 3 )
 text = "Magic Time"
 
 [node name="Scores" type="Label" parent="HUD"]
-margin_left = 180.708
+margin_left = 134.007
 margin_top = -165.443
-margin_right = 276.708
+margin_right = 230.007
 margin_bottom = -78.443
 custom_fonts/font = SubResource( 3 )
 text = "Score: 0
@@ -60,10 +60,10 @@ Lives: 3
 
 [node name="Button" type="Button" parent="HUD"]
 anchor_right = 0.5
-margin_left = -251.778
-margin_top = -120.916
-margin_right = -192.778
-margin_bottom = -96.9163
+margin_left = -183.357
+margin_top = -149.337
+margin_right = -124.357
+margin_bottom = -125.337
 custom_fonts/font = SubResource( 4 )
 text = "START"
 
@@ -101,6 +101,7 @@ pitch_scale = 0.8
 [node name="CompletionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -15.0
+[connection signal="correct_recipe_entered" from="." to="." method="_on_correct_recipe_entered"]
 [connection signal="input_event" from="." to="." method="_on_Combiner_input_event"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Start"]
 [connection signal="input_event" from="UI/ChalkIcon" to="UI/ChalkIcon" method="_on_ChalkIcon_input_event"]
