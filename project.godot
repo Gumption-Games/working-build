@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/ingredients/RabbitsFoot.gd"
 }, {
-"base": "Node2D",
+"base": "Reference",
 "class": "RecipeBookGUI",
 "language": "GDScript",
 "path": "res://scenes/gui/RecipeBookGUI.gd"
