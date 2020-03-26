@@ -3,9 +3,9 @@
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/maingame_backdrop.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/workboard_empty.png" type="Texture" id=3]
-[ext_resource path="res://assets/bgm/bg1.ogg" type="AudioStream" id=4]
-[ext_resource path="res://assets/bgm/bg4.ogg" type="AudioStream" id=5]
-[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=6]
+[ext_resource path="res://assets/sfx/menu SFX.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/bgm/bg1.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/bgm/bg4.ogg" type="AudioStream" id=6]
 [ext_resource path="res://assets/images/button_book.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/button_cauldron.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/button_celestial.png" type="Texture" id=9]
@@ -14,7 +14,7 @@
 [ext_resource path="res://assets/images/ingredient_plaque.png" type="Texture" id=12]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/combiners/Celestial.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=17]
 
@@ -37,12 +37,16 @@ position = Vector2( 20.6037, 81.7987 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="bgm1" type="AudioStreamPlayer" parent="."]
+[node name="TicSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -10.0
 
-[node name="bgm2" type="AudioStreamPlayer" parent="."]
+[node name="bgm1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+volume_db = -10.0
+
+[node name="bgm2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
 volume_db = -10.0
 
 [node name="BgmTimer" type="Timer" parent="."]
@@ -55,13 +59,15 @@ margin_left = 106.809
 margin_top = 524.59
 margin_right = 556.809
 margin_bottom = 600.59
-script = ExtResource( 6 )
+text = "Place the ingredients in the cauldron.
+Then click the cauldron.
+Click and drag in circles to stir the pot.
+Don't let it burn!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_left = 35.786
 margin_top = 26.8079
 margin_right = 519.786
@@ -82,7 +88,7 @@ margin_right = 240.0
 margin_bottom = 46.0
 texture_normal = ExtResource( 8 )
 
-[node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
+[node name="CelestialButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 244.0
 margin_right = 362.0
 margin_bottom = 46.0
@@ -121,11 +127,10 @@ align = 1
 [node name="Cauldron" parent="." instance=ExtResource( 14 )]
 position = Vector2( 282.025, 320.406 )
 scale = Vector2( 1.18642, 1.18642 )
-skip_stirring = true
 
-[node name="Knife" parent="." instance=ExtResource( 15 )]
+[node name="Celestial" parent="." instance=ExtResource( 15 )]
 position = Vector2( 281.034, 320.406 )
-scale = Vector2( 1.24841, 1.24841 )
+scale = Vector2( 0.928261, 0.928261 )
 
 [node name="Chalk" parent="." instance=ExtResource( 16 )]
 position = Vector2( 281.034, 320.406 )
@@ -140,5 +145,5 @@ layer = 20
 [connection signal="finished" from="bgm2" to="." method="_on_bgm_finished"]
 [connection signal="timeout" from="BgmTimer" to="." method="_cycle_bgm"]
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
-[connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
+[connection signal="pressed" from="SkillCheckButtons/CelestialButton" to="." method="show_celestial"]
 [connection signal="pressed" from="SkillCheckButtons/ChalkButton" to="." method="show_chalk"]

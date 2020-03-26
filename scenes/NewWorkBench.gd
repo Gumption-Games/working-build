@@ -10,9 +10,9 @@ onready var bgms :Array = [bgm1, bgm2] # Cycle between background music tracks
 onready var bgm_index := 0
 onready var bgm_timer := $BgmTimer # Period of silence between music tracks
 onready var cauldron := $Cauldron
-onready var knife := $Knife
+onready var celestial := $Celestial
 onready var chalk := $Chalk
-onready var combiners : Array = [cauldron, knife, chalk]
+onready var combiners : Array = [cauldron, celestial, chalk]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,18 +35,21 @@ func show_cauldron(): # Connected to CauldronButton
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(cauldron, false)
 	cauldron.show()
+	$TicSound.play()
 
 
-func show_knife():
+func show_celestial():
 	hide_all_combiners()
-	GlobalVariables.freeze_scene(knife, false)
-	knife.show()
+	GlobalVariables.freeze_scene(celestial, false)
+	celestial.show()
+	$TicSound.play()
 
 
 func show_chalk():
 	hide_all_combiners()
 	GlobalVariables.freeze_scene(chalk, false)
 	chalk.show()
+	$TicSound.play()
 
 	
 func _on_ingredient_discovered(ing:Ingredient):
@@ -76,5 +79,4 @@ func _cycle_bgm():
 		return
 	bgms[bgm_index].play()
 	bgm_index += 1
-
 

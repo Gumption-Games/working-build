@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/combiners/Chalk.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/combiners/ChalkIcon.gd" type="Script" id=3]
 [ext_resource path="res://assets/sfx/rejection SFX.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/sfx/completion3.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/glyphs SFX.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/circle.png" type="Texture" id=7]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -31,7 +33,7 @@ texture = SubResource( 1 )
 
 [node name="ChalkLine" type="Line2D" parent="."]
 default_color = Color( 0.862745, 0.862745, 0.470588, 1 )
-texture_mode = 53
+texture_mode = 4
 script = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -41,6 +43,7 @@ __meta__ = {
 visible = false
 
 [node name="Label" type="Label" parent="HUD"]
+visible = false
 margin_left = -261.778
 margin_top = -160.916
 margin_right = -131.778
@@ -49,9 +52,9 @@ custom_fonts/font = SubResource( 3 )
 text = "Magic Time"
 
 [node name="Scores" type="Label" parent="HUD"]
-margin_left = 180.708
+margin_left = 134.007
 margin_top = -165.443
-margin_right = 276.708
+margin_right = 230.007
 margin_bottom = -78.443
 custom_fonts/font = SubResource( 3 )
 text = "Score: 0
@@ -60,10 +63,10 @@ Lives: 3
 
 [node name="Button" type="Button" parent="HUD"]
 anchor_right = 0.5
-margin_left = -251.778
-margin_top = -120.916
-margin_right = -192.778
-margin_bottom = -96.9163
+margin_left = -183.357
+margin_top = -149.337
+margin_right = -124.357
+margin_bottom = -125.337
 custom_fonts/font = SubResource( 4 )
 text = "START"
 
@@ -74,6 +77,9 @@ layer = 5
 position = Vector2( -400, -300 )
 scale = Vector2( 0.25, 0.25 )
 script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="UI/ChalkIcon"]
+texture = ExtResource( 7 )
 
 [node name="Fail" type="Label" parent="UI"]
 visible = false
@@ -101,6 +107,11 @@ pitch_scale = 0.8
 [node name="CompletionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -15.0
+
+[node name="GlyphSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -5.0
+[connection signal="correct_recipe_entered" from="." to="." method="_on_correct_recipe_entered"]
 [connection signal="input_event" from="." to="." method="_on_Combiner_input_event"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Start"]
 [connection signal="input_event" from="UI/ChalkIcon" to="UI/ChalkIcon" method="_on_ChalkIcon_input_event"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/ingredients/Ingredient.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/sfx/menu SFX.wav" type="AudioStream" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -23,6 +24,10 @@ margin_right = 294.0
 margin_bottom = 35.0
 custom_fonts/font = SubResource( 1 )
 text = "Ingredient"
+
+[node name="TicSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
 [connection signal="input_event" from="." to="." method="_on_Ingredient_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_Ingredient_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Ingredient_mouse_exited"]

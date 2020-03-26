@@ -19,10 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/combiners/Cauldron.gd"
 }, {
-"base": "SkillCheck",
-"class": "CauldronSkillCheck",
+"base": "Combiner",
+"class": "Celestial",
 "language": "GDScript",
-"path": "res://scenes/skillchecks/cauldron/CauldronSkillCheck.gd"
+"path": "res://scenes/combiners/Celestial.gd"
 }, {
 "base": "Combiner",
 "class": "Chalk",
@@ -40,21 +40,6 @@ _global_script_classes=[ {
 "path": "res://scenes/combiners/Combiner.gd"
 }, {
 "base": "Area2D",
-"class": "CutPoint",
-"language": "GDScript",
-"path": "res://scenes/combiners/CutPoint.gd"
-}, {
-"base": "Node2D",
-"class": "CuttingSkillCheck",
-"language": "GDScript",
-"path": "res://scenes/skillchecks/cutting/CuttingSkillCheck.gd"
-}, {
-"base": "SkillCheck",
-"class": "ExampleSkillCheck",
-"language": "GDScript",
-"path": "res://scenes/skillchecks/example/ExampleSkillCheck.gd"
-}, {
-"base": "Area2D",
 "class": "FittedHitboxObject",
 "language": "GDScript",
 "path": "res://scenes/FittedHitboxObject.gd"
@@ -68,11 +53,6 @@ _global_script_classes=[ {
 "class": "Ingredient",
 "language": "GDScript",
 "path": "res://scenes/ingredients/Ingredient.gd"
-}, {
-"base": "Combiner",
-"class": "Knife",
-"language": "GDScript",
-"path": "res://scenes/combiners/Knife.gd"
 }, {
 "base": "Popup",
 "class": "NewIngPopup",
@@ -129,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/ingredients/Silverware.gd"
 }, {
-"base": "Node2D",
-"class": "SkillCheck",
-"language": "GDScript",
-"path": "res://scenes/skillchecks/SkillCheck.gd"
-}, {
 "base": "Ingredient",
 "class": "SnakeOil",
 "language": "GDScript",
@@ -143,26 +118,17 @@ _global_script_classes=[ {
 "class": "TitleScreen",
 "language": "GDScript",
 "path": "res://scenes/title/TitleScreen.gd"
-}, {
-"base": "Node2D",
-"class": "WorkBench",
-"language": "GDScript",
-"path": "res://scenes/WorkBench.gd"
 } ]
 _global_script_class_icons={
 "BlueIngredient": "",
 "Cauldron": "",
-"CauldronSkillCheck": "",
+"Celestial": "",
 "Chalk": "",
 "ChalkIcon": "",
 "Combiner": "",
-"CutPoint": "",
-"CuttingSkillCheck": "",
-"ExampleSkillCheck": "",
 "FittedHitboxObject": "",
 "Gasoline": "",
 "Ingredient": "",
-"Knife": "",
 "NewIngPopup": "",
 "NewWorkBench": "",
 "PlasticSnake": "",
@@ -174,10 +140,8 @@ _global_script_class_icons={
 "Shelf": "",
 "SilverSerpentRing": "",
 "Silverware": "",
-"SkillCheck": "",
 "SnakeOil": "",
-"TitleScreen": "",
-"WorkBench": ""
+"TitleScreen": ""
 }
 
 [application]
