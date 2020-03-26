@@ -73,12 +73,12 @@ func _set_label(label_str:String):
 
 
 func _on_Ingredient_mouse_entered():
-	label.visible = true
-
+	#label.visible = true
+	GlobalVariables.shelf_label.text = label.text
 
 func _on_Ingredient_mouse_exited():
-	label.visible = false
-
+	#label.visible = false
+	GlobalVariables.shelf_label.text = "Ingredients"
 
 ### PUBLIC METHODS ###
 

@@ -19,6 +19,7 @@ onready var combiners : Array = [cauldron, knife, chalk]
 func _ready():
 	global_vars.workbench = self
 	global_vars.current_combiner = cauldron # Do we need this?
+	global_vars.shelf_label = $ShelfLabel
 	hide_all_combiners()
 	show_cauldron()
 	_cycle_bgm() # Start the background music

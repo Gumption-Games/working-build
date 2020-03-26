@@ -19,7 +19,7 @@
 [ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
-size = 32
+size = 28
 font_data = ExtResource( 13 )
 
 [node name="NewWorkBench" type="Node2D"]
@@ -109,10 +109,10 @@ margin_bottom = 77.857
 texture = ExtResource( 12 )
 
 [node name="ShelfLabel" type="Label" parent="."]
-margin_left = 608.488
-margin_top = 40.4027
-margin_right = 765.488
-margin_bottom = 76.4027
+margin_left = 580.167
+margin_top = 41.1197
+margin_right = 800.167
+margin_bottom = 77.1197
 rect_scale = Vector2( 0.849962, 0.849962 )
 custom_fonts/font = SubResource( 1 )
 text = "Ingredients"
