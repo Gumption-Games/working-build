@@ -112,15 +112,15 @@ rect_scale = Vector2( 1.9864, 1.9864 )
 text = "Ingredients"
 
 [node name="Cauldron" parent="." instance=ExtResource( 13 )]
-position = Vector2( 293.604, 320.406 )
+position = Vector2( 282.025, 320.406 )
 scale = Vector2( 1.18642, 1.18642 )
 
 [node name="Knife" parent="." instance=ExtResource( 14 )]
-position = Vector2( 293.604, 320.406 )
+position = Vector2( 281.034, 320.406 )
 scale = Vector2( 1.24841, 1.24841 )
 
 [node name="Chalk" parent="." instance=ExtResource( 15 )]
-position = Vector2( 293.604, 320.406 )
+position = Vector2( 281.034, 320.406 )
 
 [node name="Shelf" parent="." instance=ExtResource( 16 )]
 position = Vector2( 563.081, 83.8121 )
