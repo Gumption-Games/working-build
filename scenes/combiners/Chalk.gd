@@ -172,6 +172,8 @@ func _generate_path():
 			if pool.empty():
 				print(generated_path)
 				print("Cornered!")
+				if len(generated_path) < path_length[difficulty]-1:
+					return true
 				return
 
 			# Pick random item and remove from pool
@@ -287,7 +289,9 @@ func _on_Start():
 #	chalk_icon.position.x += 100
 	$UI/Fail.visible = false
 	start_button.disabled = true
-	_generate_path()
+	
+	while _generate_path():
+		pass
 	_show_path_hint()
 	chalk_icon.disabled = false
 
