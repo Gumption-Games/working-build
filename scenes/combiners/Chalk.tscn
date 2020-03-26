@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/combiners/Chalk.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Gasoline.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/combiners/ChalkIcon.gd" type="Script" id=4]
+[ext_resource path="res://assets/sfx/rejection SFX.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/completion3.wav" type="AudioStream" id=6]
 
 [sub_resource type="GDScript" id=1]
 
@@ -33,7 +35,6 @@ __meta__ = {
 }
 
 [node name="HUD" type="Node2D" parent="."]
-visible = false
 
 [node name="Label" type="Label" parent="HUD"]
 margin_left = -261.778
@@ -87,6 +88,15 @@ align = 1
 [node name="Line2D" type="Line2D" parent="."]
 default_color = Color( 0.588235, 0.588235, 0.784314, 0.784314 )
 texture_mode = 62341488
+
+[node name="RejectionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -15.0
+pitch_scale = 0.8
+
+[node name="CompletionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.0
 [connection signal="input_event" from="." to="." method="_on_Combiner_input_event"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_Start"]
 [connection signal="input_event" from="UI/ChalkIcon" to="UI/ChalkIcon" method="_on_ChalkIcon_input_event"]
