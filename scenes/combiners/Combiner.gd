@@ -108,6 +108,7 @@ func _spawn_result(ingredient_name):
 		GlobalVariables.shelf.add_child(result)
 		# Place new ingredient on the Shelf
 		GlobalVariables.shelf.place_new_ing(result)
+		CompletionSound.play(0.0)
 		emit_signal("ingredient_discovered", result)
 	_return_ingredients()
 	held_ingredients.clear()
@@ -160,7 +161,7 @@ func minigame_result(success):
 
 	if success:
 		_spawn_result(result_name)
-		CompletionSound.play(0.0)
+		
 	else:
 		_return_ingredients()
 
