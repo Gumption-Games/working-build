@@ -140,7 +140,7 @@ func update_sweetspot(value):
 		
 func _init():
 	type = "Cauldron"
-	minigame_path = "res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn"
+
 
 func _ready():
 	connect("new_ingredient", self, "_on_new_ingredient")
@@ -155,6 +155,7 @@ func _ready():
 	emit_signal("balance_max_changed", balance_max)
 	emit_signal("sweetspot_min_changed", sweetspot_min)
 	emit_signal("sweetspot_max_changed", sweetspot_max)
+
 
 func set_disabled(new_value:bool):
 	top_shape.set_disabled(new_value)

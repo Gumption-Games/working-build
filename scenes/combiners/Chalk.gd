@@ -10,11 +10,13 @@ onready var scores := $HUD/Scores
 onready var start_button := $HUD/Button
 onready var chalk_icon := $UI/ChalkIcon
 onready var chalk_line := $ChalkLine
+onready var sprite := $Sprite
 var rng = RandomNumberGenerator.new()
 
 var difficulty = MED
 var path = []
 var generated_path = []
+var cemented_lines = []
 var pressed = false
 var positions
 var failed = false
@@ -71,8 +73,13 @@ const neighbors = {
 }
 
 
+func _init():
+	type = "Circle"
+
+
 func _ready():
-	$Sprite.hide()
+#	$Sprite.hide()
+	connect("correct_recipe_entered", self, "_on_correct_recipe_entered")
 	if get_owner() == null:
 		centre.x = ProjectSettings.get_setting("display/window/size/width")/2
 		centre.y = ProjectSettings.get_setting("display/window/size/height")/2
@@ -84,16 +91,7 @@ func _ready():
 	print(centre*2)
 
 	randomize()
-	
-	# Instance all required nodes for current difficulty
 	_calculate_positions()
-	for idx in nodes[difficulty]:
-		var new_node = CircleNode.instance()
-		new_node.idx = idx
-		new_node.position = positions[idx]
-		new_node.connect("node_entered", self, "_detect_connection")
-		node_ids[idx] = new_node
-		add_child(new_node)
 
 
 func _input(event):
@@ -143,6 +141,24 @@ func _calculate_positions():
 			centre.y -= (width-2) * spacing
 
 
+func _instance_nodes():
+	# Instance all required nodes for current difficulty
+	for idx in nodes[difficulty]:
+		var new_node = CircleNode.instance()
+		new_node.z_index = 3
+		new_node.idx = idx
+		new_node.position = positions[idx]
+		new_node.connect("node_entered", self, "_detect_connection")
+		node_ids[idx] = new_node
+		add_child(new_node)
+
+
+func _on_correct_recipe_entered():
+	sprite.hide()
+	_instance_nodes()
+	$HUD.show()
+
+
 func _generate_path():
 	var pool = nodes[difficulty].duplicate()
 	var new_node = pool[randi() % pool.size()] # Grab a random starting node
@@ -156,6 +172,8 @@ func _generate_path():
 			if pool.empty():
 				print(generated_path)
 				print("Cornered!")
+				if len(generated_path) < path_length[difficulty]-1:
+					return true
 				return
 
 			# Pick random item and remove from pool
@@ -173,7 +191,6 @@ func _get_nodes_by_id(needed: Array):
 	var children = get_children()
 	print(get_child_count())
 	for node in children:
-		print(node.get("type"))
 		if node.get("type") != "CircleNode":
 			continue
 		if node.idx in needed:
@@ -192,10 +209,8 @@ func _get_outcome(): # TODO: find a more efficient way to do this check
 func _update_scores(success):
 	if success:
 		_win_state()
-		print("Winner! Score = %d"%score)
 	else:
 		_fail_state()
-		print("Loser! %d lives left."%lives)
 	scores.set_text(score_text%[score, lives])
 
 
@@ -203,15 +218,30 @@ func _win_state():
 	score += 1
 	flash_delay *= delay_increment
 	chalk_icon.disabled = true
-	yield(_flash_all('G', 1.0), "completed")
+#	yield(_flash_all('G', 1.0), "completed")
+	_cement_line()
 	start_button.set_text("Next")
 	start_button.disabled = false
+	if score >= 3:
+		_end_game(true)
+
+
+func _cement_line():
+	var new_line = Line2D.new()
+	add_child(new_line)
+	new_line.z_index = 1
+
+	for idx in generated_path:
+		var point = node_ids[idx].position
+		new_line.add_point(point)
+	new_line.default_color = Color(0.6, 0.6, 0.8, 0.8)
+	cemented_lines.append(new_line)
 
 
 func _fail_state():
 	lives -= 1
 	if lives <= 0:
-		_reset_game()
+		_end_game(false)
 		return
 	# flash for failure
 	for i in range(3):
@@ -220,15 +250,20 @@ func _fail_state():
 	_show_path_hint()
 
 
-func _reset_game():
+func _end_game(win):
 	chalk_icon.disabled = true
 	$UI/Fail.visible = true
-	yield(get_tree().create_timer(3), "timeout")
+#	yield(, "timeout")
 	lives = 3
 	score = 0
 	scores.set_text(score_text%[score, lives])
-	start_button.set_text("Try Again")
+#	start_button.set_text("Try Again")
 	start_button.disabled = false
+	for line in cemented_lines:
+		line.queue_free()
+
+	minigame_result(win)
+	clear_scene()
 
 
 func _show_path_hint():
@@ -257,7 +292,9 @@ func _on_Start():
 #	chalk_icon.position.x += 100
 	$UI/Fail.visible = false
 	start_button.disabled = true
-	_generate_path()
+	
+	while _generate_path():
+		pass
 	_show_path_hint()
 	chalk_icon.disabled = false
 
@@ -268,6 +305,14 @@ func reset():
 	chalk_line.clear_points()
 #	chalk_icon.position = chalk_start_point
 	chalk_icon.hide()
-	print("hidden")
 	_update_scores(success)
 	path.clear()
+
+
+func clear_scene():
+	for idx in nodes[difficulty]:
+		node_ids[idx].queue_free()
+	node_ids = {}
+	sprite.show()
+	$HUD.hide()
+	result_name = null
