@@ -209,10 +209,8 @@ func _get_outcome(): # TODO: find a more efficient way to do this check
 func _update_scores(success):
 	if success:
 		_win_state()
-		print("Winner! Score = %d"%score)
 	else:
 		_fail_state()
-		print("Loser! %d lives left."%lives)
 	scores.set_text(score_text%[score, lives])
 
 
@@ -235,7 +233,6 @@ func _cement_line():
 
 	for idx in generated_path:
 		var point = node_ids[idx].position
-		print(point)
 		new_line.add_point(point)
 	new_line.default_color = Color(0.6, 0.6, 0.8, 0.8)
 	cemented_lines.append(new_line)
@@ -260,13 +257,13 @@ func _end_game(win):
 	lives = 3
 	score = 0
 	scores.set_text(score_text%[score, lives])
-	start_button.set_text("Try Again")
+#	start_button.set_text("Try Again")
 	start_button.disabled = false
 	for line in cemented_lines:
 		line.queue_free()
 
-	clear_scene()
 	minigame_result(win)
+	clear_scene()
 
 
 func _show_path_hint():
@@ -318,3 +315,4 @@ func clear_scene():
 	node_ids = {}
 	sprite.show()
 	$HUD.hide()
+	result_name = null

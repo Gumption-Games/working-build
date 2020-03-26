@@ -32,6 +32,7 @@ func _ready():
 # Handles mouse inputs on the combiner
 func _on_Combiner_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+		print("clicked")
 		# Handles user clicks
 		if event.pressed and not result_name:
 			_combine_ingredients()
