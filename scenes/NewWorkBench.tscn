@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/NewWorkBench.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/maingame_backdrop.png" type="Texture" id=2]
@@ -6,22 +6,21 @@
 [ext_resource path="res://assets/sfx/menu SFX.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/bgm/bg1.ogg" type="AudioStream" id=5]
 [ext_resource path="res://assets/bgm/bg4.ogg" type="AudioStream" id=6]
-[ext_resource path="res://scenes/Dialogue.gd" type="Script" id=7]
-[ext_resource path="res://assets/images/button_book.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/button_cauldron.png" type="Texture" id=9]
-[ext_resource path="res://assets/images/button_celestial.png" type="Texture" id=10]
-[ext_resource path="res://assets/images/button_transmutation.png" type="Texture" id=11]
-[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=12]
-[ext_resource path="res://assets/images/ingredient_plaque.png" type="Texture" id=13]
-[ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=14]
-[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/combiners/Celestial.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=18]
+[ext_resource path="res://assets/images/button_book.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/button_cauldron.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/button_celestial.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/button_transmutation.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/ingredient_plaque.png" type="Texture" id=12]
+[ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/combiners/Celestial.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 28
-font_data = ExtResource( 14 )
+font_data = ExtResource( 13 )
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
@@ -60,7 +59,10 @@ margin_left = 106.809
 margin_top = 524.59
 margin_right = 556.809
 margin_bottom = 600.59
-script = ExtResource( 7 )
+text = "Place the ingredients in the cauldron.
+Then click the cauldron.
+Click and drag in circles to stir the pot.
+Don't let it burn!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -78,39 +80,39 @@ __meta__ = {
 [node name="BookButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_right = 118.0
 margin_bottom = 46.0
-texture_normal = ExtResource( 8 )
+texture_normal = ExtResource( 7 )
 
 [node name="CauldronButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 122.0
 margin_right = 240.0
 margin_bottom = 46.0
-texture_normal = ExtResource( 9 )
+texture_normal = ExtResource( 8 )
 
 [node name="CelestialButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 244.0
 margin_right = 362.0
 margin_bottom = 46.0
-texture_normal = ExtResource( 10 )
+texture_normal = ExtResource( 9 )
 
 [node name="ChalkButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 366.0
 margin_right = 484.0
 margin_bottom = 46.0
-texture_normal = ExtResource( 11 )
+texture_normal = ExtResource( 10 )
 
 [node name="MortarButton" type="TextureButton" parent="SkillCheckButtons"]
 visible = false
 margin_left = 366.0
 margin_right = 629.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 12 )
+texture_normal = ExtResource( 11 )
 
 [node name="ShelfLabelBackground" type="TextureRect" parent="."]
 margin_left = 568.873
 margin_top = 31.857
 margin_right = 777.873
 margin_bottom = 77.857
-texture = ExtResource( 13 )
+texture = ExtResource( 12 )
 
 [node name="ShelfLabel" type="Label" parent="."]
 margin_left = 580.167
@@ -122,18 +124,18 @@ custom_fonts/font = SubResource( 1 )
 text = "Ingredients"
 align = 1
 
-[node name="Cauldron" parent="." instance=ExtResource( 15 )]
+[node name="Cauldron" parent="." instance=ExtResource( 14 )]
 position = Vector2( 282.025, 320.406 )
 scale = Vector2( 1.18642, 1.18642 )
 
-[node name="Celestial" parent="." instance=ExtResource( 16 )]
+[node name="Celestial" parent="." instance=ExtResource( 15 )]
 position = Vector2( 281.034, 320.406 )
 scale = Vector2( 0.928261, 0.928261 )
 
-[node name="Chalk" parent="." instance=ExtResource( 17 )]
+[node name="Chalk" parent="." instance=ExtResource( 16 )]
 position = Vector2( 281.034, 320.406 )
 
-[node name="Shelf" parent="." instance=ExtResource( 18 )]
+[node name="Shelf" parent="." instance=ExtResource( 17 )]
 position = Vector2( 563.081, 83.8121 )
 margin = Vector2( 72, 72 )
 
