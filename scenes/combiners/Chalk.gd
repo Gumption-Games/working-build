@@ -71,6 +71,10 @@ const neighbors = {
 }
 
 
+func _init():
+	type = "Chalk"
+
+
 func _ready():
 	$Sprite.hide()
 	if get_owner() == null:

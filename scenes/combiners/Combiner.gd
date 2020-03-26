@@ -6,7 +6,7 @@ signal multiple_ingredients
 signal correct_recipe_entered
 signal ingredient_discovered
 
-var held_ingredients = Array()
+var held_ingredients : Array = [] # Array
 var recipe_book
 
 var minigame_path
@@ -25,6 +25,7 @@ func _init():
 func _ready():
 	recipe_book = get_node("/root/RecipeBook")
 	connect("ingredient_discovered", workbench, "_on_ingredient_discovered")
+
 
 ### PRIVATE METHODS ###
 

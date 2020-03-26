@@ -91,7 +91,7 @@ func set_balance(value):
 		
 func _init():
 	type = "Cauldron"
-	minigame_path = "res://scenes/skillchecks/cauldron/CauldronSkillCheck.tscn"
+
 
 func _ready():
 	connect("new_ingredient", self, "_on_new_ingredient")
@@ -104,7 +104,7 @@ func _ready():
 	emit_signal("progress_changed", progress)
 	emit_signal("balance_min_changed", balance_min)
 	emit_signal("balance_max_changed", balance_max)
-
+	
 func set_disabled(new_value:bool):
 	top_shape.set_disabled(new_value)
 	right_shape.set_disabled(new_value)
