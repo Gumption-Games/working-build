@@ -19,6 +19,7 @@ onready var combiners : Array = [cauldron, knife, chalk]
 func _ready():
 	global_vars.workbench = self
 	global_vars.current_combiner = cauldron # Do we need this?
+	global_vars.shelf_label = $ShelfLabel
 	hide_all_combiners()
 	show_cauldron()
 	_cycle_bgm() # Start the background music
@@ -56,7 +57,7 @@ func _on_ingredient_discovered(ing:Ingredient):
 	var ing_spr = ing.find_node("Sprite")
 	if ing_spr:
 		var popup_spr = ing_spr.duplicate()
-		popup_spr.set_scale(Vector2(0.5, 0.5))
+		#popup_spr.set_scale(Vector2(0.5, 0.5))
 		popup_spr.set_position(Vector2(popup.size.x*0.5, popup.size.y*0.45))
 		popup.add_child(popup_spr)
 	popup.popup()
