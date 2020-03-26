@@ -102,6 +102,9 @@ position = Vector2( 280, 300 )
 
 [node name="Shelf" parent="." instance=ExtResource( 12 )]
 position = Vector2( 590, 60 )
+
+[node name="PopupLayer" type="CanvasLayer" parent="."]
+layer = 20
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
 [connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
 [connection signal="pressed" from="SkillCheckButtons/ChalkButton" to="." method="show_chalk"]

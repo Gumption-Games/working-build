@@ -191,7 +191,6 @@ func _get_nodes_by_id(needed: Array):
 	var children = get_children()
 	print(get_child_count())
 	for node in children:
-		print(node.get("type"))
 		if node.get("type") != "CircleNode":
 			continue
 		if node.idx in needed:
@@ -225,6 +224,8 @@ func _win_state():
 	_cement_line()
 	start_button.set_text("Next")
 	start_button.disabled = false
+	if score >= 3:
+		_end_game(true)
 
 
 func _cement_line():
@@ -243,7 +244,7 @@ func _cement_line():
 func _fail_state():
 	lives -= 1
 	if lives <= 0:
-		_reset_game()
+		_end_game(false)
 		return
 	# flash for failure
 	for i in range(3):
@@ -252,15 +253,20 @@ func _fail_state():
 	_show_path_hint()
 
 
-func _reset_game():
+func _end_game(win):
 	chalk_icon.disabled = true
 	$UI/Fail.visible = true
-	yield(get_tree().create_timer(3), "timeout")
+#	yield(, "timeout")
 	lives = 3
 	score = 0
 	scores.set_text(score_text%[score, lives])
 	start_button.set_text("Try Again")
 	start_button.disabled = false
+	for line in cemented_lines:
+		line.queue_free()
+
+	clear_scene()
+	minigame_result(win)
 
 
 func _show_path_hint():
@@ -302,6 +308,13 @@ func reset():
 	chalk_line.clear_points()
 #	chalk_icon.position = chalk_start_point
 	chalk_icon.hide()
-	print("hidden")
 	_update_scores(success)
 	path.clear()
+
+
+func clear_scene():
+	for idx in nodes[difficulty]:
+		node_ids[idx].queue_free()
+	node_ids = {}
+	sprite.show()
+	$HUD.hide()

@@ -45,7 +45,7 @@ func show_chalk():
 func _on_ingredient_discovered(ing:Ingredient):
 	var ing_name = ing.label.text
 	var popup = new_ing_dialog_scene.instance()
-	self.add_child(popup)
+	$PopupLayer.add_child(popup)
 	popup.label.text = ing_name
 	var ing_spr = ing.find_node("Sprite")
 	if ing_spr:
