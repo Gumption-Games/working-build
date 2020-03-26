@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/combiners/Chalk.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/sfx/rejection SFX.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/sfx/completion3.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/sfx/glyphs SFX.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/PrototypeAssets/Sprites/circle.png" type="Texture" id=7]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -76,6 +77,9 @@ layer = 5
 position = Vector2( -400, -300 )
 scale = Vector2( 0.25, 0.25 )
 script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="UI/ChalkIcon"]
+texture = ExtResource( 7 )
 
 [node name="Fail" type="Label" parent="UI"]
 visible = false
