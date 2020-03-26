@@ -14,7 +14,7 @@
 [ext_resource path="res://assets/images/ingredient_plaque.png" type="Texture" id=12]
 [ext_resource path="res://assets/fonts/dpcomic-crowned.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/combiners/Celestial.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/combiners/Chalk.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=17]
 
@@ -61,7 +61,6 @@ __meta__ = {
 }
 
 [node name="SkillCheckButtons" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_left = 35.786
 margin_top = 26.8079
 margin_right = 519.786
@@ -82,7 +81,7 @@ margin_right = 240.0
 margin_bottom = 46.0
 texture_normal = ExtResource( 8 )
 
-[node name="CuttingButton" type="TextureButton" parent="SkillCheckButtons"]
+[node name="CelestialButton" type="TextureButton" parent="SkillCheckButtons"]
 margin_left = 244.0
 margin_right = 362.0
 margin_bottom = 46.0
@@ -123,9 +122,9 @@ position = Vector2( 282.025, 320.406 )
 scale = Vector2( 1.18642, 1.18642 )
 skip_stirring = true
 
-[node name="Knife" parent="." instance=ExtResource( 15 )]
+[node name="Celestial" parent="." instance=ExtResource( 15 )]
 position = Vector2( 281.034, 320.406 )
-scale = Vector2( 1.24841, 1.24841 )
+scale = Vector2( 0.928261, 0.928261 )
 
 [node name="Chalk" parent="." instance=ExtResource( 16 )]
 position = Vector2( 281.034, 320.406 )
@@ -140,5 +139,5 @@ layer = 20
 [connection signal="finished" from="bgm2" to="." method="_on_bgm_finished"]
 [connection signal="timeout" from="BgmTimer" to="." method="_cycle_bgm"]
 [connection signal="pressed" from="SkillCheckButtons/CauldronButton" to="." method="show_cauldron"]
-[connection signal="pressed" from="SkillCheckButtons/CuttingButton" to="." method="show_knife"]
+[connection signal="pressed" from="SkillCheckButtons/CelestialButton" to="." method="show_celestial"]
 [connection signal="pressed" from="SkillCheckButtons/ChalkButton" to="." method="show_chalk"]

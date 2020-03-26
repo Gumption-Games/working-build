@@ -10,9 +10,9 @@ onready var bgms :Array = [bgm1, bgm2] # Cycle between background music tracks
 onready var bgm_index := 0
 onready var bgm_timer := $BgmTimer # Period of silence between music tracks
 onready var cauldron := $Cauldron
-onready var knife := $Knife
+onready var celestial := $Celestial
 onready var chalk := $Chalk
-onready var combiners : Array = [cauldron, knife, chalk]
+onready var combiners : Array = [cauldron, celestial, chalk]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,10 +37,10 @@ func show_cauldron(): # Connected to CauldronButton
 	cauldron.show()
 
 
-func show_knife():
+func show_celestial():
 	hide_all_combiners()
-	GlobalVariables.freeze_scene(knife, false)
-	knife.show()
+	GlobalVariables.freeze_scene(celestial, false)
+	celestial.show()
 
 
 func show_chalk():
@@ -76,5 +76,4 @@ func _cycle_bgm():
 		return
 	bgms[bgm_index].play()
 	bgm_index += 1
-
 
