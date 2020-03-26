@@ -9,8 +9,9 @@
 [ext_resource path="res://assets/images/Button_Transmutation_Proto2.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/Button_Mortar_Proto2.png" type="Texture" id=8]
 [ext_resource path="res://scenes/combiners/Cauldron.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/combiners/Knife.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/combiners/Celestial.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Shelf.tscn" type="PackedScene" id=11]
+
 
 [node name="NewWorkBench" type="Node2D"]
 script = ExtResource( 1 )
