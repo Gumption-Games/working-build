@@ -212,8 +212,8 @@ func _flip_direction(check_direction):
 func _process(delta):
 	accum += delta
 	if accum >= 5:
-		accum = 0
-		if progressbar.value > 90:
+		if accum >= 20 and progressbar.value > 90:
+			accum = 0
 			stir_direction = _flip_direction(-stir_direction)
 		else:
 			sweetspotFactor = [-1, 1][rand_range(0, 2)]
